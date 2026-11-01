@@ -198,6 +198,7 @@ export function modelLicenseUrl(value?: string | null): string | null {
 export function canAcknowledgeModelPlan(
   plan: ModelReviewPlan | null,
   repoId: string,
+  target: string,
   registryDigest?: string,
 ): boolean {
   return Boolean(
@@ -206,7 +207,8 @@ export function canAcknowledgeModelPlan(
     plan.readiness === 'ready' &&
     plan.blockers.length === 0 &&
     plan.repo_id === repoId &&
-    plan.target === 'local' &&
+    plan.target === target &&
+    target === 'local' &&
     registryDigest &&
     plan.registry_digest === registryDigest &&
     plan.plan_id &&

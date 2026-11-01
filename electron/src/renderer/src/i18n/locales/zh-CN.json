@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "关注",
-    "website": "网站"
+    "website": "网站",
+    "collapseFooter": "收起底栏",
+    "expandFooter": "展开底栏"
   },
   "twilioIntegration": {
     "exposureWarning": "开启后会打开一个单独的本地端口，由你的隧道发布到互联网。只接受使用你的 Twilio Auth Token 签名的请求；VoiceStudio 的其余部分保持私密。",
@@ -316,7 +318,9 @@
     "lang_label": "语言代码（例如 en、de），留空则全局生效",
     "test_global_hint": "当前仅试听全局条目 — 选择语言后可包含该语言专属条目。",
     "type_cmu": "CMU",
-    "type_ipa": "IPA"
+    "type_ipa": "IPA",
+    "import_replace_prompt": "用导入的文件替换现有的 {{count}} 个条目？选择“否”则将导入的条目添加到现有条目旁边。",
+    "import_done": "已导入 {{count}} 个条目。"
   },
   "preferences": {
     "title": "设置",
@@ -417,7 +421,8 @@
     "translation": "翻译",
     "diarisation": "说话人分离",
     "localDevice": "本地设备",
-    "localShort": "本地"
+    "localShort": "本地",
+    "connectRemoteDevice": "连接远程设备"
   },
   "paneActions": {
     "collapse": "折叠面板",
@@ -964,7 +969,8 @@
     "translate_all": "翻译所有片段",
     "translating": "正在翻译…",
     "upload_transcribe": "上传并转写",
-    "video_dubbing_studio": "视频配音工作室"
+    "video_dubbing_studio": "视频配音工作室",
+    "glossary_btn": "+ 术语表（{{count}}）"
   },
   "dub_workflow": {
     "preparing_audio": "正在准备音频...",
@@ -1522,7 +1528,102 @@
     "review_mode": "审核模式",
     "review_mode_off": "直接执行到底",
     "translate_cinematic": "影视级",
-    "translate_quality_desc": "快速模式直译且速度快；影视级模式使用 LLM 生成自然表达。"
+    "translate_quality_desc": "快速模式直译且速度快；影视级模式使用 LLM 生成自然表达。",
+    "worker_join": "加入",
+    "workers_title": "远程工作机",
+    "workers_desc": "把单个任务发送到你其他机器的 GPU 上，结果会回到这里。在你添加并批准一台工作机之前，不会发送任何内容。",
+    "workers_enable": "使用远程工作机",
+    "workers_enable_hint": "此项关闭时，不接受任何连接，也不会有任何内容离开本机。",
+    "workers_port_conflict": "远程工作节点不可用，因为另一个 VoiceStudio 实例已在此端口接受连接。请关闭另一个实例，或将 OMNIVOICE_WORKER_PORT 设为其他端口并重启 VoiceStudio。",
+    "workers_endpoint": "工作机连接到",
+    "workers_endpoint_hint": "工作机必须能访问这个地址。跨网络时，使用 Tailscale 之类的 VPN 是可靠的方式。",
+    "workers_add": "添加工作机",
+    "workers_add_hint": "生成令牌，然后粘贴到另一台机器的 OmniVoice 中。",
+    "workers_new_token": "生成令牌",
+    "workers_token_once": "请立即复制——它只显示一次、只能使用一次，并在 15 分钟后过期。",
+    "workers_copy": "复制",
+    "workers_copied": "已复制",
+    "workers_copy_failed": "无法复制。",
+    "workers_none": "还没有工作机。生成令牌以添加第一台。",
+    "workers_load": "任务 {{active}} / {{slots}}",
+    "workers_needs_consent": "未批准",
+    "workers_status_online": "在线",
+    "workers_status_offline": "离线",
+    "workers_status_paused": "已暂停",
+    "workers_status_disabled": "已停用",
+    "workers_resume": "恢复",
+    "workers_disable": "停用",
+    "workers_enable_one": "启用",
+    "workers_remove": "移除",
+    "workers_remove_title": "移除工作机？",
+    "workers_remove_confirm": "移除 {{name}}？其密钥将被吊销，没有新令牌将无法重新连接。",
+    "workers_rename": "重命名工作机",
+    "inbound_add_person": "添加成员",
+    "inbound_add_person_hint": "为一位成员生成连接字符串。请为每个人分别生成，这样移除其中一个不会断开所有人。",
+    "inbound_bind": "可访问地址",
+    "inbound_bind_apply": "应用",
+    "inbound_bind_exposed": "任何能访问 {{address}} 的人都能用有效连接字符串进行连接。TLS 会加密会话并固定此机器的证书；请妥善保管每个字符串，并移除不再需要的访问权限。",
+    "inbound_bind_local": "仅本机可以访问。填写你的网络地址，其他机器才能连接。",
+    "inbound_connect": "连接",
+    "inbound_connect_desc": "粘贴别人给你的连接字符串。对方机器必须正在接受连接才能生效。",
+    "inbound_connect_hint": "以 ovnode:// 开头，包含密钥、地址、端口和证书指纹。",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "无法连接到该 GPU 机器。请确认机器在线且正在接受连接，然后重试。",
+    "inbound_connect_row": "连接字符串",
+    "inbound_connect_title": "连接到 GPU 机器",
+    "inbound_connected": "已连接",
+    "inbound_connected_now": "当前连接",
+    "inbound_connecting": "连接中…",
+    "inbound_create": "创建",
+    "inbound_desc": "允许其他机器连接，让多人共享此 GPU。每个连接都会加密并固定到此机器的证书。",
+    "inbound_disconnect": "断开",
+    "inbound_enable": "接受连接",
+    "inbound_enable_hint": "由别人连接到这台机器，而不是这台机器去连接他们。没有你创建的连接字符串，任何人都进不来。",
+    "inbound_exposed_badge": "已在网络中公开",
+    "inbound_forget": "移除",
+    "inbound_hours_ago": "{{count}} 小时前",
+    "inbound_jobs_run": "{{count}} 个任务",
+    "inbound_just_now": "刚刚",
+    "inbound_label": "名称",
+    "inbound_label_placeholder": "爱丽丝的笔记本",
+    "inbound_last_seen": "上次使用 {{when}}",
+    "inbound_minutes_ago": "{{count}} 分钟前",
+    "inbound_nobody": "当前没有人连接。",
+    "inbound_people": "拥有访问权限的人",
+    "inbound_revoke": "移除",
+    "inbound_revoke_confirm": "移除 {{label}} 的访问权限吗？其连接字符串会立即失效。其他人仍保持连接。",
+    "inbound_revoke_title": "移除访问权限？",
+    "inbound_shown_once": "请立即复制——不会再次显示。只交给 {{label}}。",
+    "inbound_shown_once_warning": "请将其视为密码并私下发送。证书指纹会将加密连接固定到此 GPU 机器。",
+    "inbound_title": "与他人共享这块 GPU",
+    "worker_join_code": "加入码",
+    "worker_join_code_hint": "一次性使用，15 分钟后过期。请在发送任务的那台机器上生成。",
+    "worker_join_desc": "让另一份 VoiceStudio 把任务发送到本机。粘贴它显示的加入码——或用手机扫描它的二维码，然后粘贴到这里。",
+    "worker_join_env": "本机环境中设置了 OMNIVOICE_WORKER_MODE，以它为准——请到环境变量里修改。",
+    "worker_join_no_endpoint": "没有已记住的控制平面。",
+    "worker_join_ok": "已加入。本机现在开始接收任务。",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "加入另一台",
+    "worker_join_stopped": "已停止",
+    "worker_join_take_work": "任务来源",
+    "worker_join_title": "出借本机的 GPU",
+    "worker_join_working": "工作中",
+    "workers_add_hint_qr": "生成令牌，然后在另一台机器上扫描此二维码，或将加入码粘贴到它的“远程工作机”设置中。",
+    "workers_approve": "批准",
+    "workers_last_seen": "上次在线 {{when}}",
+    "workers_qr_alt": "包含此加入码的二维码——请用另一台机器扫描",
+    "workers_secret_done": "完成",
+    "workers_seen_hr": "{{count}} 小时前",
+    "workers_seen_min": "{{count}} 分钟前",
+    "workers_seen_now": "刚刚",
+    "workers_step_1": "在有 GPU 的机器上安装 VoiceStudio。",
+    "workers_step_2": "在上方生成令牌。",
+    "workers_step_3": "在那台机器上扫描二维码，或将加入码粘贴到它的“远程工作机”设置中。",
+    "workers_summary_none": "没有已连接的工作机",
+    "workers_summary_online": "{{count}} 台在线",
+    "workers_token_expired": "已过期——请重新生成",
+    "workers_token_expires_in": "{{time}} 后过期",
+    "workers_token_qr_hint": "在另一台机器上：设置 → 系统 → 远程工作机 → 加入，然后扫描或粘贴。"
   },
   "gallery": {
     "title": "VoiceStudio 音色库",
@@ -1875,7 +1976,10 @@
     "split_chapters": "章节",
     "split_paragraphs": "段落",
     "split_sentences": "句子",
-    "global_speed_hint": "适用于未单独设置语速的所有台词"
+    "global_speed_hint": "适用于未单独设置语速的所有台词",
+    "castTitle": "配音 — 为每个角色分配语音",
+    "autocastDone": "已自动配音 {{lines}} 句，共 {{voices}} 个语音",
+    "voice": "语音"
   },
   "audiobook": {
     "cast_hint": "将脚本中的每个 [voice:NAME] 映射到一个声音。",
@@ -2006,7 +2110,9 @@
     "failed_note": "{{count}} 个章节失败 — 再次点击“创建”即可只重试这些章节。",
     "loudness_podcast": "响度标准化（播客）",
     "ready": "有声书已就绪",
-    "synthesizing": "正在合成第 {{current}}/{{total}} 章 {{title}}"
+    "synthesizing": "正在合成第 {{current}}/{{total}} 章 {{title}}",
+    "stats": "{{chapters}} 章 · 约 {{words}} 字 · 约 {{runtime}} 预计时长",
+    "warn_unknown_voice": "未知声音 ‘{{name}}’ — 将使用默认声音"
   },
   "credentials": {
     "microsoft_base_url": "Microsoft Translator 服务地址",
@@ -2051,7 +2157,8 @@
     "compute_device": "处理设备",
     "copy_diagnostics": "复制诊断信息",
     "gpu_active": "GPU 已启用",
-    "translator": "翻译引擎"
+    "translator": "翻译引擎",
+    "self_check_attention": "{{count}} 项检查未通过 — 请查看上方提示。"
   },
   "privacy": {
     "translator_online": "通过 {{provider}} 在线翻译",
@@ -2267,7 +2374,8 @@
     "region_global": "全球（直接）",
     "region_restricted": "受限（镜像）",
     "region_china": "中国（镜像）",
-    "region_russia": "俄罗斯（镜像）"
+    "region_russia": "俄罗斯（镜像）",
+    "remaining_amount": "剩余约 {{amount}}"
   },
   "capture": {
     "no_speech": "未检测到语音",
@@ -2603,7 +2711,8 @@
       "aria": "每月目标 {{goal}}，已筹 {{raised}}",
       "met": "🎉 目标已达成 — 已筹得 {{raised}}。感谢支持！",
       "of": "共",
-      "remaining": "还差 {{amount}}"
+      "remaining": "还差 {{amount}}",
+      "social_proof": "加入 {{count}} 位支持本地 AI 的支持者"
     },
     "postcard": {
       "title": "支持 VoiceStudio 开发",
@@ -2647,7 +2756,11 @@
     "sponsors_tier_community": "社区",
     "sponsors_tier_supporter": "支持者",
     "join_discord": "加入 Discord",
-    "tab_license": "商业许可"
+    "tab_license": "商业许可",
+    "sponsors_tier_platinum": "铂金",
+    "sponsors_tier_gold": "金牌",
+    "sponsors_tier_silver": "银牌",
+    "sponsors_tier_bronze": "铜牌"
   },
   "enterprise": {
     "hero_title": "将 AI 声音投入生产",
@@ -2997,7 +3110,9 @@
     "done_hint": "请检查时长和同步比例。修改任意台词后，点击“重新生成改动项”即可快速局部重做。",
     "translate_cta": "生成配音",
     "translate_hint": "快速检查目标文本。过长台词会自动加速，也可直接编辑。",
-    "translate_title": "译文已就绪"
+    "translate_title": "译文已就绪",
+    "segment_one": "{{count}} 段",
+    "segment_other": "{{count}} 段"
   },
   "header": {
     "memory_management": "内存管理",
@@ -3784,7 +3899,8 @@
     "shortCommercial": "可商用",
     "shortConditions": "有条件",
     "shortNoncommercial": "非商用",
-    "shortUnknown": "未知"
+    "shortUnknown": "未知",
+    "blockerRemote": "远程目标不支持已审查安装。"
   },
   "mobile": {
     "home": {
@@ -4537,5 +4653,45 @@
     "room_tone": "用房间底噪填充停顿",
     "room_tone_note": "[pause] 标记和有声书间隔会使用该录音自身的安静背景音，而不是数字静音，句子之间的声音不会突然中断。",
     "env_pinned": "由 {{env}} 设置。修改或清除它后才能使用此开关。"
+  },
+  "compute": {
+    "add_machine": "添加机器",
+    "manage": "远程工作机设置",
+    "off_hint": "所有任务都在本机运行。要使用其他机器，请开启远程。",
+    "quick_settings": "计算 — 任务运行位置",
+    "remote": "远程",
+    "title": "任务运行位置",
+    "token_once": "在另一台机器上扫描或粘贴。只显示一次。"
+  },
+  "sponsorSlot": {
+    "partner_heading": "成为 VoiceStudio 合作伙伴",
+    "partner_subtitle": "让使用语音进行创作的人发现你的产品。",
+    "app_placement": "应用内展示",
+    "integration_page": "集成专页",
+    "readme_exposure": "README 展示",
+    "visibility": "品牌曝光",
+    "integration": "产品集成",
+    "installs": "直接安装",
+    "distribution": "开发者分发",
+    "partner": "认证合作伙伴",
+    "privacy": "隐私",
+    "title": "在 VoiceStudio 上获得推荐",
+    "description": "赞助付费推荐位，提升品牌曝光度。",
+    "form": "Google 表单",
+    "email": "电子邮件",
+    "book": "预订展示位",
+    "preview": "赞助商展示预览",
+    "footer_brand": "成为赞助商",
+    "footer_promo": "推广您的业务",
+    "footer_downloads": "Electron 安装包下载量",
+    "footer_views": "GitHub 仓库浏览量（14 天）",
+    "footer_stars": "GitHub 星标数",
+    "footer_stats_note": "GitHub 数据核查于 2026 年 9 月 25 日。下载量自 v0.5.3 起；浏览量为 9 月 10–23 日。",
+    "footer_book": "立即添加",
+    "email_template": "VoiceStudio 团队您好：\n\n我想与 VoiceStudio 建立合作，并了解为我的品牌提供精选展示的机会。\n\n品牌 / 产品：\n网站：\n集成或活动：\n受众 / 时间：\n\n请问可以分享可选方案、价格、展示位置和技术要求吗？据我了解，精选合作伙伴可以获得文档页面、GitHub README 标志、应用底部栏位置以及 Integrations 目录展示。\n\n谢谢！\n[姓名]\n[职位 / 公司]\n[联系方式]",
+    "message": "您的品牌、网站和留言",
+    "email_app": "打开邮件应用",
+    "copy_email": "复制邮箱",
+    "preview_detail": "这里可以展示您的标志、链接和介绍。"
   }
 }

@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "Подписаться",
-    "website": "Сайт"
+    "website": "Сайт",
+    "collapseFooter": "Свернуть нижнюю панель",
+    "expandFooter": "Развернуть нижнюю панель"
   },
   "twilioIntegration": {
     "exposureWarning": "При включении открывается отдельный локальный порт, который ваш туннель публикует в интернете. Принимаются только запросы, подписанные вашим Auth Token Twilio; остальная часть VoiceStudio остаётся закрытой.",
@@ -326,7 +328,9 @@
     "entries_count_one": "{{count}} запись",
     "entries_count_few": "{{count}} записи",
     "entries_count_many": "{{count}} записей",
-    "entries_count_other": "{{count}} записи"
+    "entries_count_other": "{{count}} записи",
+    "import_replace_prompt": "Заменить {{count}} существующих записей импортированным файлом? Выберите «Нет», чтобы добавить импортированные записи к существующим.",
+    "import_done": "Импортировано записей: {{count}}."
   },
   "preferences": {
     "title": "Настройки",
@@ -412,7 +416,8 @@
     "translation": "Перевод",
     "diarisation": "Диаризация",
     "localDevice": "Локальное устройство",
-    "localShort": "Локально"
+    "localShort": "Локально",
+    "connectRemoteDevice": "Подключить удалённое устройство"
   },
   "paneActions": {
     "collapse": "Свернуть панель",
@@ -963,7 +968,8 @@
     "glossary_label": "Глоссарий",
     "set_speaker": "Назначить говорящего…",
     "new_speaker": "Новый говорящий",
-    "speaker_label": "Говорящий"
+    "speaker_label": "Говорящий",
+    "glossary_btn": "+ Глоссарий ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "Подготовка аудио…",
@@ -1536,7 +1542,102 @@
     "gpu_report_engine_no_family_path": "CPU: нет пути для вашего типа GPU",
     "gpu_report_engine_no_gpu": "CPU: GPU недоступен",
     "gpu_report_engine_needs_accelerator": "Требуется GPU ({{needs}}), которого нет на этом компьютере",
-    "models_dir_desc": "Здесь хранятся загруженные модели. Если диск заполнится, выберите диск с большим свободным местом."
+    "models_dir_desc": "Здесь хранятся загруженные модели. Если диск заполнится, выберите диск с большим свободным местом.",
+    "worker_join": "Подключиться",
+    "workers_title": "Удалённые воркеры",
+    "workers_desc": "Отправляйте отдельные задачи на видеокарты других ваших машин. Результаты возвращаются сюда. Ничего не отправляется, пока вы не добавите воркер и не одобрите его.",
+    "workers_enable": "Использовать удалённые воркеры",
+    "workers_enable_hint": "Пока это выключено, соединения не принимаются и ничего не покидает эту машину.",
+    "workers_port_conflict": "Удалённые исполнители недоступны: другой экземпляр VoiceStudio уже принимает их на этом порту. Закройте другой экземпляр либо задайте другой порт в OMNIVOICE_WORKER_PORT и перезапустите VoiceStudio.",
+    "workers_endpoint": "Воркеры подключаются к",
+    "workers_endpoint_hint": "Воркер должен иметь доступ к этому адресу. В разных сетях надёжный способ — VPN, например Tailscale.",
+    "workers_add": "Добавить воркер",
+    "workers_add_hint": "Создайте токен и вставьте его в OmniVoice на другой машине.",
+    "workers_new_token": "Создать токен",
+    "workers_token_once": "Скопируйте сейчас — он показывается только один раз, работает только один раз и истекает через 15 минут.",
+    "workers_copy": "Копировать",
+    "workers_copied": "Скопировано",
+    "workers_copy_failed": "Не удалось скопировать.",
+    "workers_none": "Воркеров пока нет. Создайте токен, чтобы добавить первый.",
+    "workers_load": "Задачи {{active}} / {{slots}}",
+    "workers_needs_consent": "Не одобрен",
+    "workers_status_online": "В сети",
+    "workers_status_offline": "Не в сети",
+    "workers_status_paused": "Приостановлен",
+    "workers_status_disabled": "Отключён",
+    "workers_resume": "Возобновить",
+    "workers_disable": "Отключить",
+    "workers_enable_one": "Включить",
+    "workers_remove": "Удалить",
+    "workers_remove_title": "Удалить воркер?",
+    "workers_remove_confirm": "Удалить {{name}}? Его ключ будет отозван, поэтому без нового токена он не подключится.",
+    "workers_rename": "Переименовать воркер",
+    "inbound_add_person": "Добавить человека",
+    "inbound_add_person_hint": "Создаёт строку подключения для одного человека. Выдайте каждому свою, чтобы удаление одной не отключило всех остальных.",
+    "inbound_bind": "Доступно по адресу",
+    "inbound_bind_apply": "Применить",
+    "inbound_bind_exposed": "Любой, кому доступен {{address}}, может подключиться с помощью действительной строки. TLS шифрует сеанс и закрепляет сертификат этого компьютера; храните каждую строку в тайне и удаляйте ненужный доступ.",
+    "inbound_bind_local": "Доступно только этому компьютеру. Укажите сетевой адрес, чтобы другие компьютеры могли подключаться.",
+    "inbound_connect": "Подключиться",
+    "inbound_connect_desc": "Вставьте строку подключения, которую вам дали. Чтобы это сработало, тот компьютер должен принимать подключения.",
+    "inbound_connect_hint": "Начинается с ovnode:// и содержит ключ, адрес, порт и отпечаток сертификата.",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "Не удалось связаться с этим компьютером GPU. Проверьте, что он подключён и принимает соединения, затем повторите попытку.",
+    "inbound_connect_row": "Строка подключения",
+    "inbound_connect_title": "Подключиться к компьютеру с GPU",
+    "inbound_connected": "подключено",
+    "inbound_connected_now": "Подключены сейчас",
+    "inbound_connecting": "подключение…",
+    "inbound_create": "Создать",
+    "inbound_desc": "Разрешите другим компьютерам подключаться, чтобы несколько человек могли использовать этот GPU. Каждое соединение шифруется и закрепляется за сертификатом этого компьютера.",
+    "inbound_disconnect": "Отключить",
+    "inbound_enable": "Принимать подключения",
+    "inbound_enable_hint": "Другие подключаются к этому компьютеру, а не он к ним. Без созданной вами строки подключения никто не войдёт.",
+    "inbound_exposed_badge": "В вашей сети",
+    "inbound_forget": "Удалить",
+    "inbound_hours_ago": "{{count}} ч назад",
+    "inbound_jobs_run": "задач: {{count}}",
+    "inbound_just_now": "только что",
+    "inbound_label": "Имя",
+    "inbound_label_placeholder": "Ноутбук Алисы",
+    "inbound_last_seen": "последнее использование {{when}}",
+    "inbound_minutes_ago": "{{count}} мин назад",
+    "inbound_nobody": "Никто не подключён.",
+    "inbound_people": "Люди с доступом",
+    "inbound_revoke": "Удалить",
+    "inbound_revoke_confirm": "Отозвать доступ для {{label}}? Строка подключения перестанет работать немедленно. Все остальные останутся подключёнными.",
+    "inbound_revoke_title": "Отозвать доступ?",
+    "inbound_shown_once": "Скопируйте сейчас — снова она не появится. Передайте её только: {{label}}.",
+    "inbound_shown_once_warning": "Относитесь к ней как к паролю и передавайте конфиденциально. Отпечаток сертификата закрепляет за этим компьютером GPU зашифрованное соединение.",
+    "inbound_title": "Поделиться этим GPU с другими",
+    "worker_join_code": "Код подключения",
+    "worker_join_code_hint": "Одноразовый и истекает через 15 минут. Создайте его на машине, которая будет отправлять задачи.",
+    "worker_join_desc": "Разрешите другой копии VoiceStudio отправлять задачи на эту машину. Вставьте код подключения, который она показала, — или отсканируйте её QR-код телефоном и вставьте его сюда.",
+    "worker_join_env": "В окружении этой машины задана переменная OMNIVOICE_WORKER_MODE, поэтому решает она — меняйте её там.",
+    "worker_join_no_endpoint": "Управляющий узел не запомнен.",
+    "worker_join_ok": "Подключено. Эта машина теперь принимает задачи.",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "Подключиться к другой машине",
+    "worker_join_stopped": "Остановлено",
+    "worker_join_take_work": "Принимать задачи от",
+    "worker_join_title": "Одолжить GPU этой машины",
+    "worker_join_working": "Работает",
+    "workers_add_hint_qr": "Создайте токен, затем отсканируйте QR-код с другой машины или вставьте код в её настройки «Удалённые воркеры».",
+    "workers_approve": "Одобрить",
+    "workers_last_seen": "последний раз в сети {{when}}",
+    "workers_qr_alt": "QR-код с этим кодом — отсканируйте его с другой машины",
+    "workers_secret_done": "Готово",
+    "workers_seen_hr": "{{count}} ч назад",
+    "workers_seen_min": "{{count}} мин назад",
+    "workers_seen_now": "только что",
+    "workers_step_1": "Установите VoiceStudio на машину с GPU.",
+    "workers_step_2": "Создайте токен выше.",
+    "workers_step_3": "Отсканируйте там QR-код или вставьте код в её настройки «Удалённые воркеры».",
+    "workers_summary_none": "Никто не подключён",
+    "workers_summary_online": "{{count}} в сети",
+    "workers_token_expired": "Истёк — создайте новый",
+    "workers_token_expires_in": "Истекает через {{time}}",
+    "workers_token_qr_hint": "На другой машине: Настройки → Система → Удалённые воркеры → Подключиться, затем отсканируйте или вставьте."
   },
   "gallery": {
     "title": "VoiceStudio Галерея",
@@ -1891,7 +1992,10 @@
     "autocastDone_few": "{{lines}} строк распределено на {{count}} голоса",
     "autocastDone_many": "{{lines}} строк распределено на {{count}} голосов",
     "autocastDone_other": "{{lines}} строк распределено на {{count}} голоса",
-    "recovery_title": "Прерванная история"
+    "recovery_title": "Прерванная история",
+    "castTitle": "Cast — назначить голос каждому персонажу",
+    "autocastDone": "Автоматически транслировать {{lines}} строк через {{voices}} голос(а)",
+    "voice": "голос"
   },
   "audiobook": {
     "cast": "Актёры",
@@ -2028,7 +2132,9 @@
     "cast_note_many": "Для {{names}} ещё не выбраны голоса, поэтому звучит основной голос. Выберите голоса в разделе «Роли».",
     "line_gap": "Интервал между строками",
     "paragraph_gap": "Интервал между абзацами",
-    "trim_edges": "Убирать тишину движка"
+    "trim_edges": "Убирать тишину движка",
+    "stats": "{{chapters}} глав · {{words}} слов · {{runtime}} прибл. длительность",
+    "warn_unknown_voice": "Неизвестный голос «{{name}}» — будет использован голос по умолчанию"
   },
   "credentials": {
     "microsoft_key": "Ключ переводчика Microsoft",
@@ -2075,7 +2181,8 @@
     "self_check_attention_one": "{{count}} проверка не пройдена — см. подсказки выше.",
     "self_check_attention_few": "{{count}} проверки не пройдены — см. подсказки выше.",
     "self_check_attention_many": "{{count}} проверок не пройдено — см. подсказки выше.",
-    "self_check_attention_other": "{{count}} проверки не пройдено — см. подсказки выше."
+    "self_check_attention_other": "{{count}} проверки не пройдено — см. подсказки выше.",
+    "self_check_attention": "Проверок не пройдено: {{count}} — см. подсказки выше."
   },
   "privacy": {
     "translator_online": "Переводчик онлайн: {{provider}}",
@@ -2291,7 +2398,8 @@
     "region_global": "Глобальный (прямой)",
     "region_china": "Китай (зеркало)",
     "region_russia": "Россия (зеркало)",
-    "region_restricted": "Ограничено (зеркало)"
+    "region_restricted": "Ограничено (зеркало)",
+    "remaining_amount": "Осталось ~{{amount}}"
   },
   "capture": {
     "no_speech": "Речь не обнаружена",
@@ -2641,7 +2749,8 @@
       "social_proof_one": "Присоединяйтесь к {{count}} спонсору локального ИИ",
       "social_proof_few": "Присоединяйтесь к {{count}} спонсорам локального ИИ",
       "social_proof_many": "Присоединяйтесь к {{count}} спонсорам локального ИИ",
-      "social_proof_other": "Присоединяйтесь к {{count}} спонсорам локального ИИ"
+      "social_proof_other": "Присоединяйтесь к {{count}} спонсорам локального ИИ",
+      "social_proof": "Присоединяйтесь к сторонникам {{count}}, финансирующим местный искусственный интеллект"
     },
     "postcard": {
       "title": "Поддержите разработку VoiceStudio",
@@ -2677,7 +2786,11 @@
     "sponsors_tier_company": "Компания",
     "sponsors_tier_development": "Разработка",
     "sponsors_tier_community": "Сообщество",
-    "sponsors_tier_supporter": "Сторонник"
+    "sponsors_tier_supporter": "Сторонник",
+    "sponsors_tier_platinum": "Платина",
+    "sponsors_tier_gold": "Золото",
+    "sponsors_tier_silver": "Серебро",
+    "sponsors_tier_bronze": "Бронза"
   },
   "enterprise": {
     "title": "Коммерческая лицензия",
@@ -3027,7 +3140,9 @@
     "timing_review_few": "{{count}} сегмента требуют проверки времени",
     "timing_review_many": "{{count}} сегментов требуют проверки времени",
     "timing_review_zero": "Необходимо проверить тайминг {{count}} сегментов",
-    "timing_review_two": "Необходимо проверить тайминг {{count}} сегментов"
+    "timing_review_two": "Необходимо проверить тайминг {{count}} сегментов",
+    "segment_one": "{{count}} сегмент",
+    "segment_other": "{{count}} сегментов"
   },
   "header": {
     "memory_management": "Управление памятью",
@@ -3814,7 +3929,8 @@
     "shortCommercial": "Коммерция: да",
     "shortConditions": "С условиями",
     "shortNoncommercial": "Некоммерческая",
-    "shortUnknown": "Неизвестно"
+    "shortUnknown": "Неизвестно",
+    "blockerRemote": "Проверенная установка недоступна для удалённых целей."
   },
   "mobile": {
     "home": {
@@ -4565,5 +4681,45 @@
     "room_tone": "Заполнять паузы фоном помещения",
     "room_tone_note": "Метки [pause] и промежутки в аудиокнигах получают тихий фон самой записи вместо цифровой тишины, поэтому звук не обрывается между строками.",
     "env_pinned": "Задано через {{env}}. Измените или удалите значение, чтобы пользоваться этим переключателем."
+  },
+  "compute": {
+    "add_machine": "Добавить машину",
+    "manage": "Настройки удалённых воркеров",
+    "off_hint": "Всё выполняется на этой машине. Включите «Удалённо», чтобы использовать другую.",
+    "quick_settings": "Вычисления — где выполняются задачи",
+    "remote": "Удалённо",
+    "title": "Где выполняются задачи",
+    "token_once": "Отсканируйте или вставьте это на другой машине. Показывается один раз."
+  },
+  "sponsorSlot": {
+    "partner_heading": "Станьте партнёром VoiceStudio",
+    "partner_subtitle": "Представьте продукт тем, кто создаёт с помощью голоса.",
+    "app_placement": "Размещение в приложении",
+    "integration_page": "Страница интеграции",
+    "readme_exposure": "Размещение в README",
+    "visibility": "Видимость",
+    "integration": "Интеграция продукта",
+    "installs": "Прямые установки",
+    "distribution": "Дистрибуция для разработчиков",
+    "partner": "Проверенный партнёр",
+    "privacy": "Конфиденциальность",
+    "title": "Продвигайтесь в VoiceStudio",
+    "description": "Повысьте заметность бренда, спонсируя платное избранное размещение.",
+    "form": "Форма Google",
+    "email": "Электронная почта",
+    "book": "Забронировать место",
+    "preview": "Пример спонсорского блока",
+    "footer_brand": "Стать спонсором",
+    "footer_promo": "Продвигайте свой бизнес",
+    "footer_downloads": "Загрузки установщиков Electron",
+    "footer_views": "Просмотры репозитория GitHub (14 дней)",
+    "footer_stars": "Звёзды GitHub",
+    "footer_stats_note": "Данные GitHub на 25 сент. 2026 г. Загрузки с v0.5.3; просмотры за 10–23 сент.",
+    "footer_book": "Добавить сейчас",
+    "email_template": "Здравствуйте, команда VoiceStudio!\n\nЯ хочу стать партнёром VoiceStudio и обсудить заметное размещение для своего бренда.\n\nБренд / продукт:\nСайт:\nИнтеграция или кампания:\nАудитория / сроки:\n\nМожете поделиться доступными пакетами, ценами, вариантами размещения и техническими требованиями? Насколько я понимаю, партнёрство может включать страницу документации, логотип в GitHub README, место в подвале приложения и размещение в каталоге Integrations.\n\nСпасибо,\n[Имя]\n[Должность / компания]\n[Контакт]",
+    "message": "Ваш бренд, сайт и сообщение",
+    "email_app": "Открыть почтовое приложение",
+    "copy_email": "Скопировать email",
+    "preview_detail": "Здесь могут появиться ваш логотип, ссылка и описание."
   }
 }

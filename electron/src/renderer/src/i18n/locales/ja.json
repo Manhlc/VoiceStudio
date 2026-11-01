@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "フォロー",
-    "website": "ウェブサイト"
+    "website": "ウェブサイト",
+    "collapseFooter": "フッターを折りたたむ",
+    "expandFooter": "フッターを展開"
   },
   "twilioIntegration": {
     "exposureWarning": "オンにすると、トンネルがインターネットに公開する別のローカルポートが開きます。Twilio Auth Token で署名されたリクエストのみ受け付け、VoiceStudio のその他の部分は非公開のままです。",
@@ -316,7 +318,9 @@
     "import_done_one": "{{count}} 件をインポートしました。",
     "import_done_other": "{{count}} 件をインポートしました。",
     "entries_count_one": "{{count}} 件",
-    "entries_count_other": "{{count}} 件"
+    "entries_count_other": "{{count}} 件",
+    "import_replace_prompt": "既存の {{count}} 件のエントリーをインポートしたファイルで置き換えますか?「いいえ」を選ぶと、既存のエントリーに追加されます。",
+    "import_done": "{{count}} 件のエントリーをインポートしました。"
   },
   "preferences": {
     "title": "設定",
@@ -402,7 +406,8 @@
     "translation": "翻訳",
     "diarisation": "話者分離",
     "localDevice": "ローカルデバイス",
-    "localShort": "ローカル"
+    "localShort": "ローカル",
+    "connectRemoteDevice": "リモートデバイスに接続"
   },
   "paneActions": {
     "collapse": "パネルを折りたたむ",
@@ -949,7 +954,8 @@
     "glossary_label": "用語集",
     "set_speaker": "話者を設定…",
     "new_speaker": "新しい話者",
-    "speaker_label": "話者"
+    "speaker_label": "話者",
+    "glossary_btn": "+ 用語集 ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "オーディオを準備しています…",
@@ -1522,7 +1528,102 @@
     "gpu_report_engine_no_family_path": "CPU：お使いの GPU の種類に対応する経路がありません",
     "gpu_report_engine_no_gpu": "CPU：GPU がありません",
     "gpu_report_engine_needs_accelerator": "このマシンにない GPU（{{needs}}）が必要です",
-    "models_dir_desc": "ダウンロードしたモデルはここに保存されます。空き容量が足りなくなったら、より空きのあるドライブを選んでください。"
+    "models_dir_desc": "ダウンロードしたモデルはここに保存されます。空き容量が足りなくなったら、より空きのあるドライブを選んでください。",
+    "worker_join": "参加",
+    "workers_title": "リモートワーカー",
+    "workers_desc": "個々のジョブを他のマシンの GPU に送ります。結果はここに戻ります。ワーカーを追加して承認するまで、何も送信されません。",
+    "workers_enable": "リモートワーカーを使う",
+    "workers_enable_hint": "これがオフの間は接続を受け付けず、このマシンから何も出ていきません。",
+    "workers_port_conflict": "別のVoiceStudioインスタンスがこのポートですでにリモートワーカーを受け付けているため、利用できません。もう一方のインスタンスを閉じるか、OMNIVOICE_WORKER_PORTを別のポートに設定してVoiceStudioを再起動してください。",
+    "workers_endpoint": "ワーカーの接続先",
+    "workers_endpoint_hint": "ワーカーがこのアドレスに到達できる必要があります。別のネットワークでは、Tailscale などの VPN が確実な方法です。",
+    "workers_add": "ワーカーを追加",
+    "workers_add_hint": "トークンを生成し、もう一方のマシンの OmniVoice に貼り付けます。",
+    "workers_new_token": "トークンを生成",
+    "workers_token_once": "今すぐコピーしてください。表示は一度きり、使用も一度きりで、15 分で失効します。",
+    "workers_copy": "コピー",
+    "workers_copied": "コピーしました",
+    "workers_copy_failed": "コピーできませんでした。",
+    "workers_none": "ワーカーはまだありません。トークンを生成して最初の 1 台を追加してください。",
+    "workers_load": "タスク {{active}} / {{slots}}",
+    "workers_needs_consent": "未承認",
+    "workers_status_online": "オンライン",
+    "workers_status_offline": "オフライン",
+    "workers_status_paused": "一時停止中",
+    "workers_status_disabled": "無効",
+    "workers_resume": "再開",
+    "workers_disable": "無効にする",
+    "workers_enable_one": "有効にする",
+    "workers_remove": "削除",
+    "workers_remove_title": "ワーカーを削除しますか？",
+    "workers_remove_confirm": "{{name}} を削除しますか？キーが失効するため、新しいトークンなしでは再接続できません。",
+    "workers_rename": "ワーカー名を変更",
+    "inbound_add_person": "ユーザーを追加",
+    "inbound_add_person_hint": "1 人分の接続文字列を作成します。1 つを削除しても他の全員が切断されないよう、各自に個別のものを渡してください。",
+    "inbound_bind": "接続を受け付けるアドレス",
+    "inbound_bind_apply": "適用",
+    "inbound_bind_exposed": "{{address}} に到達できる人は、有効な接続文字列で接続できます。TLS が通信を暗号化し、このマシンの証明書を固定します。各文字列は非公開にし、不要なアクセスは削除してください。",
+    "inbound_bind_local": "このマシンからのみ到達できます。他のマシンから接続できるようにするには、ネットワークアドレスを入力してください。",
+    "inbound_connect": "接続",
+    "inbound_connect_desc": "受け取った接続文字列を貼り付けてください。相手のマシンが接続を受け付けている必要があります。",
+    "inbound_connect_hint": "ovnode:// で始まり、キー、アドレス、ポート、証明書フィンガープリントを含みます。",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "GPU マシンに接続できませんでした。オンラインで接続を受け付けていることを確認し、もう一度お試しください。",
+    "inbound_connect_row": "接続文字列",
+    "inbound_connect_title": "GPU マシンに接続",
+    "inbound_connected": "接続済み",
+    "inbound_connected_now": "現在の接続",
+    "inbound_connecting": "接続中…",
+    "inbound_create": "作成",
+    "inbound_desc": "他のマシンから接続できるようにして、複数人でこの GPU を共有します。すべての接続は暗号化され、このマシンの証明書に固定されます。",
+    "inbound_disconnect": "切断",
+    "inbound_enable": "接続を受け付ける",
+    "inbound_enable_hint": "このマシンから接続しに行くのではなく、他の人がこのマシンに接続します。あなたが作成した接続文字列がなければ誰も入れません。",
+    "inbound_exposed_badge": "ネットワークに公開中",
+    "inbound_forget": "削除",
+    "inbound_hours_ago": "{{count}} 時間前",
+    "inbound_jobs_run": "{{count}} 件のジョブ",
+    "inbound_just_now": "たった今",
+    "inbound_label": "名前",
+    "inbound_label_placeholder": "アリスのノート PC",
+    "inbound_last_seen": "最終使用 {{when}}",
+    "inbound_minutes_ago": "{{count}} 分前",
+    "inbound_nobody": "接続しているユーザーはいません。",
+    "inbound_people": "アクセスできるユーザー",
+    "inbound_revoke": "削除",
+    "inbound_revoke_confirm": "{{label}} のアクセスを削除しますか？接続文字列はただちに使えなくなります。他の全員は接続されたままです。",
+    "inbound_revoke_title": "アクセスを削除しますか？",
+    "inbound_shown_once": "今すぐコピーしてください。再表示はされません。{{label}} にのみ渡してください。",
+    "inbound_shown_once_warning": "パスワードと同様に扱い、非公開で渡してください。証明書フィンガープリントが暗号化された接続をこの GPU マシンに固定します。",
+    "inbound_title": "この GPU を他の人と共有",
+    "worker_join_code": "参加コード",
+    "worker_join_code_hint": "使い切りで、15 分で期限切れになります。作業を送る側のマシンで生成してください。",
+    "worker_join_desc": "別の VoiceStudio からこのマシンにジョブを送れるようにします。表示された参加コードを貼り付けるか、その QR をスマートフォンでスキャンしてここに貼り付けてください。",
+    "worker_join_env": "このマシンの環境変数に OMNIVOICE_WORKER_MODE が設定されているため、そちらが優先されます。変更はそちらで行ってください。",
+    "worker_join_no_endpoint": "記憶されたコントロールプレーンはありません。",
+    "worker_join_ok": "参加しました。このマシンは作業を受け付けています。",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "別のものに参加",
+    "worker_join_stopped": "停止中",
+    "worker_join_take_work": "作業の受け取り元",
+    "worker_join_title": "このマシンの GPU を貸す",
+    "worker_join_working": "作業中",
+    "workers_add_hint_qr": "トークンを生成し、もう一方のマシンから QR をスキャンするか、そのマシンの「リモートワーカー」設定にコードを貼り付けてください。",
+    "workers_approve": "承認",
+    "workers_last_seen": "最終確認 {{when}}",
+    "workers_qr_alt": "このコードを含む QR コード — もう一方のマシンからスキャンしてください",
+    "workers_secret_done": "完了",
+    "workers_seen_hr": "{{count}} 時間前",
+    "workers_seen_min": "{{count}} 分前",
+    "workers_seen_now": "たった今",
+    "workers_step_1": "GPU のあるマシンに VoiceStudio をインストールします。",
+    "workers_step_2": "上でトークンを生成します。",
+    "workers_step_3": "そのマシンで QR をスキャンするか、そのマシンの「リモートワーカー」設定にコードを貼り付けます。",
+    "workers_summary_none": "接続なし",
+    "workers_summary_online": "{{count}} 台オンライン",
+    "workers_token_expired": "期限切れ — 新しく生成してください",
+    "workers_token_expires_in": "あと {{time}} で期限切れ",
+    "workers_token_qr_hint": "もう一方のマシンで: 設定 → システム → リモートワーカー → 参加 を開き、スキャンするか貼り付けてください。"
   },
   "gallery": {
     "title": "VoiceStudio ギャラリー",
@@ -1875,7 +1976,10 @@
     "recovery_title": "中断したストーリー",
     "split_chapters": "章",
     "split_paragraphs": "段落",
-    "split_sentences": "文"
+    "split_sentences": "文",
+    "castTitle": "キャスト — 各キャラクターに声を割り当てます",
+    "autocastDone": "{{voices}} 音声全体に {{lines}} 行を自動キャストします",
+    "voice": "声"
   },
   "audiobook": {
     "cast": "キャスト",
@@ -2006,7 +2110,9 @@
     "resume_failed": "このオーディオブックを再開できませんでした: {{message}}",
     "recovery_busy": "別のレンダリングを実行中です。終わってから再開してください。",
     "cast_note_one": "{{names}} はまだ配役されていないため、メインの音声で読み上げます。キャストで音声を選んでください。",
-    "cast_note_other": "{{names}} はまだ配役されていないため、メインの音声で読み上げます。キャストで音声を選んでください。"
+    "cast_note_other": "{{names}} はまだ配役されていないため、メインの音声で読み上げます。キャストで音声を選んでください。",
+    "stats": "{{chapters}} 章 · 約 {{words}} 語 · 推定 {{runtime}}",
+    "warn_unknown_voice": "不明な声 ‘{{name}}’ — デフォルトを使用します"
   },
   "credentials": {
     "microsoft_key": "Microsoft トランスレータ キー",
@@ -2051,7 +2157,8 @@
     "model_terms": "モデルの利用条件",
     "model_related_sources": "関連する出典:",
     "self_check_attention_one": "{{count}} 件のチェックが失敗しました。上のヒントを確認してください。",
-    "self_check_attention_other": "{{count}} 件のチェックが失敗しました。上のヒントを確認してください。"
+    "self_check_attention_other": "{{count}} 件のチェックが失敗しました。上のヒントを確認してください。",
+    "self_check_attention": "{{count}} 件のチェックが失敗しました — 上のヒントをご覧ください。"
   },
   "privacy": {
     "translator_online": "翻訳者はオンラインです: {{provider}}",
@@ -2267,7 +2374,8 @@
     "region_global": "グローバル（ダイレクト）",
     "region_china": "中国（鏡）",
     "region_russia": "ロシア（鏡）",
-    "region_restricted": "制限付き（ミラー）"
+    "region_restricted": "制限付き（ミラー）",
+    "remaining_amount": "残り約 {{amount}}"
   },
   "capture": {
     "no_speech": "音声が検出されませんでした",
@@ -2615,7 +2723,8 @@
       "remaining": "{{amount}} 行きます",
       "met": "🎉 目標達成 — {{raised}} が発生しました。ありがとう！",
       "social_proof_one": "ローカル AI を支える {{count}} 人のサポーターに加わろう",
-      "social_proof_other": "ローカル AI を支える {{count}} 人のサポーターに加わろう"
+      "social_proof_other": "ローカル AI を支える {{count}} 人のサポーターに加わろう",
+      "social_proof": "{{count}} サポーターに参加してローカル AI に資金を提供しましょう"
     },
     "postcard": {
       "title": "VoiceStudio の開発を支援",
@@ -2651,7 +2760,11 @@
     "sponsors_tier_company": "企業",
     "sponsors_tier_development": "開発",
     "sponsors_tier_community": "コミュニティ",
-    "sponsors_tier_supporter": "サポーター"
+    "sponsors_tier_supporter": "サポーター",
+    "sponsors_tier_platinum": "白金",
+    "sponsors_tier_gold": "金",
+    "sponsors_tier_silver": "銀",
+    "sponsors_tier_bronze": "ブロンズ"
   },
   "enterprise": {
     "title": "商用ライセンス",
@@ -3001,7 +3114,9 @@
     "timing_review_zero": "{{count}} 個のセグメントでタイミングの確認が必要です",
     "timing_review_two": "{{count}} 個のセグメントでタイミングの確認が必要です",
     "timing_review_few": "{{count}} 個のセグメントでタイミングの確認が必要です",
-    "timing_review_many": "{{count}} 個のセグメントでタイミングの確認が必要です"
+    "timing_review_many": "{{count}} 個のセグメントでタイミングの確認が必要です",
+    "segment_one": "{{count}} セグメント",
+    "segment_other": "{{count}} セグメント"
   },
   "header": {
     "memory_management": "メモリ管理",
@@ -3788,7 +3903,8 @@
     "shortCommercial": "商用可",
     "shortConditions": "条件付き",
     "shortNoncommercial": "非商用",
-    "shortUnknown": "不明"
+    "shortUnknown": "不明",
+    "blockerRemote": "リモートの対象では審査済みインストールを利用できません。"
   },
   "mobile": {
     "home": {
@@ -4537,5 +4653,45 @@
     "room_tone": "ポーズをルームトーンで埋める",
     "room_tone_note": "[pause] マーカーやオーディオブックの間に、デジタル無音ではなくその録音自体の静かな背景音を入れ、行の間で音が途切れないようにします。",
     "env_pinned": "{{env}} で設定されています。このスイッチを使うには変更するか削除してください。"
+  },
+  "compute": {
+    "add_machine": "マシンを追加",
+    "manage": "リモートワーカー設定",
+    "off_hint": "すべてこのマシンで実行されます。他のマシンを使うにはリモートをオンにしてください。",
+    "quick_settings": "コンピュート — ジョブの実行場所",
+    "remote": "リモート",
+    "title": "ジョブの実行場所",
+    "token_once": "もう一方のマシンでこれをスキャンするか貼り付けてください。表示は一度だけです。"
+  },
+  "sponsorSlot": {
+    "partner_heading": "VoiceStudio のパートナーに",
+    "partner_subtitle": "音声で新しいものを作る人に製品を届けましょう。",
+    "app_placement": "アプリ内掲載",
+    "integration_page": "連携ページ",
+    "readme_exposure": "README 掲載",
+    "visibility": "認知度",
+    "integration": "製品連携",
+    "installs": "直接インストール",
+    "distribution": "開発者向け配信",
+    "partner": "認証済みパートナー",
+    "privacy": "プライバシー",
+    "title": "VoiceStudioで注目を集める",
+    "description": "有料の注目枠をスポンサーして、ブランドの認知度を高めましょう。",
+    "form": "Googleフォーム",
+    "email": "メール",
+    "book": "掲載枠を申し込む",
+    "preview": "スポンサーの表示例",
+    "footer_brand": "スポンサーになる",
+    "footer_promo": "ビジネスを宣伝",
+    "footer_downloads": "Electron インストーラーのダウンロード数",
+    "footer_views": "GitHub リポジトリの閲覧数（14日間）",
+    "footer_stars": "GitHub スター数",
+    "footer_stats_note": "2026年9月25日時点の GitHub データ。ダウンロードは v0.5.3 以降、閲覧数は9月10～23日。",
+    "footer_book": "今すぐ追加",
+    "email_template": "VoiceStudioチームの皆さま、\n\nVoiceStudioとのパートナーシップと、ブランドの注目掲載について相談したくご連絡しました。\n\nブランド / 製品：\nウェブサイト：\n連携またはキャンペーン：\n対象ユーザー / 時期：\n\n利用可能なプラン、料金、掲載場所、技術要件を教えていただけますか？注目パートナーには、ドキュメントページ、GitHub READMEのロゴ、アプリフッター枠、Integrationsディレクトリ掲載が含まれると理解しています。\n\nよろしくお願いします。\n[名前]\n[役職 / 会社]\n[連絡先]",
+    "message": "ブランド名・ウェブサイト・メッセージ",
+    "email_app": "メールアプリを開く",
+    "copy_email": "メールアドレスをコピー",
+    "preview_detail": "ここにロゴ、リンク、紹介文を掲載できます。"
   }
 }

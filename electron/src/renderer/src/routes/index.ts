@@ -228,6 +228,11 @@ export const accountRoute = createRoute({
   path: '/settings/account',
   component: SettingsPage,
 });
+export const workersRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/settings/workers',
+  component: SettingsPage,
+});
 export const privacyRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/settings/privacy',
@@ -286,6 +291,7 @@ export const routeTree = rootRoute.addChildren([
   permissionsRoute,
   performanceRoute,
   usageRoute,
+  workersRoute,
   networkRoute,
   sharingRoute,
   credentialsRoute,

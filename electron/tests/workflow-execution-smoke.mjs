@@ -121,10 +121,7 @@ try {
   await page.getByRole('button', { name: 'Target voice', exact: true }).click();
   await page.getByRole('option').filter({ hasText: 'Demo voice' }).click();
   await page.locator('.workflow-intro').getByRole('button', { name: 'Run workflow' }).click();
-  await page
-    .locator('.workflow-runner')
-    .getByRole('button', { name: 'Run workflow', exact: true })
-    .click();
+  await page.locator('.workflow-runner').getByRole('button', { name: 'Run workflow', exact: true }).click();
   await page.getByText('Test normalization unavailable', { exact: true }).waitFor();
   assert.equal(generated, 1);
   assert.equal(normalized, 1);
@@ -132,21 +129,14 @@ try {
   await page.locator('.workflow-intro').getByRole('button', { name: 'Run workflow' }).click();
   await page.getByText('Test normalization unavailable', { exact: true }).waitFor();
   failNormalization = false;
-  await page
-    .locator('.workflow-runner')
-    .getByRole('button', { name: 'Retry', exact: true })
-    .click();
+  await page.locator('.workflow-runner').getByRole('button', { name: 'Retry', exact: true }).click();
   await page.getByText('2 / 2 clips ready', { exact: true }).waitFor();
   assert.equal(generated, 2, 'resume must reuse the first generated clip');
   assert.equal(normalized, 3, 'failed step retried, then second clip normalized');
   assert.equal(await page.locator('.workflow-run-output audio').count(), 2);
   await page.screenshot({ path: join(tmpdir(), 'voicestudio-workflow-execution.png') });
   const download = page.waitForEvent('download');
-  await page
-    .locator('.workflow-run-output')
-    .first()
-    .getByRole('button', { name: 'Export' })
-    .click();
+  await page.locator('.workflow-run-output').first().getByRole('button', { name: 'Export' }).click();
   assert((await download).suggestedFilename().endsWith('-01-1.wav'));
   await page.reload();
   await page.locator('.workflow-intro').getByRole('button', { name: 'Run workflow' }).click();
@@ -162,15 +152,9 @@ try {
   await page.getByText('lesson.wav', { exact: true }).waitFor();
   await page.reload(); // The source file must survive a reload before any run.
   await page.locator('.workflow-intro').getByRole('button', { name: 'Run workflow' }).click();
-  await page
-    .locator('.workflow-runner')
-    .getByRole('button', { name: 'Run workflow', exact: true })
-    .click();
+  await page.locator('.workflow-runner').getByRole('button', { name: 'Run workflow', exact: true }).click();
   await page.getByText('1 / 1 clips ready', { exact: true }).waitFor();
-  await page
-    .locator('.workflow-run-output pre')
-    .getByText('Welcome to the lesson.', { exact: true })
-    .waitFor();
+  await page.locator('.workflow-run-output pre').getByText('Welcome to the lesson.', { exact: true }).waitFor();
   const textDownload = page.waitForEvent('download');
   await page.locator('.workflow-run-output').getByRole('button', { name: 'Export' }).click();
   assert((await textDownload).suggestedFilename().endsWith('.txt'));
@@ -187,10 +171,7 @@ try {
   await page.getByRole('button', { name: 'Target voice', exact: true }).click();
   await page.getByRole('option').filter({ hasText: 'Demo voice' }).click();
   await page.locator('.workflow-intro').getByRole('button', { name: 'Run workflow' }).click();
-  await page
-    .locator('.workflow-runner')
-    .getByRole('button', { name: 'Run workflow', exact: true })
-    .click();
+  await page.locator('.workflow-runner').getByRole('button', { name: 'Run workflow', exact: true }).click();
   await page.getByText('1 / 1 clips ready', { exact: true }).waitFor();
   assert.equal(converted, 1);
 
@@ -203,10 +184,7 @@ try {
   await page.getByRole('button', { name: 'Target voice', exact: true }).click();
   await page.getByRole('option').filter({ hasText: 'Demo voice' }).click();
   await page.locator('.workflow-intro').getByRole('button', { name: 'Run workflow' }).click();
-  await page
-    .locator('.workflow-runner')
-    .getByRole('button', { name: 'Run workflow', exact: true })
-    .click();
+  await page.locator('.workflow-runner').getByRole('button', { name: 'Run workflow', exact: true }).click();
   await page.getByText('1 / 1 clips ready', { exact: true }).waitFor();
   assert.equal(transcribed, 2);
   assert.equal(translated, 1);
@@ -223,91 +201,49 @@ try {
     const library = JSON.parse(localStorage.getItem('voicestudio.workflows.v1'));
     return library.documents.find((item) => item.id === library.activeId).steps[0].media[0].id;
   });
-  const hasSource = (id) =>
-    page.evaluate(
-      (id) =>
-        new Promise((resolve, reject) => {
-          const open = indexedDB.open('voicestudio.workflow-runs', 1);
-          open.onerror = () => reject(open.error);
-          open.onsuccess = () => {
-            const db = open.result;
-            const request = db
-              .transaction('runs')
-              .objectStore('runs')
-              .get('media:' + id);
-            request.onsuccess = () => {
-              resolve(Boolean(request.result));
-              db.close();
-            };
-          };
-        }),
-      id,
-    );
+  const hasSource = (id) => page.evaluate((id) => new Promise((resolve, reject) => {
+    const open = indexedDB.open('voicestudio.workflow-runs', 1);
+    open.onerror = () => reject(open.error);
+    open.onsuccess = () => {
+      const db = open.result; const request = db.transaction('runs').objectStore('runs').get('media:' + id);
+      request.onsuccess = () => { resolve(Boolean(request.result)); db.close(); };
+    };
+  }), id);
   await page.getByRole('button', { name: 'Duplicate', exact: true }).click();
-  await page
-    .locator('.workflow-intro')
-    .getByRole('button', { name: 'Delete', exact: true })
-    .click();
+  await page.locator('.workflow-intro').getByRole('button', { name: 'Delete', exact: true }).click();
   await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
   assert.equal(await hasSource(sourceId), true, 'a shared source survives deleting one duplicate');
   await page.getByRole('button', { name: 'Source cleanup', exact: true }).click();
   await page.locator('.react-flow__node').filter({ hasText: 'Source clip' }).click();
-  await page
-    .getByRole('complementary', { name: 'Step details' })
-    .getByRole('button', { name: 'Delete', exact: true })
-    .click();
-  for (let i = 0; i < 40 && (await hasSource(sourceId)); i++) await page.waitForTimeout(50);
-  assert.equal(
-    await hasSource(sourceId),
-    false,
-    'removing the final reference deletes the source blob',
-  );
-  await page
-    .getByLabel('Add audio', { exact: true })
-    .setInputFiles({ name: 'delete-workflow.wav', mimeType: 'audio/wav', buffer: wav });
+  await page.getByRole('complementary', { name: 'Step details' }).getByRole('button', { name: 'Delete', exact: true }).click();
+  for (let i = 0; i < 40 && await hasSource(sourceId); i++) await page.waitForTimeout(50);
+  assert.equal(await hasSource(sourceId), false, 'removing the final reference deletes the source blob');
+  await page.getByLabel('Add audio', { exact: true }).setInputFiles({ name: 'delete-workflow.wav', mimeType: 'audio/wav', buffer: wav });
   await page.getByText('delete-workflow.wav', { exact: true }).waitFor();
   const deletedId = await page.evaluate(() => {
     const library = JSON.parse(localStorage.getItem('voicestudio.workflows.v1'));
     return library.documents.find((item) => item.id === library.activeId).steps[0].media[0].id;
   });
-  await page.evaluate(() => {
-    IDBObjectStore.prototype.delete = function () {
-      throw new Error('Temporary storage failure');
-    };
-  });
-  await page
-    .getByRole('complementary', { name: 'Step details' })
-    .getByRole('button', { name: 'Delete', exact: true })
-    .click();
+  await page.evaluate(() => { IDBObjectStore.prototype.delete = function () { throw new Error('Temporary storage failure'); }; });
+  await page.getByRole('complementary', { name: 'Step details' }).getByRole('button', { name: 'Delete', exact: true }).click();
   await page.getByRole('alert').filter({ hasText: 'Temporary storage failure' }).waitFor();
   assert.equal(await hasSource(deletedId), true);
-  assert(
-    await page.evaluate(
-      () => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')).cleanup.length > 0,
-    ),
-  );
+  assert(await page.evaluate(() => JSON.parse(localStorage.getItem('voicestudio.workflows.v1')).cleanup.length > 0));
   await page.reload(); // Reload restores IndexedDB and retries the persisted deletion queue.
   await page.getByRole('textbox', { name: 'Workflow name' }).waitFor();
   for (let i = 0; i < 40 && (await hasSource(deletedId)); i++) await page.waitForTimeout(50);
   assert.equal(await hasSource(deletedId), false, 'queued deletions are retried after a reload');
   await page.locator('.react-flow__node').filter({ hasText: 'Source clip' }).click();
-  await page
-    .getByLabel('Add audio', { exact: true })
-    .setInputFiles({ name: 'last.wav', mimeType: 'audio/wav', buffer: wav });
+  await page.getByLabel('Add audio', { exact: true }).setInputFiles({ name: 'last.wav', mimeType: 'audio/wav', buffer: wav });
   await page.getByText('last.wav', { exact: true }).waitFor();
   const lastId = await page.evaluate(() => {
     const library = JSON.parse(localStorage.getItem('voicestudio.workflows.v1'));
     return library.documents.find((item) => item.id === library.activeId).steps[0].media[0].id;
   });
-  await page
-    .locator('.workflow-intro')
-    .getByRole('button', { name: 'Delete', exact: true })
-    .click();
+  await page.locator('.workflow-intro').getByRole('button', { name: 'Delete', exact: true }).click();
   await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
-  for (let i = 0; i < 40 && (await hasSource(lastId)); i++) await page.waitForTimeout(50);
+  for (let i = 0; i < 40 && await hasSource(lastId); i++) await page.waitForTimeout(50);
   assert.equal(await hasSource(lastId), false, 'deleting the final workflow releases its source');
   assert.deepEqual(errors, []);
   console.log('Workflow execution, recovery, persisted audio and export smoke passed');
-} finally {
-  await browser.close();
-}
+} finally { await browser.close(); }

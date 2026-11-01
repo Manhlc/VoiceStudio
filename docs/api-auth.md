@@ -286,7 +286,7 @@ routes are unaffected. Default off. Risks and setup:
 
 Admin routes — `/system/*` (including `set-env`, **RCE-class**),
 `/api/settings/*`, engine selection/install/uninstall, media tools, MCP
-bindings and pronunciation settings — sit on a
+bindings, pronunciation settings, and remote-worker management — sit on a
 stricter gate (`require_admin`, `backend/api/dependencies.py`) than consumption.
 On the desktop build they are **true-loopback-only**: no PIN, key, or trusted
 network reaches them from another machine.

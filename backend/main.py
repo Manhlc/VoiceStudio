@@ -802,6 +802,7 @@ def _phase_a_build_inner() -> None:
         voice_convert,  # Studio Convert: speech-to-speech via ASR → TTS
     )
     from api.routers import mcp_bindings as _mcp_bindings_router  # noqa: E402
+    from api.routers import workers as workers_router  # noqa: E402
     from api.routers import telephony_twilio as _telephony_twilio_router  # noqa: E402
     from api.routers import calls as _calls_router  # noqa: E402
     from api.routers import cloud_sync as _cloud_sync_router  # noqa: E402
@@ -812,7 +813,7 @@ def _phase_a_build_inner() -> None:
         batch, watermark, events, capture, capture_ws, speech_platform, dictation,
         openai_compat, tts_stream, marketplace, personas, sonitranslate,
         audiobook, longform_jobs, pronunciation, settings_router,
-        media_tools_router, auth_router, _mcp_bindings_router,
+        media_tools_router, auth_router, _mcp_bindings_router, workers_router,
         _telephony_twilio_router, _calls_router, _cloud_sync_router,
     ])
     # Download-acceleration state, once, for triage-from-logs (FDL-03).
@@ -1232,6 +1233,20 @@ async def _phase_b(app: FastAPI) -> None:
     app.state.cloud_sync_task = asyncio.create_task(_start_cloud_sync())
     if mcp_mounted:
         logger.info("MCP server mounted at /mcp")
+    # Remote GPU workers (opt-in). Starts nothing unless enabled.
+    try:
+        from worker import service as worker_service
+        await worker_service.start_if_enabled()
+    except Exception:
+        logger.exception("Remote worker startup failed (continuing without it)")
+
+    # The other side of the same feature: worker mode connects out.
+    try:
+        from worker import agent as worker_agent
+        await worker_agent.start_if_worker_mode()
+    except Exception:
+        logger.exception("Worker agent startup failed (continuing without it)")
+
     # Phone calls (opt-in): the separate loopback telephony listener resumes
     # only when the user left the Twilio integration enabled.
     try:
@@ -1353,6 +1368,19 @@ async def lifespan(app: FastAPI):
     # before Phase A began pays nothing.
     if _phase_a_started.is_set() and not _phase_a_finished.is_set():
         await asyncio.to_thread(_phase_a_finished.wait, 20.0)
+    # Stop accepting remote work early in shutdown: a worker that reconnects
+    # to a half-torn-down control plane is worse than one that simply finds it
+    # gone and backs off.
+    try:
+        from worker import agent as worker_agent
+        await worker_agent.stop()
+    except Exception:
+        logger.exception("Worker agent shutdown failed")
+    try:
+        from worker import service as worker_service
+        await worker_service.stop()
+    except Exception:
+        logger.exception("Remote worker shutdown failed")
     await _wait_for_profile_reconcile_thread(app)
     try:
         from services.telephony import gateway as telephony_gateway

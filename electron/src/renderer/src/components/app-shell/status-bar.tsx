@@ -11,6 +11,7 @@ import {
 } from './use-engine-detail-level';
 import { EngineRow } from './engine-row';
 import { useTranslationEngines } from '@/features/settings/translation-settings';
+import { Link } from '@tanstack/react-router';
 import {
   LanguagesIcon,
   AudioLinesIcon,
@@ -21,6 +22,7 @@ import {
   ListIcon,
   LayersIcon,
   CodeXmlIcon,
+  ChevronRightIcon,
   CpuIcon,
   GaugeIcon,
   MemoryStickIcon,
@@ -38,11 +40,14 @@ import { cn } from '@/lib/utils';
 import { useAppActivities } from '@/lib/app-activity';
 import {
   isResidentAsrModel,
+  resolveRemoteRuntime,
   resolveRuntimeHealth,
   type SidebarModelStatus,
 } from './status-runtime';
 import { PerformanceProfile } from '@/components/performance-profile';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/popover';
+import { ComputeTargetChoices } from '@/components/compute-target-choices';
+import { useComputeRuntime, useComputeTarget } from '@/hooks/use-compute-target';
 import type { BatchJob } from '@shared/api/batch-types';
 import {
   IDLE_STATUS_POLL_MS,
@@ -72,6 +77,15 @@ interface LoadedModelStatus {
 function boundedPercent(value: number, total = 100) {
   if (!Number.isFinite(value) || !Number.isFinite(total) || total <= 0) return 0;
   return Math.max(0, Math.min(100, (value / total) * 100));
+}
+
+function formatBytes(bytes: number) {
+  const gib = Math.max(0, bytes) / 1024 ** 3;
+  return new Intl.NumberFormat(undefined, {
+    style: 'unit',
+    unit: 'gigabyte',
+    maximumFractionDigits: gib >= 10 ? 0 : 1,
+  }).format(gib);
 }
 
 function DeviceMetric({
@@ -162,11 +176,27 @@ export function StatusBar({
   const [appliedProfile, setAppliedProfile] = useState<PerformanceProfileState | null>(null);
   const enginesRefreshing = useIsFetching({ queryKey: ['engines'] }) > 0;
   const status = useBackendStatus();
+  const computeTarget = useComputeTarget(isBackendReachable(status.stage));
+  const activeComputeTarget = computeTarget.data?.active;
+  const activeRemoteTarget = activeComputeTarget?.remote
+    ? computeTarget.data?.targets.find((item) => item.id === activeComputeTarget.worker_id)
+    : undefined;
   const [selectedDetail, setSelectedDetail] = useState<string | null>('tts');
   const activities = useAppActivities();
   const activityCount = Object.values(activities).reduce((total, count) => total + count, 0);
-  const deviceUsage = useDeviceUsage(deviceOpen);
+  const deviceUsage = useDeviceUsage(deviceOpen && !activeComputeTarget?.remote);
   const { data, isLoading: enginesLoading, isError: enginesError } = useEngines();
+  const selectedTtsFamily = engineFamilyState(data, 'tts');
+  const selectedTts = selectedTtsFamily?.backends.find(
+    (engine) => engine.id === selectedTtsFamily.active,
+  );
+  const remoteTtsRuntime = useComputeRuntime(
+    activeRemoteTarget?.id,
+    selectedTts?.id,
+    'tts',
+    isBackendReachable(status.stage) && Boolean(activeRemoteTarget),
+    activityCount > 0,
+  );
   const model = useQuery({
     queryKey: ['sidebar-model-status'],
     queryFn: () => apiJson<SidebarModelStatus>('/model/status'),
@@ -255,17 +285,46 @@ export function StatusBar({
       if (family === 'asr') return isResidentAsrModel(entry.id) && entry.checkpoint === activeModel;
       return entry.id === family;
     });
+    const remoteRuntime =
+      family === 'tts' && activeRemoteTarget
+        ? resolveRemoteRuntime(
+            remoteTtsRuntime.data,
+            remoteTtsRuntime.isPending,
+            remoteTtsRuntime.isError,
+            activities.synthesis > 0 || activities.longform > 0 || batchTtsActive,
+          )
+        : undefined;
+    const remoteCapability = remoteRuntime?.capability;
+    const remoteProblem =
+      remoteRuntime?.state === 'unavailable'
+        ? remoteTtsRuntime.data?.reason && remoteTtsRuntime.data.reason !== 'chosen'
+          ? remoteTtsRuntime.data.reason
+          : t('modelSettings.unavailable')
+        : undefined;
     return {
       family,
-      name: selected?.display_name,
-      model: activeModel,
-      runtime: resident?.device || selected?.execution_evidence?.actual_execution_device,
-      problem:
-        family === 'tts' && selected?.id === 'omnivoice'
+      name: remoteCapability?.display_name || selected?.display_name,
+      model: remoteCapability?.repo_ids?.[0] || remoteCapability?.model_id || activeModel,
+      runtime:
+        remoteCapability?.backend ||
+        resident?.device ||
+        selected?.execution_evidence?.actual_execution_device,
+      problem: remoteProblem
+        ? remoteProblem
+        : family === 'tts' && selected?.id === 'omnivoice'
           ? model.data?.error || selected?.routing_reason || selected?.reason || selected?.hint
           : selected?.routing_reason || selected?.reason || selected?.hint,
-      state:
-        enginesLoading && !data
+      state: remoteRuntime
+        ? remoteRuntime.state === 'checking'
+          ? 'engineRuntime.loading'
+          : remoteRuntime.state === 'working'
+            ? 'engineRuntime.working'
+            : remoteRuntime.state === 'ready'
+              ? 'engineRuntime.ready'
+              : remoteRuntime.state === 'idle'
+                ? 'engineRuntime.idle'
+                : 'modelSettings.unavailable'
+        : enginesLoading && !data
           ? 'engineRuntime.loading'
           : !selected?.available
             ? 'modelSettings.unavailable'
@@ -326,9 +385,27 @@ export function StatusBar({
         : runtimeHealth === 'unavailable'
           ? 'bg-destructive'
           : DOT.starting;
-  const deviceLabel = status.remote
-    ? t('settings.remote_backend_title')
-    : t('engineSidebar.localShort');
+  const deviceDot = activeRemoteTarget
+    ? activeRemoteTarget.status === 'ready'
+      ? DOT.ready
+      : activeRemoteTarget.status === 'busy'
+        ? DOT.starting
+        : 'bg-destructive'
+    : stageDot;
+  const deviceLabel = activeComputeTarget?.remote
+    ? activeComputeTarget.label
+    : status.remote
+      ? t('settings.remote_backend_title')
+      : t('engineSidebar.localShort');
+  const deviceStageText = activeRemoteTarget
+    ? t(
+        activeRemoteTarget.status === 'ready'
+          ? 'engineRuntime.ready'
+          : activeRemoteTarget.status === 'busy'
+            ? 'engineRuntime.working'
+            : 'engineSidebar.offline',
+      )
+    : stageText;
   const formatMemory = (used: number, total?: number) =>
     total && total > 0 ? `${used.toFixed(1)} / ${total.toFixed(1)} GB` : `${used.toFixed(1)} GB`;
   const deviceContent = (
@@ -338,14 +415,71 @@ export function StatusBar({
       className="w-[min(18rem,calc(100vw-2rem))] space-y-3 p-3"
     >
       <div className="flex items-center gap-2">
-        <span className={cn('size-2 shrink-0 rounded-full', stageDot)} aria-hidden="true" />
+        <span className={cn('size-2 shrink-0 rounded-full', deviceDot)} aria-hidden="true" />
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-semibold">{deviceLabel}</p>
-          <p className="truncate text-[11px] text-muted-foreground">{stageText}</p>
+          <p className="truncate text-[11px] text-muted-foreground">{deviceStageText}</p>
         </div>
         <CpuIcon className="size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
       </div>
-      {deviceUsage.isError ? (
+      <ComputeTargetChoices data={computeTarget.data} />
+      {activeRemoteTarget ? (
+        <div className="space-y-3 rounded-lg border border-border/55 bg-muted/20 p-2.5 text-xs">
+          <p className="truncate text-foreground/85" title={activeRemoteTarget.endpoint}>
+            {activeRemoteTarget.endpoint}
+          </p>
+          <div className="flex items-center justify-between gap-3 tabular-nums text-muted-foreground">
+            <span>
+              {activeRemoteTarget.latency_ms > 0
+                ? `${Math.round(activeRemoteTarget.latency_ms)} ms`
+                : deviceStageText}
+            </span>
+            <span>
+              {activeRemoteTarget.active_tasks}/{activeRemoteTarget.max_tasks}
+            </span>
+          </div>
+          {activeRemoteTarget.cpu_percent != null && (
+            <DeviceMetric
+              Icon={CpuIcon}
+              label={t('settings.device_family_cpu')}
+              value={`${Math.round(activeRemoteTarget.cpu_percent)}%`}
+              percent={activeRemoteTarget.cpu_percent}
+            />
+          )}
+          {activeRemoteTarget.gpu_name &&
+            (activeRemoteTarget.gpu_utilization_percent != null ||
+              (activeRemoteTarget.free_memory_bytes != null &&
+                activeRemoteTarget.gpu_memory_bytes > 0)) && (
+              <DeviceMetric
+                Icon={MonitorUpIcon}
+                label={t('settings.device_family_gpu')}
+                value={[
+                  activeRemoteTarget.gpu_utilization_percent != null
+                    ? `${Math.round(activeRemoteTarget.gpu_utilization_percent)}%`
+                    : null,
+                  activeRemoteTarget.free_memory_bytes != null &&
+                  activeRemoteTarget.gpu_memory_bytes > 0
+                    ? `${formatBytes(
+                        activeRemoteTarget.gpu_memory_bytes - activeRemoteTarget.free_memory_bytes,
+                      )} / ${formatBytes(activeRemoteTarget.gpu_memory_bytes)}`
+                    : null,
+                ]
+                  .filter((value): value is string => value != null)
+                  .join(' · ')}
+                percent={
+                  activeRemoteTarget.free_memory_bytes != null &&
+                  activeRemoteTarget.gpu_memory_bytes > 0
+                    ? boundedPercent(
+                        activeRemoteTarget.gpu_memory_bytes - activeRemoteTarget.free_memory_bytes,
+                        activeRemoteTarget.gpu_memory_bytes,
+                      )
+                    : (activeRemoteTarget.gpu_utilization_percent ?? 0)
+                }
+                detail={activeRemoteTarget.gpu_name}
+              />
+            )}
+        </div>
+      ) : deviceUsage.isError ? (
         <button
           type="button"
           onClick={() => void deviceUsage.refetch()}
@@ -413,6 +547,18 @@ export function StatusBar({
           ))}
         </div>
       )}
+      <Link
+        to="/settings/workers"
+        onClick={() => setDeviceOpen(false)}
+        className="group/remote flex items-center gap-2 rounded-lg border border-border/55 px-2.5 py-2 text-xs font-medium outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <MonitorUpIcon className="size-4 shrink-0 text-primary" aria-hidden="true" />
+        <span className="min-w-0 flex-1">{t('engineSidebar.connectRemoteDevice')}</span>
+        <ChevronRightIcon
+          className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover/remote:translate-x-0.5 motion-reduce:transition-none"
+          aria-hidden="true"
+        />
+      </Link>
     </PopoverContent>
   );
   const engines = [
@@ -522,13 +668,15 @@ export function StatusBar({
   }, [presetRefreshing, appliedProfile]);
   const applicable = profile.data?.applicable_families ?? profile.data?.implemented_families ?? [];
   const displayEngines = engines.map((row) =>
-    presetEngineFeedback(
-      row,
-      appliedProfile,
-      refreshing[row.family as keyof typeof refreshing],
-      profile.isSaving,
-      applicable,
-    ),
+    activeComputeTarget?.remote && row.family === 'tts'
+      ? row
+      : presetEngineFeedback(
+          row,
+          appliedProfile,
+          refreshing[row.family as keyof typeof refreshing],
+          profile.isSaving,
+          applicable,
+        ),
   );
   const engineRows = (rowLevel: EngineDetailLevel) =>
     displayEngines
@@ -618,7 +766,7 @@ export function StatusBar({
         render={
           <button
             type="button"
-            aria-label={`${deviceLabel}: ${stageText}`}
+            aria-label={`${deviceLabel}: ${deviceStageText}`}
             className={cn(
               engineLinkClass,
               inline ? 'relative size-8' : 'relative h-7 w-full',
@@ -636,7 +784,7 @@ export function StatusBar({
               : deviceIconOnly
                 ? 'absolute end-1.5 top-1 size-1.5 rounded-full'
                 : 'ml-auto size-1.5 shrink-0 rounded-full',
-            stageDot,
+            deviceDot,
           )}
           aria-hidden="true"
         />
@@ -651,8 +799,8 @@ export function StatusBar({
         render={
           <button
             type="button"
-            aria-label={`${deviceLabel}: ${stageText}`}
-            title={`${deviceLabel}: ${stageText}`}
+            aria-label={`${deviceLabel}: ${deviceStageText}`}
+            title={`${deviceLabel}: ${deviceStageText}`}
             className="group/status flex h-7 min-w-0 flex-1 items-center gap-1.5 rounded-md px-2 text-left outline-none transition-[background-color,box-shadow,backdrop-filter] duration-150 hover:bg-sidebar-accent/65 hover:backdrop-blur-xl hover:shadow-[inset_0_1px_0_rgb(255_255_255/8%),0_5px_14px_rgb(0_0_0/10%)] hover:ring-1 hover:ring-inset hover:ring-sidebar-border/60 focus-visible:ring-2 focus-visible:ring-ring"
           />
         }
@@ -664,7 +812,7 @@ export function StatusBar({
           <span
             className={cn(
               'absolute -end-0.5 -bottom-0.5 size-1.5 rounded-full ring-2 ring-sidebar',
-              stageDot,
+              deviceDot,
             )}
           />
         </span>

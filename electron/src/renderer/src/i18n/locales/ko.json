@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "팔로우",
-    "website": "웹사이트"
+    "website": "웹사이트",
+    "collapseFooter": "바닥글 접기",
+    "expandFooter": "바닥글 펼치기"
   },
   "twilioIntegration": {
     "exposureWarning": "켜면 터널이 인터넷에 공개하는 별도의 로컬 포트가 열립니다. Twilio Auth Token으로 서명된 요청만 허용되며 VoiceStudio의 나머지 부분은 비공개로 유지됩니다.",
@@ -316,7 +318,9 @@
     "remove": "{{term}} 제거",
     "test_label": "문장 테스트",
     "test_result": "다음과 같이 발음됩니다:",
-    "title": "발음 사전"
+    "title": "발음 사전",
+    "import_replace_prompt": "기존 {{count}}개 항목을 가져온 파일로 바꾸시겠습니까? '아니요'를 선택하면 기존 항목에 추가됩니다.",
+    "import_done": "{{count}}개 항목을 가져왔습니다."
   },
   "preferences": {
     "title": "설정",
@@ -402,7 +406,8 @@
     "translation": "번역",
     "localDevice": "로컬 기기",
     "localShort": "로컬",
-    "diarisation": "화자 분리"
+    "diarisation": "화자 분리",
+    "connectRemoteDevice": "원격 기기 연결"
   },
   "paneActions": {
     "collapse": "패널 접기",
@@ -949,7 +954,8 @@
     "track_tip_timing": "타이밍 {{strategy}}",
     "transcribing": "오디오 전사 중…",
     "transcript_after_extract": "추출이 끝나면 전사문이 표시됩니다.",
-    "upload_transcribe": "업로드 및 전사"
+    "upload_transcribe": "업로드 및 전사",
+    "glossary_btn": "+ 용어집 ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "오디오 준비 중…",
@@ -1522,7 +1528,102 @@
     "usage_empty": "아직 생성한 항목이 없습니다. 무언가 만들면 여기에 표시됩니다.",
     "usage_since": "{{date}}부터",
     "usage_starred": "별표 표시한 테이크",
-    "usage_takes": "생성한 테이크"
+    "usage_takes": "생성한 테이크",
+    "worker_join": "참여",
+    "workers_title": "원격 워커",
+    "workers_desc": "개별 작업을 다른 컴퓨터의 GPU로 보냅니다. 결과는 이곳으로 돌아옵니다. 워커를 추가하고 승인하기 전까지는 아무것도 전송되지 않습니다.",
+    "workers_enable": "원격 워커 사용",
+    "workers_enable_hint": "이 설정이 꺼져 있는 동안에는 연결을 받지 않으며 이 컴퓨터에서 나가는 것도 없습니다.",
+    "workers_port_conflict": "다른 VoiceStudio 인스턴스가 이미 이 포트에서 원격 워커 연결을 받고 있어 사용할 수 없습니다. 다른 인스턴스를 닫거나 OMNIVOICE_WORKER_PORT를 다른 포트로 설정한 뒤 VoiceStudio를 다시 시작하세요.",
+    "workers_endpoint": "워커 연결 주소",
+    "workers_endpoint_hint": "워커가 이 주소에 도달할 수 있어야 합니다. 네트워크가 다르면 Tailscale 같은 VPN이 확실한 방법입니다.",
+    "workers_add": "워커 추가",
+    "workers_add_hint": "토큰을 생성한 뒤 다른 컴퓨터의 OmniVoice에 붙여 넣으세요.",
+    "workers_new_token": "토큰 생성",
+    "workers_token_once": "지금 복사하세요 — 한 번만 표시되고, 한 번만 사용할 수 있으며, 15분 후 만료됩니다.",
+    "workers_copy": "복사",
+    "workers_copied": "복사됨",
+    "workers_copy_failed": "복사할 수 없습니다.",
+    "workers_none": "아직 워커가 없습니다. 토큰을 생성해 첫 워커를 추가하세요.",
+    "workers_load": "작업 {{active}} / {{slots}}",
+    "workers_needs_consent": "승인되지 않음",
+    "workers_status_online": "온라인",
+    "workers_status_offline": "오프라인",
+    "workers_status_paused": "일시 중지됨",
+    "workers_status_disabled": "비활성화됨",
+    "workers_resume": "재개",
+    "workers_disable": "비활성화",
+    "workers_enable_one": "활성화",
+    "workers_remove": "제거",
+    "workers_remove_title": "워커를 제거할까요?",
+    "workers_remove_confirm": "{{name}}을(를) 제거할까요? 키가 취소되어 새 토큰 없이는 다시 연결할 수 없습니다.",
+    "workers_rename": "워커 이름 변경",
+    "inbound_add_person": "사용자 추가",
+    "inbound_add_person_hint": "한 사람을 위한 연결 문자열을 만듭니다. 하나를 삭제해도 다른 모든 사람이 끊기지 않도록 각자에게 개별 문자열을 주세요.",
+    "inbound_bind": "접속 허용 주소",
+    "inbound_bind_apply": "적용",
+    "inbound_bind_exposed": "{{address}}에 접근할 수 있는 사람은 유효한 연결 문자열로 접속할 수 있습니다. TLS가 세션을 암호화하고 이 컴퓨터의 인증서를 고정합니다. 각 문자열을 비공개로 유지하고 불필요한 접근은 삭제하세요.",
+    "inbound_bind_local": "이 컴퓨터에서만 접근할 수 있습니다. 다른 컴퓨터가 연결할 수 있도록 네트워크 주소를 입력하세요.",
+    "inbound_connect": "연결",
+    "inbound_connect_desc": "받은 연결 문자열을 붙여 넣으세요. 상대 컴퓨터가 연결을 받고 있어야 작동합니다.",
+    "inbound_connect_hint": "ovnode://로 시작하며 키, 주소, 포트, 인증서 지문을 포함합니다.",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "해당 GPU 컴퓨터에 연결할 수 없습니다. 온라인 상태이며 연결을 허용하는지 확인한 후 다시 시도하세요.",
+    "inbound_connect_row": "연결 문자열",
+    "inbound_connect_title": "GPU 컴퓨터에 연결",
+    "inbound_connected": "연결됨",
+    "inbound_connected_now": "현재 연결됨",
+    "inbound_connecting": "연결 중…",
+    "inbound_create": "만들기",
+    "inbound_desc": "다른 컴퓨터가 연결하도록 허용하여 여러 사람이 이 GPU를 공유할 수 있게 합니다. 모든 연결은 암호화되며 이 컴퓨터의 인증서에 고정됩니다.",
+    "inbound_disconnect": "연결 끊기",
+    "inbound_enable": "연결 수락",
+    "inbound_enable_hint": "이 컴퓨터가 상대에게 연결하는 대신 상대가 이 컴퓨터에 연결합니다. 사용자가 만든 연결 문자열이 없으면 아무도 들어올 수 없습니다.",
+    "inbound_exposed_badge": "네트워크에 공개됨",
+    "inbound_forget": "제거",
+    "inbound_hours_ago": "{{count}}시간 전",
+    "inbound_jobs_run": "작업 {{count}}건",
+    "inbound_just_now": "방금",
+    "inbound_label": "이름",
+    "inbound_label_placeholder": "앨리스의 노트북",
+    "inbound_last_seen": "마지막 사용 {{when}}",
+    "inbound_minutes_ago": "{{count}}분 전",
+    "inbound_nobody": "연결된 사용자가 없습니다.",
+    "inbound_people": "접근 권한이 있는 사용자",
+    "inbound_revoke": "제거",
+    "inbound_revoke_confirm": "{{label}} 의 접근 권한을 제거할까요? 해당 연결 문자열은 즉시 작동을 멈춥니다. 다른 사람들은 계속 연결되어 있습니다.",
+    "inbound_revoke_title": "접근 권한을 제거할까요?",
+    "inbound_shown_once": "지금 복사하세요. 다시 표시되지 않습니다. {{label}} 에게만 전달하세요.",
+    "inbound_shown_once_warning": "비밀번호처럼 다루고 비공개로 전달하세요. 인증서 지문이 암호화된 연결을 이 GPU 컴퓨터에 고정합니다.",
+    "inbound_title": "이 GPU를 다른 사람과 공유",
+    "worker_join_code": "참여 코드",
+    "worker_join_code_hint": "일회용이며 15분 후 만료됩니다. 작업을 보낼 컴퓨터에서 생성하세요.",
+    "worker_join_desc": "다른 VoiceStudio가 이 컴퓨터로 작업을 보낼 수 있게 합니다. 그쪽에 표시된 참여 코드를 붙여 넣거나, QR을 휴대폰으로 스캔해 여기에 붙여 넣으세요.",
+    "worker_join_env": "이 컴퓨터의 환경에 OMNIVOICE_WORKER_MODE가 설정되어 있어 그 값이 우선합니다. 변경은 거기에서 하세요.",
+    "worker_join_no_endpoint": "기억된 컨트롤 플레인이 없습니다.",
+    "worker_join_ok": "참여했습니다. 이 컴퓨터가 이제 작업을 받고 있습니다.",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "다른 곳에 참여",
+    "worker_join_stopped": "중지됨",
+    "worker_join_take_work": "작업을 받는 곳",
+    "worker_join_title": "이 컴퓨터의 GPU 빌려주기",
+    "worker_join_working": "작업 중",
+    "workers_add_hint_qr": "토큰을 생성한 뒤 다른 컴퓨터에서 QR을 스캔하거나, 그 컴퓨터의 원격 워커 설정에 코드를 붙여 넣으세요.",
+    "workers_approve": "승인",
+    "workers_last_seen": "마지막 접속 {{when}}",
+    "workers_qr_alt": "이 코드를 담은 QR 코드 — 다른 컴퓨터에서 스캔하세요",
+    "workers_secret_done": "완료",
+    "workers_seen_hr": "{{count}}시간 전",
+    "workers_seen_min": "{{count}}분 전",
+    "workers_seen_now": "방금 전",
+    "workers_step_1": "GPU가 있는 컴퓨터에 VoiceStudio를 설치하세요.",
+    "workers_step_2": "위에서 토큰을 생성하세요.",
+    "workers_step_3": "거기에서 QR을 스캔하거나, 그 컴퓨터의 원격 워커 설정에 코드를 붙여 넣으세요.",
+    "workers_summary_none": "연결된 워커 없음",
+    "workers_summary_online": "{{count}}대 온라인",
+    "workers_token_expired": "만료됨 — 새로 생성하세요",
+    "workers_token_expires_in": "{{time}} 후 만료",
+    "workers_token_qr_hint": "다른 컴퓨터에서: 설정 → 시스템 → 원격 워커 → 참여로 이동한 뒤 스캔하거나 붙여 넣으세요."
   },
   "gallery": {
     "title": "VoiceStudio 갤러리",
@@ -1875,7 +1976,10 @@
     "resetInlineVoice": "줄의 음성으로 초기화",
     "splitIntoTracks": "줄 단위로 나누기",
     "stemsDone": "등장인물 분리 트랙 {{count}}개를 내보냈습니다",
-    "subtitle": "등장인물마다 음성을 지정하는 멀티트랙 오디오북"
+    "subtitle": "등장인물마다 음성을 지정하는 멀티트랙 오디오북",
+    "castTitle": "캐스팅 — 각 캐릭터에 음성 할당",
+    "autocastDone": "{{voices}}개 음성에 걸쳐 {{lines}}줄 자동 캐스팅 완료",
+    "voice": "목소리"
   },
   "audiobook": {
     "cast": "캐스트",
@@ -2006,7 +2110,9 @@
     "insert_pause": "일시 정지",
     "preview_plan": "계획 미리 보기",
     "ready": "오디오북 준비 완료",
-    "title": "오디오북"
+    "title": "오디오북",
+    "stats": "{{chapters}}개 챕터 · 약 {{words}}단어 · 예상 {{runtime}}",
+    "warn_unknown_voice": "알 수 없는 음성 ‘{{name}}’ — 기본값을 사용합니다"
   },
   "credentials": {
     "microsoft_key": "마이크로소프트 번역기 키",
@@ -2051,7 +2157,8 @@
     "model_related_sources": "관련 출처:",
     "self_check_attention_one": "검사 {{count}}개가 실패했습니다. 위의 안내를 확인하세요.",
     "self_check_attention_other": "검사 {{count}}개가 실패했습니다. 위의 안내를 확인하세요.",
-    "architecture": "아키텍처"
+    "architecture": "아키텍처",
+    "self_check_attention": "{{count}}개 점검 실패 — 위의 힌트를 확인하세요."
   },
   "privacy": {
     "translator_online": "번역가가 온라인 상태입니다: {{provider}}",
@@ -2267,7 +2374,8 @@
     "region_global": "글로벌(직접)",
     "region_restricted": "제한됨(미러)",
     "region_china": "중국(미러)",
-    "region_russia": "러시아(미러)"
+    "region_russia": "러시아(미러)",
+    "remaining_amount": "약 {{amount}} 남음"
   },
   "capture": {
     "no_speech": "음성이 감지되지 않았습니다.",
@@ -2613,7 +2721,8 @@
       "met": "🎉 목표 달성 — {{raised}} 모금되었습니다. 감사합니다!",
       "social_proof_one": "로컬 AI를 후원하는 {{count}}명의 후원자와 함께하세요",
       "social_proof_other": "로컬 AI를 후원하는 {{count}}명의 후원자와 함께하세요",
-      "remaining": "목표까지 {{amount}}"
+      "remaining": "목표까지 {{amount}}",
+      "social_proof": "로컬 AI에 자금을 지원하는 {{count}}명의 후원자와 함께하세요"
     },
     "postcard": {
       "title": "VoiceStudio 개발 지원",
@@ -2651,7 +2760,11 @@
     "sponsors_perk": "후원사의 로고는 앱과 README에 표시되며 프로젝트 사이트에도 자리가 제공됩니다.",
     "star_github": "GitHub에서 스타",
     "tab_license": "상업용 라이선스",
-    "toggle_label": "후원 또는 상업용 라이선스"
+    "toggle_label": "후원 또는 상업용 라이선스",
+    "sponsors_tier_bronze": "브론즈",
+    "sponsors_tier_gold": "골드",
+    "sponsors_tier_platinum": "플래티넘",
+    "sponsors_tier_silver": "실버"
   },
   "enterprise": {
     "desc": "상용 사용자를 위한 전문 라이선스 및 기술 지원.",
@@ -3001,7 +3114,9 @@
     "timing_review_many": "{{count}}개 구간의 타이밍을 검토해야 합니다",
     "asr_hint": "지금 ASR 오류를 바로잡으세요. 정확한 대본이면 나중에 TTS 재시도를 줄일 수 있습니다.",
     "asr_title": "전사문 준비 완료",
-    "done_hint": "타이밍과 동기화 비율을 검토하세요. 줄을 수정한 뒤 \"변경분 재생성\"을 누르면 해당 부분만 빠르게 다시 만들 수 있습니다."
+    "done_hint": "타이밍과 동기화 비율을 검토하세요. 줄을 수정한 뒤 \"변경분 재생성\"을 누르면 해당 부분만 빠르게 다시 만들 수 있습니다.",
+    "segment_one": "{{count}} 세그먼트",
+    "segment_other": "{{count}} 세그먼트"
   },
   "header": {
     "memory_management": "메모리 관리",
@@ -3788,7 +3903,8 @@
     "shortNoncommercial": "비상업적",
     "label": "라이선스",
     "shortUnknown": "알 수 없음",
-    "terms": "라이선스"
+    "terms": "라이선스",
+    "blockerRemote": "원격 대상에서는 검토된 설치를 사용할 수 없습니다."
   },
   "mobile": {
     "home": {
@@ -4537,5 +4653,45 @@
     "room_tone": "일시 정지를 룸톤으로 채우기",
     "room_tone_note": "[pause] 표시와 오디오북 간격에 디지털 무음 대신 녹음 자체의 조용한 배경음을 넣어 줄 사이에서 소리가 끊기지 않게 합니다.",
     "env_pinned": "{{env}}(으)로 설정되어 있습니다. 이 스위치를 사용하려면 값을 바꾸거나 지우세요."
+  },
+  "compute": {
+    "add_machine": "컴퓨터 추가",
+    "manage": "원격 워커 설정",
+    "off_hint": "모든 작업이 이 컴퓨터에서 실행됩니다. 다른 컴퓨터를 사용하려면 원격을 켜세요.",
+    "quick_settings": "컴퓨팅 — 작업 실행 위치",
+    "remote": "원격",
+    "title": "작업 실행 위치",
+    "token_once": "다른 컴퓨터에서 이 코드를 스캔하거나 붙여 넣으세요. 한 번만 표시됩니다."
+  },
+  "sponsorSlot": {
+    "partner_heading": "VoiceStudio와 파트너 되기",
+    "partner_subtitle": "음성으로 만드는 사람들에게 제품을 소개하세요.",
+    "app_placement": "앱 내 노출",
+    "integration_page": "통합 페이지",
+    "readme_exposure": "README 노출",
+    "visibility": "가시성",
+    "integration": "제품 통합",
+    "installs": "직접 설치",
+    "distribution": "개발자 배포",
+    "partner": "검증된 파트너",
+    "privacy": "개인정보 보호",
+    "title": "VoiceStudio에서 브랜드를 소개하세요",
+    "description": "유료 추천 슬롯을 후원하여 브랜드의 노출을 높이세요.",
+    "form": "Google 양식",
+    "email": "이메일",
+    "book": "스폰서 자리 신청",
+    "preview": "스폰서 미리보기",
+    "footer_brand": "스폰서 되기",
+    "footer_promo": "비즈니스를 홍보하세요",
+    "footer_downloads": "Electron 설치 파일 다운로드",
+    "footer_views": "GitHub 저장소 조회수(14일)",
+    "footer_stars": "GitHub 스타",
+    "footer_stats_note": "2026년 9월 25일 확인한 GitHub 데이터. 다운로드는 v0.5.3 이후, 조회수는 9월 10~23일 기준.",
+    "footer_book": "지금 추가",
+    "email_template": "VoiceStudio 팀께,\n\nVoiceStudio와 파트너십을 맺고 제 브랜드의 주요 노출을 검토하고 싶습니다.\n\n브랜드 / 제품:\n웹사이트:\n연동 또는 캠페인:\n대상 / 일정:\n\n이용 가능한 패키지, 가격, 노출 옵션과 기술 요구사항을 알려주실 수 있을까요? 추천 파트너십에는 문서 페이지, GitHub README 로고, 앱 푸터 슬롯, Integrations 디렉터리 노출이 포함되는 것으로 이해하고 있습니다.\n\n감사합니다.\n[이름]\n[직함 / 회사]\n[연락처]",
+    "message": "브랜드, 웹사이트 및 메시지",
+    "email_app": "이메일 앱 열기",
+    "copy_email": "이메일 주소 복사",
+    "preview_detail": "여기에 로고, 링크 및 소개를 표시할 수 있습니다."
   }
 }

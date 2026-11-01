@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "Takip et",
-    "website": "Web sitesi"
+    "website": "Web sitesi",
+    "collapseFooter": "Alt çubuğu daralt",
+    "expandFooter": "Alt çubuğu genişlet"
   },
   "twilioIntegration": {
     "exposureWarning": "Bunu açmak, tünelinizin internette yayımladığı ayrı bir yerel bağlantı noktası açar. Yalnızca Twilio Auth Token'ınızla imzalanan istekler kabul edilir; VoiceStudio'nun geri kalanı gizli kalır.",
@@ -316,7 +318,9 @@
     "import_done_one": "{{count}} giriş içe aktarıldı.",
     "import_done_other": "{{count}} giriş içe aktarıldı.",
     "entries_count_one": "{{count}} giriş",
-    "entries_count_other": "{{count}} giriş"
+    "entries_count_other": "{{count}} giriş",
+    "import_replace_prompt": "Mevcut {{count}} giriş içe aktarılan dosyayla değiştirilsin mi? İçe aktarılan girişleri mevcutların yanına eklemek için Hayır'ı seçin.",
+    "import_done": "{{count}} giriş içe aktarıldı."
   },
   "preferences": {
     "title": "Ayarlar",
@@ -402,7 +406,8 @@
     "translation": "Çeviri",
     "diarisation": "Konuşmacı ayrıştırma",
     "localDevice": "Yerel cihaz",
-    "localShort": "Yerel"
+    "localShort": "Yerel",
+    "connectRemoteDevice": "Uzak cihaza bağlan"
   },
   "paneActions": {
     "collapse": "Paneli daralt",
@@ -949,7 +954,8 @@
     "glossary_label": "Sözlük",
     "set_speaker": "Konuşmacı ata…",
     "new_speaker": "Yeni konuşmacı",
-    "speaker_label": "Konuşmacı"
+    "speaker_label": "Konuşmacı",
+    "glossary_btn": "+ Sözlük ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "Ses hazırlanıyor…",
@@ -1522,7 +1528,102 @@
     "gpu_report_engine_no_family_path": "CPU: GPU türünüz için yol yok",
     "gpu_report_engine_no_gpu": "CPU: kullanılabilir GPU yok",
     "gpu_report_engine_needs_accelerator": "Bu bilgisayarda olmayan bir GPU ({{needs}}) gerekir",
-    "models_dir_desc": "İndirilen modeller burada saklanır. Bu sürücü dolarsa daha fazla boş alanı olan bir sürücü seçin."
+    "models_dir_desc": "İndirilen modeller burada saklanır. Bu sürücü dolarsa daha fazla boş alanı olan bir sürücü seçin.",
+    "worker_join": "Katıl",
+    "workers_title": "Uzak işçiler",
+    "workers_desc": "Tek tek işleri diğer makinelerinizdeki GPU'lara gönderin. Sonuçlar buraya döner. Bir işçi ekleyip onaylayana kadar hiçbir şey gönderilmez.",
+    "workers_enable": "Uzak işçileri kullan",
+    "workers_enable_hint": "Bu kapalıyken hiçbir bağlantı kabul edilmez ve bu makineden hiçbir şey çıkmaz.",
+    "workers_port_conflict": "Başka bir VoiceStudio örneği bu bağlantı noktasında uzak çalışanları zaten kabul ettiği için uzak çalışanlar kullanılamıyor. Diğer örneği kapatın veya OMNIVOICE_WORKER_PORT değerini farklı bir bağlantı noktası yapıp VoiceStudio'yu yeniden başlatın.",
+    "workers_endpoint": "İşçilerin bağlanacağı adres",
+    "workers_endpoint_hint": "Bir işçinin bu adrese erişebilmesi gerekir. Farklı ağlarda Tailscale gibi bir VPN güvenilir yoldur.",
+    "workers_add": "İşçi ekle",
+    "workers_add_hint": "Bir belirteç oluşturun ve diğer makinedeki OmniVoice'a yapıştırın.",
+    "workers_new_token": "Belirteç oluştur",
+    "workers_token_once": "Şimdi kopyalayın — yalnızca bir kez gösterilir, yalnızca bir kez çalışır ve 15 dakika içinde sona erer.",
+    "workers_copy": "Kopyala",
+    "workers_copied": "Kopyalandı",
+    "workers_copy_failed": "Kopyalanamadı.",
+    "workers_none": "Henüz işçi yok. İlkini eklemek için bir belirteç oluşturun.",
+    "workers_load": "Görevler {{active}} / {{slots}}",
+    "workers_needs_consent": "Onaylanmadı",
+    "workers_status_online": "Çevrimiçi",
+    "workers_status_offline": "Çevrimdışı",
+    "workers_status_paused": "Duraklatıldı",
+    "workers_status_disabled": "Devre dışı",
+    "workers_resume": "Sürdür",
+    "workers_disable": "Devre dışı bırak",
+    "workers_enable_one": "Etkinleştir",
+    "workers_remove": "Kaldır",
+    "workers_remove_title": "İşçi kaldırılsın mı?",
+    "workers_remove_confirm": "{{name}} kaldırılsın mı? Anahtarı iptal edilir, bu yüzden yeni bir belirteç olmadan yeniden bağlanamaz.",
+    "workers_rename": "İşçiyi yeniden adlandır",
+    "inbound_add_person": "Kişi ekle",
+    "inbound_add_person_hint": "Bir kişi için bağlantı dizesi oluşturur. Herkese kendi dizesini verin; böylece birini kaldırmak diğerlerinin bağlantısını kesmez.",
+    "inbound_bind": "Erişilebilir adres",
+    "inbound_bind_apply": "Uygula",
+    "inbound_bind_exposed": "{{address}} adresine erişebilen herkes geçerli bir bağlantı dizesiyle bağlanabilir. TLS oturumu şifreler ve bu makinenin sertifikasını sabitler; her dizeyi gizli tutun ve gereksiz erişimi kaldırın.",
+    "inbound_bind_local": "Yalnızca bu makine erişebilir. Diğer makinelerin bağlanabilmesi için ağ adresinizi girin.",
+    "inbound_connect": "Bağlan",
+    "inbound_connect_desc": "Size verilen bağlantı dizesini yapıştırın. Bunun çalışması için makinenin bağlantı kabul ediyor olması gerekir.",
+    "inbound_connect_hint": "ovnode:// ile başlar; anahtarı, adresi, bağlantı noktasını ve sertifika parmak izini içerir.",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "Bu GPU makinesine ulaşılamadı. Çevrimiçi ve bağlantı kabul ediyor olduğundan emin olup yeniden deneyin.",
+    "inbound_connect_row": "Bağlantı dizesi",
+    "inbound_connect_title": "Bir GPU makinesine bağlan",
+    "inbound_connected": "bağlı",
+    "inbound_connected_now": "Şu anda bağlı olanlar",
+    "inbound_connecting": "bağlanıyor…",
+    "inbound_create": "Oluştur",
+    "inbound_desc": "Birden fazla kişinin bu GPU'yu paylaşabilmesi için diğer makinelerin bağlanmasına izin verin. Her bağlantı şifrelenir ve bu makinenin sertifikasına sabitlenir.",
+    "inbound_disconnect": "Bağlantıyı kes",
+    "inbound_enable": "Bağlantıları kabul et",
+    "inbound_enable_hint": "Diğerleri bu makineye bağlanır, bu makine onlara değil. Sizin oluşturduğunuz bir bağlantı dizesi olmadan kimse giremez.",
+    "inbound_exposed_badge": "Ağınızda",
+    "inbound_forget": "Kaldır",
+    "inbound_hours_ago": "{{count}} sa önce",
+    "inbound_jobs_run": "{{count}} iş",
+    "inbound_just_now": "az önce",
+    "inbound_label": "Ad",
+    "inbound_label_placeholder": "Alice'in dizüstü bilgisayarı",
+    "inbound_last_seen": "son kullanım {{when}}",
+    "inbound_minutes_ago": "{{count}} dk önce",
+    "inbound_nobody": "Kimse bağlı değil.",
+    "inbound_people": "Erişimi olan kişiler",
+    "inbound_revoke": "Kaldır",
+    "inbound_revoke_confirm": "{{label}} için erişim kaldırılsın mı? Bağlantı dizesi hemen çalışmayı bırakır. Diğer herkes bağlı kalır.",
+    "inbound_revoke_title": "Erişim kaldırılsın mı?",
+    "inbound_shown_once": "Şimdi kopyalayın — bir daha gösterilmez. Yalnızca {{label}} kişisine verin.",
+    "inbound_shown_once_warning": "Bunu bir parola gibi görün ve özel olarak gönderin. Sertifika parmak izi, şifreli bağlantıyı bu GPU makinesine sabitler.",
+    "inbound_title": "Bu GPU'yu başkalarıyla paylaş",
+    "worker_join_code": "Katılım kodu",
+    "worker_join_code_hint": "Tek kullanımlıktır ve 15 dakika içinde geçerliliğini yitirir. İşi gönderecek makinede oluşturun.",
+    "worker_join_desc": "Başka bir VoiceStudio kopyasının bu makineye iş göndermesine izin verin. Orada gösterilen katılım kodunu yapıştırın — veya QR'ını telefonunuzla tarayıp buraya yapıştırın.",
+    "worker_join_env": "Bu makinenin ortamında OMNIVOICE_WORKER_MODE ayarlı olduğundan karar onundur — değişikliği orada yapın.",
+    "worker_join_no_endpoint": "Kayıtlı bir kontrol düzlemi yok.",
+    "worker_join_ok": "Katıldı. Bu makine artık iş alıyor.",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "Başka birine katıl",
+    "worker_join_stopped": "Durduruldu",
+    "worker_join_take_work": "İş alınan kaynak",
+    "worker_join_title": "Bu makinenin GPU'sunu ödünç ver",
+    "worker_join_working": "Çalışıyor",
+    "workers_add_hint_qr": "Bir belirteç oluşturun, ardından diğer makineden QR'ı tarayın veya kodu o makinenin Uzak işçiler ayarlarına yapıştırın.",
+    "workers_approve": "Onayla",
+    "workers_last_seen": "son görülme {{when}}",
+    "workers_qr_alt": "Bu kodu taşıyan QR kodu — diğer makineden tarayın",
+    "workers_secret_done": "Bitti",
+    "workers_seen_hr": "{{count}} sa önce",
+    "workers_seen_min": "{{count}} dk önce",
+    "workers_seen_now": "az önce",
+    "workers_step_1": "GPU'lu makineye VoiceStudio'yu kurun.",
+    "workers_step_2": "Yukarıda bir belirteç oluşturun.",
+    "workers_step_3": "Orada QR'ı tarayın veya kodu o makinenin Uzak işçiler ayarlarına yapıştırın.",
+    "workers_summary_none": "Bağlı kimse yok",
+    "workers_summary_online": "{{count}} çevrimiçi",
+    "workers_token_expired": "Süresi doldu — yenisini oluşturun",
+    "workers_token_expires_in": "{{time}} içinde süresi dolacak",
+    "workers_token_qr_hint": "Diğer makinede: Ayarlar → Sistem → Uzak işçiler → Katıl, sonra tarayın veya yapıştırın."
   },
   "gallery": {
     "title": "VoiceStudio Galeri",
@@ -1875,7 +1976,10 @@
     "splitMode": "Şuna göre böl",
     "split_chapters": "Bölümler",
     "split_paragraphs": "Paragraflar",
-    "split_sentences": "Cümleler"
+    "split_sentences": "Cümleler",
+    "castTitle": "Cast — her karaktere bir ses atayın",
+    "autocastDone": "{{voices}} ses(ler) arasında {{lines}} satırı otomatik yayınla",
+    "voice": "ses"
   },
   "audiobook": {
     "cast": "Kadro",
@@ -2006,7 +2110,9 @@
     "cast_note_other": "{{names}} için henüz ses seçilmedi, ana sesle okunurlar. Oyuncular bölümünden ses seçin.",
     "line_gap": "Satırların arasındaki duraklama",
     "paragraph_gap": "Paragrafların arasındaki duraklama",
-    "trim_edges": "Motorun sessiz kısımlarını kes"
+    "trim_edges": "Motorun sessiz kısımlarını kes",
+    "stats": "{{chapters}} bölüm · {{words}} kelime · {{runtime}} tahmini süre",
+    "warn_unknown_voice": "Bilinmeyen ses ‘{{name}}’ — varsayılan kullanılacak"
   },
   "credentials": {
     "microsoft_key": "Microsoft Çevirmen Anahtarı",
@@ -2051,7 +2157,8 @@
     "model_terms": "Model koşulları",
     "model_related_sources": "İlgili kaynaklar:",
     "self_check_attention_one": "{{count}} denetim başarısız oldu — yukarıdaki ipuçlarına bakın.",
-    "self_check_attention_other": "{{count}} denetim başarısız oldu — yukarıdaki ipuçlarına bakın."
+    "self_check_attention_other": "{{count}} denetim başarısız oldu — yukarıdaki ipuçlarına bakın.",
+    "self_check_attention": "{{count}} denetim başarısız — yukarıdaki ipuçlarına bakın."
   },
   "privacy": {
     "translator_online": "Çevirmen çevrimiçi: {{provider}}",
@@ -2267,7 +2374,8 @@
     "region_global": "Küresel (doğrudan)",
     "region_china": "Çin (ayna)",
     "region_russia": "Rusya (ayna)",
-    "region_restricted": "Kısıtlanmış (ayna)"
+    "region_restricted": "Kısıtlanmış (ayna)",
+    "remaining_amount": "~{{amount}} kaldı"
   },
   "capture": {
     "no_speech": "Konuşma algılanmadı",
@@ -2615,7 +2723,8 @@
       "remaining": "{{amount}} gitmek",
       "met": "🎉 Hedefe ulaşıldı — {{raised}} yükseldi. Teşekkür ederim!",
       "social_proof_one": "Yerel yapay zekâyı destekleyen {{count}} kişiye katılın",
-      "social_proof_other": "Yerel yapay zekâyı destekleyen {{count}} kişiye katılın"
+      "social_proof_other": "Yerel yapay zekâyı destekleyen {{count}} kişiye katılın",
+      "social_proof": "Yerel yapay zekayı finanse eden {{count}} destekçilerine katılın"
     },
     "postcard": {
       "title": "VoiceStudio geliştirmelerini destekleyin",
@@ -2651,7 +2760,11 @@
     "sponsors_tier_development": "Geliştirme",
     "sponsors_tier_community": "Topluluk",
     "sponsors_tier_supporter": "Destekçi",
-    "sponsors_title": "Sponsorlar"
+    "sponsors_title": "Sponsorlar",
+    "sponsors_tier_platinum": "Platin",
+    "sponsors_tier_gold": "Altın",
+    "sponsors_tier_silver": "Gümüş",
+    "sponsors_tier_bronze": "Bronz"
   },
   "enterprise": {
     "title": "Ticari Lisans",
@@ -3001,7 +3114,9 @@
     "timing_review_zero": "{{count}} bölümün zamanlaması incelenmeli",
     "timing_review_two": "{{count}} bölümün zamanlaması incelenmeli",
     "timing_review_few": "{{count}} bölümün zamanlaması incelenmeli",
-    "timing_review_many": "{{count}} bölümün zamanlaması incelenmeli"
+    "timing_review_many": "{{count}} bölümün zamanlaması incelenmeli",
+    "segment_one": "{{count}} segmenti",
+    "segment_other": "{{count}} segment"
   },
   "header": {
     "memory_management": "Bellek yönetimi",
@@ -3788,7 +3903,8 @@
     "shortCommercial": "Ticari kullanım",
     "shortConditions": "Koşullu",
     "shortNoncommercial": "Ticari değil",
-    "shortUnknown": "Bilinmiyor"
+    "shortUnknown": "Bilinmiyor",
+    "blockerRemote": "İncelenmiş kurulum uzak hedeflerde kullanılamaz."
   },
   "mobile": {
     "home": {
@@ -4537,5 +4653,45 @@
     "room_tone": "Duraklamaları oda sesiyle doldur",
     "room_tone_note": "[pause] işaretleri ve sesli kitap boşlukları dijital sessizlik yerine kaydın kendi sessiz arka planını alır; böylece ses satırlar arasında kesilmez.",
     "env_pinned": "{{env}} tarafından belirlendi. Bu anahtarı kullanmak için değiştirin veya temizleyin."
+  },
+  "compute": {
+    "add_machine": "Makine ekle",
+    "manage": "Uzak işçi ayarları",
+    "off_hint": "Her şey bu makinede çalışır. Başka bir makine kullanmak için Uzak'ı açın.",
+    "quick_settings": "Hesaplama — işlerin çalıştığı yer",
+    "remote": "Uzak",
+    "title": "İşlerin çalıştığı yer",
+    "token_once": "Bunu diğer makinede tarayın veya yapıştırın. Yalnızca bir kez gösterilir."
+  },
+  "sponsorSlot": {
+    "partner_heading": "VoiceStudio ile ortak olun",
+    "partner_subtitle": "Ürününüzü sesle çalışan geliştiricilere tanıtın.",
+    "app_placement": "Uygulama içi yerleşim",
+    "integration_page": "Entegrasyon sayfası",
+    "readme_exposure": "README görünürlüğü",
+    "visibility": "Görünürlük",
+    "integration": "Ürün entegrasyonu",
+    "installs": "Doğrudan kurulumlar",
+    "distribution": "Geliştirici dağıtımı",
+    "partner": "Doğrulanmış iş ortağı",
+    "privacy": "Gizlilik",
+    "title": "VoiceStudio'da öne çıkın",
+    "description": "Ücretli bir öne çıkan alanı sponsorlayarak markanızın görünürlüğünü artırın.",
+    "form": "Google Formu",
+    "email": "E-posta",
+    "book": "Yerinizi ayırtın",
+    "preview": "Sponsor önizlemesi",
+    "footer_brand": "Sponsor olun",
+    "footer_promo": "İşletmenizi tanıtın",
+    "footer_downloads": "Electron yükleyici indirmeleri",
+    "footer_views": "GitHub depo görüntülemeleri (14 gün)",
+    "footer_stars": "GitHub yıldızları",
+    "footer_stats_note": "GitHub verileri 25 Eyl 2026 tarihinde kontrol edildi. İndirmeler v0.5.3’ten beri; görüntülemeler 10–23 Eyl.",
+    "footer_book": "Şimdi ekle",
+    "email_template": "Merhaba VoiceStudio ekibi,\n\nVoiceStudio ile ortaklık kurmak ve markam için öne çıkan bir yerleşimi değerlendirmek istiyorum.\n\nMarka / ürün:\nWeb sitesi:\nEntegrasyon veya kampanya:\nHedef kitle / zamanlama:\n\nMevcut paketleri, fiyatları, yerleşim seçeneklerini ve teknik gereksinimleri paylaşabilir misiniz? Öne çıkan ortaklığın bir dokümantasyon sayfası, GitHub README logosu, uygulama altbilgisi alanı ve Integrations dizininde yer alabileceğini anlıyorum.\n\nTeşekkürler,\n[Ad]\n[Rol / şirket]\n[İletişim]",
+    "message": "Markanız, web siteniz ve mesajınız",
+    "email_app": "E-posta uygulamasını aç",
+    "copy_email": "E-postayı kopyala",
+    "preview_detail": "Logonuz, bağlantınız ve tanıtımınız burada görünebilir."
   }
 }

@@ -48,6 +48,8 @@ VoiceStudio/
 │   ├── plugins/                 extension landing area; contract lives in services/plugin_sdk.py
 │   ├── mcp_shim/                MCP launch surface documented by docs/mcp.md
 │   ├── speech_client/           client entry for the speech sidecar
+│   ├── worker/                  remote / distributed workers — scheduler, pool, routing,
+│   │                            breaker, capacity, plus protocol/ and inbound/
 │   └── tests/                   separately collected backend test session (details below)
 │
 ├── electron/                    ⟵ the only desktop app and web UI (Electron + React 19)

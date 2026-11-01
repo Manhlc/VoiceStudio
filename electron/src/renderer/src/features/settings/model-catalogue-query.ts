@@ -32,6 +32,7 @@ export interface CatalogueModel {
 }
 
 export interface ModelCatalogueResponse {
+  target?: string;
   models: CatalogueModel[];
   total_installed_bytes?: number;
   disk_free_gb?: number;
@@ -54,8 +55,12 @@ export function useModelCatalogue({
     queryFn: () => apiJson<ModelCatalogueResponse>('/models'),
     staleTime: 30_000,
     enabled: isBackendReachable(status.stage),
-    refetchInterval: pollWhile
-      ? (query) => (pollWhile(query.state.data) ? CATALOGUE_POLL_WHILE_WAITING_MS : false)
-      : undefined,
+    refetchInterval: (query) => {
+      if (pollWhile?.(query.state.data)) return CATALOGUE_POLL_WHILE_WAITING_MS;
+      const target = query.state.data?.target;
+      // A remote worker's catalogue can change as its downloads progress.
+      if (target && target !== 'local') return 5_000;
+      return false;
+    },
   });
 }

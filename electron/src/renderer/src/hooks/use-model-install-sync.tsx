@@ -6,6 +6,7 @@ import { isBackendReachable } from '@shared/utils/backendStage';
 
 export interface ModelInstallJob {
   repo_id: string;
+  target?: string;
   state: string;
   bytes_done?: number;
   total_bytes?: number;
@@ -22,6 +23,8 @@ export const TERMINAL_MODEL_INSTALL_STATES = new Set([
   'cancelled',
   'install_cancelled',
 ]);
+
+export const modelInstallJobTarget = (job: ModelInstallJob) => job.target || 'local';
 
 export function modelInstallPollInterval(query: {
   state: { data?: ModelInstallJobsResponse };
@@ -48,7 +51,7 @@ export function useModelInstallCompletionRefresh(jobs: ModelInstallJobsResponse 
     ...new Set(
       jobs?.jobs
         .filter((job) => !TERMINAL_MODEL_INSTALL_STATES.has(job.state))
-        .map((job) => job.repo_id) ?? [],
+        .map((job) => `${modelInstallJobTarget(job)}\u0000${job.repo_id}`) ?? [],
     ),
   ]
     .sort()
@@ -64,6 +67,7 @@ export function useModelInstallCompletionRefresh(jobs: ModelInstallJobsResponse 
         'model-catalogue',
         'model-recommendations',
         'engines',
+        'workers',
         'loaded-models',
         'translation-engines',
         'setup-status',
@@ -80,7 +84,7 @@ export function useModelInstallCompletionRefresh(jobs: ModelInstallJobsResponse 
   }, [client, signature]);
 }
 
-/** Keep every mounted workflow in sync when a local model install finishes. */
+/** Keep every mounted workflow in sync when a local or remote model install finishes. */
 export function ModelInstallSync() {
   const jobs = useModelInstallJobs();
   useModelInstallCompletionRefresh(jobs.data);

@@ -12,10 +12,20 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { apiJson, describeError } from '@/lib/api/client';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { ExternalLink } from '@/components/external-link';
+import { Input } from '@/components/ui/input';
+import { ConfirmDialog } from '@/features/clone/confirm-dialog';
+import { engineFamilyState, useEngines } from '@/hooks/use-engines';
+import { relaxWhenBackendBusy } from '@/lib/status-polling';
 import { InstallProgress } from '@/components/model-install-progress';
 import { describeInstallGroup } from '@/lib/model-install-state';
-import { TERMINAL_MODEL_INSTALL_STATES, useModelInstallJobs } from '@/hooks/use-model-install-sync';
+import {
+  modelInstallJobTarget,
+  TERMINAL_MODEL_INSTALL_STATES,
+  useModelInstallJobs,
+  type ModelInstallJob,
+} from '@/hooks/use-model-install-sync';
 import {
   performanceTiers,
   usePerformanceProfile,
@@ -46,6 +56,7 @@ export interface RecommendedModel {
 }
 
 export interface ModelRecommendations {
+  target?: string;
   device: { label: string };
   models: RecommendedModel[];
   download_gb_remaining: number;
@@ -92,10 +103,14 @@ export function PerformanceModelPacks({ compact = false }: { compact?: boolean }
       catalogue.data?.disk_headroom_gb,
     );
   const pack = resolvePerformanceModelPack(catalogue.data?.models ?? [], tier);
+  const installTarget = catalogue.data?.target ?? 'local';
   const packRepos = new Set(pack.models.map((model) => model.repo_id));
   const activeJobs =
     jobs.data?.jobs.filter(
-      (job) => packRepos.has(job.repo_id) && !TERMINAL_MODEL_INSTALL_STATES.has(job.state),
+      (job) =>
+        packRepos.has(job.repo_id) &&
+        modelInstallJobTarget(job) === installTarget &&
+        !TERMINAL_MODEL_INSTALL_STATES.has(job.state),
     ) ?? [];
   const packView = describeInstallGroup(activeJobs);
   const diskShortfall = pack.missing.length
@@ -137,7 +152,7 @@ export function PerformanceModelPacks({ compact = false }: { compact?: boolean }
         pack.missing.map((model) =>
           apiJson('/models/install', {
             method: 'POST',
-            body: JSON.stringify({ repo_id: model.repo_id }),
+            body: JSON.stringify({ repo_id: model.repo_id, target: installTarget }),
           }),
         ),
       );
@@ -324,6 +339,7 @@ export function ModelLibrary({ title, icon }: { title?: string; icon?: LucideIco
           label={model.label}
           info={model.license_info}
           acceptance={model.license_acceptance}
+          target={installTarget}
         />
         <ModelGatedAccess model={model} ops={ops} info={info} />
         <ModelFailure model={model} ops={ops} info={info} />

@@ -2,8 +2,10 @@ import { describe, expect, it } from 'vitest';
 import {
   ACTIVE_STATUS_POLL_MS,
   BUSY_BACKEND_POLL_MS,
+  IDLE_COMPUTE_TARGET_POLL_MS,
   IDLE_STATUS_POLL_MS,
   batchStatusPollMs,
+  computeTargetPollMs,
   loadedModelsPollMs,
   modelStatusPollMs,
   noteBackendStage,
@@ -16,10 +18,12 @@ describe('runtime status polling', () => {
     expect(modelStatusPollMs(0, 'loading')).toBe(ACTIVE_STATUS_POLL_MS);
     expect(batchStatusPollMs(1)).toBe(ACTIVE_STATUS_POLL_MS);
     expect(loadedModelsPollMs(true)).toBe(ACTIVE_STATUS_POLL_MS);
+    expect(computeTargetPollMs(1)).toBe(ACTIVE_STATUS_POLL_MS);
 
     expect(modelStatusPollMs(0, 'ready')).toBe(IDLE_STATUS_POLL_MS);
     expect(batchStatusPollMs(0)).toBe(IDLE_STATUS_POLL_MS);
     expect(loadedModelsPollMs(false)).toBe(IDLE_STATUS_POLL_MS);
+    expect(computeTargetPollMs(0)).toBe(IDLE_COMPUTE_TARGET_POLL_MS);
   });
 
   it('floors every status poll while the backend is alive but busy (#2594)', () => {
@@ -38,6 +42,7 @@ describe('runtime status polling', () => {
       expect(modelStatusPollMs(1, 'ready')).toBe(BUSY_BACKEND_POLL_MS);
       expect(batchStatusPollMs(3)).toBe(BUSY_BACKEND_POLL_MS);
       expect(loadedModelsPollMs(true)).toBe(BUSY_BACKEND_POLL_MS);
+      expect(computeTargetPollMs(2)).toBe(BUSY_BACKEND_POLL_MS);
     } finally {
       noteBackendStage('ready');
     }

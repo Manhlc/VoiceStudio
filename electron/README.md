@@ -7,7 +7,7 @@ transcription, voice design, and workflows. Tauri is archived at v0.5.3. For
 existing installations, see [migration notes](../docs/electron-migration.md).
 
 The runtime supervisor manages the local FastAPI backend. Network integrations
-and remote-backend connections require configuration; local generation stays on your machine.
+and remote workers / remote-backend connections require configuration; local generation stays on your machine.
 Once setup and the required models are installed, saving cloned voice profiles
 works without internet access. Desktop API requests follow the supervisor's
 backend readiness rather than the browser's internet connectivity; they still
