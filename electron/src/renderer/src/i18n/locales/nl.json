@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "Volgen",
-    "website": "Website"
+    "website": "Website",
+    "collapseFooter": "Voettekst inklappen",
+    "expandFooter": "Voettekst uitklappen"
   },
   "twilioIntegration": {
     "exposureWarning": "Inschakelen opent een aparte lokale poort die je tunnel op internet publiceert. Alleen verzoeken die met je Twilio Auth Token zijn ondertekend worden geaccepteerd; de rest van VoiceStudio blijft privé.",
@@ -316,7 +318,9 @@
     "import_done_one": "{{count}} item geïmporteerd.",
     "import_done_other": "{{count}} items geïmporteerd.",
     "entries_count_one": "{{count}} item",
-    "entries_count_other": "{{count}} items"
+    "entries_count_other": "{{count}} items",
+    "import_replace_prompt": "De {{count}} bestaande vermeldingen vervangen door het geïmporteerde bestand? Kies Nee om de geïmporteerde vermeldingen ernaast toe te voegen.",
+    "import_done": "{{count}} vermeldingen geïmporteerd."
   },
   "preferences": {
     "title": "Instellingen",
@@ -402,7 +406,8 @@
     "translation": "Vertaling",
     "diarisation": "Diarisatie",
     "localDevice": "Lokaal apparaat",
-    "localShort": "Lokaal"
+    "localShort": "Lokaal",
+    "connectRemoteDevice": "Extern apparaat verbinden"
   },
   "paneActions": {
     "collapse": "Paneel inklappen",
@@ -949,7 +954,8 @@
     "glossary_label": "Woordenlijst",
     "set_speaker": "Spreker instellen…",
     "new_speaker": "Nieuwe spreker",
-    "speaker_label": "Spreker"
+    "speaker_label": "Spreker",
+    "glossary_btn": "+ Woordenlijst ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "Audio voorbereiden…",
@@ -1522,7 +1528,102 @@
     "gpu_report_engine_no_family_path": "CPU: geen pad voor uw GPU-type",
     "gpu_report_engine_no_gpu": "CPU: geen GPU beschikbaar",
     "gpu_report_engine_needs_accelerator": "Heeft een GPU ({{needs}}) nodig die deze computer niet heeft",
-    "models_dir_desc": "Gedownloade modellen worden hier opgeslagen. Kies een schijf met meer vrije ruimte als deze volraakt."
+    "models_dir_desc": "Gedownloade modellen worden hier opgeslagen. Kies een schijf met meer vrije ruimte als deze volraakt.",
+    "worker_join": "Koppelen",
+    "workers_title": "Externe workers",
+    "workers_desc": "Stuur losse taken naar de GPU's van je andere machines. De resultaten komen hier terug. Er wordt niets verstuurd totdat je een worker toevoegt en goedkeurt.",
+    "workers_enable": "Externe workers gebruiken",
+    "workers_enable_hint": "Zolang dit uit staat, wordt er geen verbinding geaccepteerd en verlaat er niets deze machine.",
+    "workers_port_conflict": "Externe workers zijn niet beschikbaar omdat een andere VoiceStudio-instantie ze al op deze poort accepteert. Sluit de andere instantie, of stel OMNIVOICE_WORKER_PORT in op een andere poort en start VoiceStudio opnieuw.",
+    "workers_endpoint": "Workers verbinden met",
+    "workers_endpoint_hint": "Een worker moet dit adres kunnen bereiken. Op andere netwerken is een VPN zoals Tailscale de betrouwbare manier.",
+    "workers_add": "Worker toevoegen",
+    "workers_add_hint": "Genereer een token en plak die in OmniVoice op de andere machine.",
+    "workers_new_token": "Token genereren",
+    "workers_token_once": "Kopieer dit nu — het wordt maar één keer getoond, werkt maar één keer en verloopt over 15 minuten.",
+    "workers_copy": "Kopiëren",
+    "workers_copied": "Gekopieerd",
+    "workers_copy_failed": "Kopiëren mislukt.",
+    "workers_none": "Nog geen workers. Genereer een token om je eerste toe te voegen.",
+    "workers_load": "Taken {{active}} / {{slots}}",
+    "workers_needs_consent": "Niet goedgekeurd",
+    "workers_status_online": "Online",
+    "workers_status_offline": "Offline",
+    "workers_status_paused": "Gepauzeerd",
+    "workers_status_disabled": "Uitgeschakeld",
+    "workers_resume": "Hervatten",
+    "workers_disable": "Uitschakelen",
+    "workers_enable_one": "Inschakelen",
+    "workers_remove": "Verwijderen",
+    "workers_remove_title": "Worker verwijderen?",
+    "workers_remove_confirm": "{{name}} verwijderen? De sleutel wordt ingetrokken, dus opnieuw verbinden kan niet zonder nieuw token.",
+    "workers_rename": "Worker hernoemen",
+    "inbound_add_person": "Persoon toevoegen",
+    "inbound_add_person_hint": "Maakt een verbindingsreeks voor één persoon. Geef iedereen een eigen reeks, zodat het verwijderen van één persoon niet iedereen verbreekt.",
+    "inbound_bind": "Bereikbaar via",
+    "inbound_bind_apply": "Toepassen",
+    "inbound_bind_exposed": "Iedereen die {{address}} kan bereiken, kan verbinding maken met een geldige verbindingsreeks. TLS versleutelt de sessie en pint het certificaat van deze machine; houd elke reeks privé en verwijder toegang die niet meer nodig is.",
+    "inbound_bind_local": "Alleen deze machine kan erbij. Voer uw netwerkadres in om andere machines te laten verbinden.",
+    "inbound_connect": "Verbinden",
+    "inbound_connect_desc": "Plak de verbindingsreeks die u hebt gekregen. De machine moet verbindingen accepteren om dit te laten werken.",
+    "inbound_connect_hint": "Begint met ovnode:// en bevat de sleutel, het adres, de poort en de certificaatvingerafdruk.",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "Kan die GPU-machine niet bereiken. Controleer of deze online is en verbindingen accepteert en probeer het opnieuw.",
+    "inbound_connect_row": "Verbindingsreeks",
+    "inbound_connect_title": "Verbinden met een GPU-machine",
+    "inbound_connected": "verbonden",
+    "inbound_connected_now": "Nu verbonden",
+    "inbound_connecting": "verbinden…",
+    "inbound_create": "Aanmaken",
+    "inbound_desc": "Laat andere machines verbinding maken zodat meerdere mensen deze GPU kunnen delen. Elke verbinding is versleuteld en aan het certificaat van deze machine gepind.",
+    "inbound_disconnect": "Verbreken",
+    "inbound_enable": "Verbindingen accepteren",
+    "inbound_enable_hint": "Anderen verbinden met deze machine in plaats van andersom. Niemand komt binnen zonder een verbindingsreeks die u aanmaakt.",
+    "inbound_exposed_badge": "Op uw netwerk",
+    "inbound_forget": "Verwijderen",
+    "inbound_hours_ago": "{{count}} u geleden",
+    "inbound_jobs_run": "{{count}} taken",
+    "inbound_just_now": "zojuist",
+    "inbound_label": "Naam",
+    "inbound_label_placeholder": "Laptop van Alice",
+    "inbound_last_seen": "laatst gebruikt {{when}}",
+    "inbound_minutes_ago": "{{count}} min geleden",
+    "inbound_nobody": "Niemand is verbonden.",
+    "inbound_people": "Mensen met toegang",
+    "inbound_revoke": "Verwijderen",
+    "inbound_revoke_confirm": "Toegang voor {{label}} intrekken? Hun verbindingsreeks werkt direct niet meer. Alle anderen blijven verbonden.",
+    "inbound_revoke_title": "Toegang intrekken?",
+    "inbound_shown_once": "Kopieer dit nu — het wordt niet opnieuw getoond. Geef het alleen aan {{label}}.",
+    "inbound_shown_once_warning": "Behandel het als een wachtwoord en stuur het privé. De certificaatvingerafdruk pint de versleutelde verbinding aan deze GPU-machine.",
+    "inbound_title": "Deze GPU met anderen delen",
+    "worker_join_code": "Koppelcode",
+    "worker_join_code_hint": "Eenmalig te gebruiken en verloopt over 15 minuten. Genereer hem op de machine die het werk gaat versturen.",
+    "worker_join_desc": "Laat een andere kopie van VoiceStudio taken naar deze machine sturen. Plak de koppelcode die daar werd getoond — of scan de QR met je telefoon en plak hem hier.",
+    "worker_join_env": "OMNIVOICE_WORKER_MODE is ingesteld in de omgeving van deze machine, dus die bepaalt het — wijzig het daar.",
+    "worker_join_no_endpoint": "Geen control plane onthouden.",
+    "worker_join_ok": "Gekoppeld. Deze machine neemt nu werk aan.",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "Aan een andere koppelen",
+    "worker_join_stopped": "Gestopt",
+    "worker_join_take_work": "Werk aannemen van",
+    "worker_join_title": "De GPU van deze machine uitlenen",
+    "worker_join_working": "Aan het werk",
+    "workers_add_hint_qr": "Genereer een token, scan daarna de QR vanaf de andere machine of plak de code in de instellingen voor Externe workers van die machine.",
+    "workers_approve": "Goedkeuren",
+    "workers_last_seen": "laatst gezien {{when}}",
+    "workers_qr_alt": "QR-code met deze code — scan hem vanaf de andere machine",
+    "workers_secret_done": "Klaar",
+    "workers_seen_hr": "{{count}} u geleden",
+    "workers_seen_min": "{{count}} min geleden",
+    "workers_seen_now": "zojuist",
+    "workers_step_1": "Installeer VoiceStudio op de machine met de GPU.",
+    "workers_step_2": "Genereer hierboven een token.",
+    "workers_step_3": "Scan daar de QR, of plak de code in de instellingen voor Externe workers van die machine.",
+    "workers_summary_none": "Niemand verbonden",
+    "workers_summary_online": "{{count}} online",
+    "workers_token_expired": "Verlopen — genereer een nieuwe",
+    "workers_token_expires_in": "Verloopt over {{time}}",
+    "workers_token_qr_hint": "Op de andere machine: Instellingen → Systeem → Externe workers → Koppelen, en scan of plak daar."
   },
   "gallery": {
     "title": "VoiceStudio Galerij",
@@ -1875,7 +1976,10 @@
     "recovery_title": "Onderbroken verhaal",
     "splitMode": "Splitsen op",
     "split_chapters": "Hoofdstukken",
-    "split_sentences": "Zinnen"
+    "split_sentences": "Zinnen",
+    "castTitle": "Cast: wijs een stem toe aan elk personage",
+    "autocastDone": "Automatisch casten van {{lines}} lijnen over {{voices}} stem(men)",
+    "voice": "stem"
   },
   "audiobook": {
     "cast": "Cast",
@@ -2006,7 +2110,9 @@
     "recovery_busy": "Er loopt al een andere render. Hervat zodra die klaar is.",
     "cast_note_one": "{{names}} heeft nog geen stem en wordt met de hoofdstem gelezen. Kies er een onder Cast.",
     "cast_note_other": "{{names}} hebben nog geen stem en worden met de hoofdstem gelezen. Kies stemmen onder Cast.",
-    "line_gap": "Stilte tussen regels"
+    "line_gap": "Stilte tussen regels",
+    "stats": "{{chapters}} hoofdstukken · {{words}} woorden · {{runtime}} geschatte speelduur",
+    "warn_unknown_voice": "Onbekende stem ‘{{name}}’ — de standaardstem wordt gebruikt"
   },
   "credentials": {
     "microsoft_key": "Microsoft Translator-sleutel",
@@ -2051,7 +2157,8 @@
     "model_terms": "Modelvoorwaarden",
     "model_related_sources": "Gerelateerde bronnen:",
     "self_check_attention_one": "{{count}} controle mislukt — zie de tips hierboven.",
-    "self_check_attention_other": "{{count}} controles mislukt — zie de tips hierboven."
+    "self_check_attention_other": "{{count}} controles mislukt — zie de tips hierboven.",
+    "self_check_attention": "{{count}} controle(s) mislukt — zie de hints hierboven."
   },
   "privacy": {
     "translator_online": "Vertaler is online: {{provider}}",
@@ -2267,7 +2374,8 @@
     "region_global": "Globaal (direct)",
     "region_china": "China (spiegel)",
     "region_russia": "Rusland (spiegel)",
-    "region_restricted": "Beperkt (spiegel)"
+    "region_restricted": "Beperkt (spiegel)",
+    "remaining_amount": "~{{amount}} resterend"
   },
   "capture": {
     "no_speech": "Geen spraak gedetecteerd",
@@ -2615,7 +2723,8 @@
       "remaining": "{{amount}} te gaan",
       "met": "🎉 Doel behaald — {{raised}} verhoogd. Bedankt!",
       "social_proof_one": "Sluit je aan bij {{count}} supporter van lokale AI",
-      "social_proof_other": "Sluit je aan bij {{count}} supporters van lokale AI"
+      "social_proof_other": "Sluit je aan bij {{count}} supporters van lokale AI",
+      "social_proof": "Sluit u aan bij {{count}} supporters die lokale AI financieren"
     },
     "postcard": {
       "title": "Steun de ontwikkeling van VoiceStudio",
@@ -2651,7 +2760,11 @@
     "sponsors_tier_company": "Bedrijf",
     "sponsors_tier_development": "Ontwikkeling",
     "sponsors_tier_community": "Community",
-    "sponsors_tier_supporter": "Supporter"
+    "sponsors_tier_supporter": "Supporter",
+    "sponsors_tier_platinum": "Platina",
+    "sponsors_tier_gold": "Goud",
+    "sponsors_tier_silver": "Zilver",
+    "sponsors_tier_bronze": "Bronzen"
   },
   "enterprise": {
     "title": "Commerciële licentie",
@@ -3001,7 +3114,9 @@
     "timing_review_zero": "{{count}} segmenten vereisen controle van de timing",
     "timing_review_two": "{{count}} segmenten vereisen controle van de timing",
     "timing_review_few": "{{count}} segmenten vereisen controle van de timing",
-    "timing_review_many": "{{count}} segmenten vereisen controle van de timing"
+    "timing_review_many": "{{count}} segmenten vereisen controle van de timing",
+    "segment_one": "{{count}} segment",
+    "segment_other": "{{count}} segmenten"
   },
   "header": {
     "memory_management": "Geheugenbeheer",
@@ -3788,7 +3903,8 @@
     "shortCommercial": "Commercieel OK",
     "shortConditions": "Met voorwaarden",
     "shortNoncommercial": "Niet-commercieel",
-    "shortUnknown": "Onbekend"
+    "shortUnknown": "Onbekend",
+    "blockerRemote": "Gecontroleerde installatie is niet beschikbaar voor externe doelen."
   },
   "mobile": {
     "home": {
@@ -4537,5 +4653,45 @@
     "room_tone": "Pauzes vullen met ruimtetoon",
     "room_tone_note": "[pause]-markeringen en luisterboekpauzes krijgen de stille achtergrond van de opname zelf in plaats van digitale stilte, zodat het geluid tussen regels niet wegvalt.",
     "env_pinned": "Ingesteld door {{env}}. Wijzig of wis het om deze schakelaar te gebruiken."
+  },
+  "compute": {
+    "add_machine": "Machine toevoegen",
+    "manage": "Instellingen voor externe workers",
+    "off_hint": "Alles draait op deze machine. Zet Extern aan om een andere te gebruiken.",
+    "quick_settings": "Rekenkracht — waar taken draaien",
+    "remote": "Extern",
+    "title": "Waar taken draaien",
+    "token_once": "Scan of plak dit op de andere machine. Wordt maar één keer getoond."
+  },
+  "sponsorSlot": {
+    "partner_heading": "Word partner van VoiceStudio",
+    "partner_subtitle": "Bereik mensen die met spraak bouwen.",
+    "app_placement": "Plaatsing in de app",
+    "integration_page": "Integratiepagina",
+    "readme_exposure": "Vermelding in README",
+    "visibility": "Zichtbaarheid",
+    "integration": "Productintegratie",
+    "installs": "Directe installaties",
+    "distribution": "Distributie voor ontwikkelaars",
+    "partner": "Geverifieerde partner",
+    "privacy": "Privacy",
+    "title": "Uitgelicht worden op VoiceStudio",
+    "description": "Vergroot de zichtbaarheid van uw merk met een betaalde uitgelichte plek.",
+    "form": "Google-formulier",
+    "email": "E-mail",
+    "book": "Reserveer je plek",
+    "preview": "Sponsorvoorbeeld",
+    "footer_brand": "Word sponsor",
+    "footer_promo": "Promoot je bedrijf",
+    "footer_downloads": "Downloads van Electron-installatiebestanden",
+    "footer_views": "GitHub-repositoryweergaven (14 dagen)",
+    "footer_stars": "GitHub-sterren",
+    "footer_stats_note": "GitHub-gegevens gecontroleerd op 25 sep. 2026. Downloads sinds v0.5.3; weergaven van 10–23 sep.",
+    "footer_book": "Nu toevoegen",
+    "email_template": "Hallo VoiceStudio-team,\n\nIk wil graag met VoiceStudio samenwerken en een uitgelichte plek voor mijn merk verkennen.\n\nMerk / product:\nWebsite:\nIntegratie of campagne:\nDoelgroep / timing:\n\nKunnen jullie beschikbare pakketten, prijzen, plaatsingsopties en technische vereisten delen? Ik begrijp dat een uitgelicht partnerschap een documentatiepagina, GitHub README-logo, app-footerplek en vermelding in de Integrations-directory kan bevatten.\n\nBedankt,\n[Naam]\n[Rol / bedrijf]\n[Contact]",
+    "message": "Je merk, website en bericht",
+    "email_app": "E-mailapp openen",
+    "copy_email": "E-mailadres kopiëren",
+    "preview_detail": "Hier kunnen je logo, link en introductie staan."
   }
 }

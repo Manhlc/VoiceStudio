@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "Seguir",
-    "website": "Sitio web"
+    "website": "Sitio web",
+    "collapseFooter": "Contraer pie de página",
+    "expandFooter": "Expandir pie de página"
   },
   "twilioIntegration": {
     "exposureWarning": "Al activarlo se abre un puerto local independiente que tu túnel publica en internet. Solo se aceptan solicitudes firmadas con tu Auth Token de Twilio; el resto de VoiceStudio sigue siendo privado.",
@@ -318,7 +320,9 @@
     "import_done_one": "Se importó {{count}} entrada.",
     "import_done_other": "Se importaron {{count}} entradas.",
     "entries_count_one": "{{count}} entrada",
-    "entries_count_other": "{{count}} entradas"
+    "entries_count_other": "{{count}} entradas",
+    "import_replace_prompt": "¿Reemplazar las {{count}} entradas existentes con el archivo importado? Elija No para añadir las entradas importadas junto a las existentes.",
+    "import_done": "Se importaron {{count}} entradas."
   },
   "preferences": {
     "title": "Configuración",
@@ -404,7 +408,8 @@
     "translation": "Traducción",
     "diarisation": "Diarización",
     "localDevice": "Dispositivo local",
-    "localShort": "Local"
+    "localShort": "Local",
+    "connectRemoteDevice": "Conectar dispositivo remoto"
   },
   "paneActions": {
     "collapse": "Contraer panel",
@@ -951,7 +956,8 @@
     "glossary_label": "Glosario",
     "set_speaker": "Asignar hablante…",
     "new_speaker": "Nuevo hablante",
-    "speaker_label": "Hablante"
+    "speaker_label": "Hablante",
+    "glossary_btn": "+ Glosario ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "Preparando audio…",
@@ -1524,7 +1530,102 @@
     "gpu_report_engine_no_family_path": "CPU: sin ruta para tu tipo de GPU",
     "gpu_report_engine_no_gpu": "CPU: no hay GPU disponible",
     "gpu_report_engine_needs_accelerator": "Necesita una GPU ({{needs}}) que este equipo no tiene",
-    "models_dir_desc": "Aquí se guardan los modelos descargados. Elige una unidad con más espacio libre si esta se llena."
+    "models_dir_desc": "Aquí se guardan los modelos descargados. Elige una unidad con más espacio libre si esta se llena.",
+    "worker_join": "Unirse",
+    "workers_title": "Trabajadores remotos",
+    "workers_desc": "Envía trabajos individuales a las GPU de tus otros equipos. Los resultados vuelven aquí. No se envía nada hasta que añadas un trabajador y lo apruebes.",
+    "workers_enable": "Usar trabajadores remotos",
+    "workers_enable_hint": "Mientras esto esté desactivado, no se acepta ninguna conexión y nada sale de este equipo.",
+    "workers_port_conflict": "Los trabajadores remotos no están disponibles porque otra instancia de VoiceStudio ya los acepta en este puerto. Cierra la otra instancia o configura OMNIVOICE_WORKER_PORT con otro puerto y reinicia VoiceStudio.",
+    "workers_endpoint": "Los trabajadores se conectan a",
+    "workers_endpoint_hint": "Un trabajador debe poder alcanzar esta dirección. En redes distintas, una VPN como Tailscale es la forma fiable.",
+    "workers_add": "Añadir un trabajador",
+    "workers_add_hint": "Genera un token y pégalo en OmniVoice en el otro equipo.",
+    "workers_new_token": "Generar token",
+    "workers_token_once": "Cópialo ahora: se muestra una sola vez, funciona una sola vez y caduca en 15 minutos.",
+    "workers_copy": "Copiar",
+    "workers_copied": "Copiado",
+    "workers_copy_failed": "No se pudo copiar.",
+    "workers_none": "Aún no hay trabajadores. Genera un token para añadir el primero.",
+    "workers_load": "Tareas {{active}} / {{slots}}",
+    "workers_needs_consent": "No aprobado",
+    "workers_status_online": "En línea",
+    "workers_status_offline": "Sin conexión",
+    "workers_status_paused": "En pausa",
+    "workers_status_disabled": "Desactivado",
+    "workers_resume": "Reanudar",
+    "workers_disable": "Desactivar",
+    "workers_enable_one": "Activar",
+    "workers_remove": "Eliminar",
+    "workers_remove_title": "¿Eliminar el trabajador?",
+    "workers_remove_confirm": "¿Eliminar {{name}}? Su clave se revoca, así que no podrá reconectarse sin un token nuevo.",
+    "workers_rename": "Renombrar trabajador",
+    "inbound_add_person": "Añadir una persona",
+    "inbound_add_person_hint": "Crea una cadena de conexión para una persona. Dé una propia a cada una, de modo que eliminar una no desconecte a las demás.",
+    "inbound_bind": "Accesible desde",
+    "inbound_bind_apply": "Aplicar",
+    "inbound_bind_exposed": "Cualquiera que pueda acceder a {{address}} puede conectarse con una cadena válida. TLS cifra la sesión y fija el certificado de esta máquina; mantenga cada cadena en privado y retire los accesos que ya no necesite.",
+    "inbound_bind_local": "Solo esta máquina puede acceder. Introduzca su dirección de red para permitir que otras máquinas se conecten.",
+    "inbound_connect": "Conectar",
+    "inbound_connect_desc": "Pegue la cadena de conexión que le hayan dado. La máquina debe estar aceptando conexiones para que funcione.",
+    "inbound_connect_hint": "Empieza por ovnode:// e incluye la clave, la dirección, el puerto y la huella del certificado.",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "No se pudo acceder a esa máquina GPU. Compruebe que esté en línea y acepte conexiones, e inténtelo de nuevo.",
+    "inbound_connect_row": "Cadena de conexión",
+    "inbound_connect_title": "Conectarse a una máquina con GPU",
+    "inbound_connected": "conectado",
+    "inbound_connected_now": "Conectados ahora mismo",
+    "inbound_connecting": "conectando…",
+    "inbound_create": "Crear",
+    "inbound_desc": "Permita que otras máquinas se conecten para que varias personas compartan esta GPU. Cada conexión está cifrada y fijada al certificado de esta máquina.",
+    "inbound_disconnect": "Desconectar",
+    "inbound_enable": "Aceptar conexiones",
+    "inbound_enable_hint": "Los demás se conectan a esta máquina en lugar de que ella se conecte a ellos. Nadie entra sin una cadena de conexión creada por usted.",
+    "inbound_exposed_badge": "En su red",
+    "inbound_forget": "Eliminar",
+    "inbound_hours_ago": "hace {{count}} h",
+    "inbound_jobs_run": "{{count}} trabajos",
+    "inbound_just_now": "ahora mismo",
+    "inbound_label": "Nombre",
+    "inbound_label_placeholder": "Portátil de Alicia",
+    "inbound_last_seen": "usado por última vez {{when}}",
+    "inbound_minutes_ago": "hace {{count}} min",
+    "inbound_nobody": "No hay nadie conectado.",
+    "inbound_people": "Personas con acceso",
+    "inbound_revoke": "Eliminar",
+    "inbound_revoke_confirm": "¿Retirar el acceso a {{label}}? Su cadena de conexión dejará de funcionar de inmediato. Los demás seguirán conectados.",
+    "inbound_revoke_title": "¿Retirar el acceso?",
+    "inbound_shown_once": "Cópiela ahora: no se volverá a mostrar. Désela solo a {{label}}.",
+    "inbound_shown_once_warning": "Trátela como una contraseña y envíela en privado. La huella del certificado fija la conexión cifrada a esta máquina GPU.",
+    "inbound_title": "Compartir esta GPU con otras personas",
+    "worker_join_code": "Código de unión",
+    "worker_join_code_hint": "De un solo uso y caduca en 15 minutos. Genéralo en el equipo que enviará el trabajo.",
+    "worker_join_desc": "Permite que otra copia de VoiceStudio envíe trabajos a este equipo. Pega el código de unión que te mostró — o escanea su QR con el móvil y pégalo aquí.",
+    "worker_join_env": "OMNIVOICE_WORKER_MODE está definido en el entorno de este equipo, así que decide él — cámbialo allí.",
+    "worker_join_no_endpoint": "Ningún plano de control recordado.",
+    "worker_join_ok": "Unido. Este equipo ya está aceptando trabajo.",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "Unirse a otro",
+    "worker_join_stopped": "Detenido",
+    "worker_join_take_work": "Aceptar trabajo de",
+    "worker_join_title": "Prestar la GPU de este equipo",
+    "worker_join_working": "Trabajando",
+    "workers_add_hint_qr": "Genera un token y luego escanea el QR desde el otro equipo o pega el código en sus ajustes de Trabajadores remotos.",
+    "workers_approve": "Aprobar",
+    "workers_last_seen": "visto por última vez {{when}}",
+    "workers_qr_alt": "Código QR con este código — escanéalo desde el otro equipo",
+    "workers_secret_done": "Hecho",
+    "workers_seen_hr": "hace {{count}} h",
+    "workers_seen_min": "hace {{count}} min",
+    "workers_seen_now": "ahora mismo",
+    "workers_step_1": "Instala VoiceStudio en el equipo con la GPU.",
+    "workers_step_2": "Genera un token arriba.",
+    "workers_step_3": "Escanea el QR allí, o pega el código en sus ajustes de Trabajadores remotos.",
+    "workers_summary_none": "Nadie conectado",
+    "workers_summary_online": "{{count}} en línea",
+    "workers_token_expired": "Caducado — genera uno nuevo",
+    "workers_token_expires_in": "Caduca en {{time}}",
+    "workers_token_qr_hint": "En el otro equipo: Ajustes → Sistema → Trabajadores remotos → Unirse, y luego escanea o pega."
   },
   "gallery": {
     "title": "VoiceStudio Galería",
@@ -1877,7 +1978,10 @@
     "splitMode": "Dividir por",
     "split_chapters": "Capítulos",
     "split_paragraphs": "Párrafos",
-    "split_sentences": "Oraciones"
+    "split_sentences": "Oraciones",
+    "castTitle": "Elenco: asigna una voz a cada personaje.",
+    "autocastDone": "Transmitir automáticamente {{lines}} líneas a través de {{voices}} voces",
+    "voice": "voz"
   },
   "audiobook": {
     "cast": "Reparto",
@@ -2008,7 +2112,9 @@
     "cast_note_one": "{{names}} aún no tiene voz asignada, así que se lee con la voz principal. Elige una en Reparto.",
     "cast_note_other": "{{names}} aún no tienen voz asignada, así que se leen con la voz principal. Elige voces en Reparto.",
     "line_gap": "Pausa al cambiar de línea",
-    "paragraph_gap": "Pausa al cambiar de párrafo"
+    "paragraph_gap": "Pausa al cambiar de párrafo",
+    "stats": "{{chapters}} capítulos · {{words}} palabras · {{runtime}} de duración est.",
+    "warn_unknown_voice": "Voz desconocida «{{name}}»: se usará la predeterminada"
   },
   "credentials": {
     "microsoft_key": "Clave del traductor de Microsoft",
@@ -2053,7 +2159,8 @@
     "model_terms": "Condiciones del modelo",
     "model_related_sources": "Fuentes relacionadas:",
     "self_check_attention_one": "{{count}} comprobación falló: consulta las sugerencias de arriba.",
-    "self_check_attention_other": "{{count}} comprobaciones fallaron: consulta las sugerencias de arriba."
+    "self_check_attention_other": "{{count}} comprobaciones fallaron: consulta las sugerencias de arriba.",
+    "self_check_attention": "{{count}} comprobación(es) fallaron — consulta las pistas de arriba."
   },
   "privacy": {
     "translator_online": "El traductor está en línea: {{provider}}",
@@ -2269,7 +2376,8 @@
     "region_global": "Global (directo)",
     "region_china": "China (espejo)",
     "region_russia": "Rusia (espejo)",
-    "region_restricted": "Restringido (espejo)"
+    "region_restricted": "Restringido (espejo)",
+    "remaining_amount": "quedan ~{{amount}}"
   },
   "capture": {
     "no_speech": "No se detectó voz",
@@ -2617,7 +2725,8 @@
       "remaining": "{{amount}} para ir",
       "met": "🎉 Objetivo cumplido: {{raised}} planteado. ¡Gracias!",
       "social_proof_one": "Únete a {{count}} persona que apoya la IA local",
-      "social_proof_other": "Únete a {{count}} personas que apoyan la IA local"
+      "social_proof_other": "Únete a {{count}} personas que apoyan la IA local",
+      "social_proof": "Únase a los partidarios de {{count}} que financian la IA local"
     },
     "postcard": {
       "title": "Apoya el desarrollo de VoiceStudio",
@@ -2653,7 +2762,11 @@
     "sponsors_tier_company": "Empresa",
     "sponsors_tier_development": "Desarrollo",
     "sponsors_tier_community": "Comunidad",
-    "sponsors_tier_supporter": "Colaborador"
+    "sponsors_tier_supporter": "Colaborador",
+    "sponsors_tier_platinum": "Platino",
+    "sponsors_tier_gold": "Oro",
+    "sponsors_tier_silver": "Plata",
+    "sponsors_tier_bronze": "Bronce"
   },
   "enterprise": {
     "title": "Licencia Comercial",
@@ -3003,7 +3116,9 @@
     "timing_review_zero": "{{count}} segmentos necesitan revisión de tiempos",
     "timing_review_two": "{{count}} segmentos necesitan revisión de tiempos",
     "timing_review_few": "{{count}} segmentos necesitan revisión de tiempos",
-    "timing_review_many": "{{count}} segmentos necesitan revisión de tiempos"
+    "timing_review_many": "{{count}} segmentos necesitan revisión de tiempos",
+    "segment_one": "{{count}} segmento",
+    "segment_other": "{{count}} segmentos"
   },
   "header": {
     "memory_management": "Gestión de memoria",
@@ -3790,7 +3905,8 @@
     "shortCommercial": "Uso comercial",
     "shortConditions": "Con condiciones",
     "shortNoncommercial": "No comercial",
-    "shortUnknown": "Desconocida"
+    "shortUnknown": "Desconocida",
+    "blockerRemote": "La instalación revisada no está disponible para destinos remotos."
   },
   "mobile": {
     "home": {
@@ -4539,5 +4655,45 @@
     "room_tone": "Rellenar pausas con tono de sala",
     "room_tone_note": "Los marcadores [pause] y los huecos de los audiolibros reciben el fondo silencioso de la propia toma en lugar de silencio digital, para que el sonido no se corte entre líneas.",
     "env_pinned": "Lo fija {{env}}. Cámbialo o bórralo para usar este interruptor."
+  },
+  "compute": {
+    "add_machine": "Añadir un equipo",
+    "manage": "Ajustes de trabajadores remotos",
+    "off_hint": "Todo se ejecuta en este equipo. Activa Remoto para usar otro.",
+    "quick_settings": "Cómputo — dónde se ejecutan los trabajos",
+    "remote": "Remoto",
+    "title": "Dónde se ejecutan los trabajos",
+    "token_once": "Escanéalo o pégalo en el otro equipo. Se muestra una sola vez."
+  },
+  "sponsorSlot": {
+    "partner_heading": "Colabora con VoiceStudio",
+    "partner_subtitle": "Presenta tu producto a quienes crean con voz.",
+    "app_placement": "Presencia en la app",
+    "integration_page": "Página de integración",
+    "readme_exposure": "Visibilidad en README",
+    "visibility": "Visibilidad",
+    "integration": "Integración del producto",
+    "installs": "Instalaciones directas",
+    "distribution": "Distribución para desarrolladores",
+    "partner": "Socio verificado",
+    "privacy": "Privacidad",
+    "title": "Destaca en VoiceStudio",
+    "description": "Aumenta la visibilidad de tu marca patrocinando un espacio destacado de pago.",
+    "form": "Formulario de Google",
+    "email": "Correo electrónico",
+    "book": "Reserva tu espacio",
+    "preview": "Vista previa del patrocinador",
+    "footer_brand": "Conviértete en patrocinador",
+    "footer_promo": "Promociona tu negocio",
+    "footer_downloads": "Descargas del instalador de Electron",
+    "footer_views": "Visitas al repositorio en GitHub (14 días)",
+    "footer_stars": "Estrellas de GitHub",
+    "footer_stats_note": "Datos de GitHub consultados el 25 sep. 2026. Descargas desde v0.5.3; visitas del 10 al 23 sep.",
+    "footer_book": "Añadir ahora",
+    "email_template": "Hola, equipo de VoiceStudio:\n\nMe gustaría asociarme con VoiceStudio y explorar una presencia destacada para mi marca.\n\nMarca / producto:\nSitio web:\nIntegración o campaña:\nPúblico / fechas:\n\n¿Podrían compartir los paquetes, precios, opciones de ubicación y requisitos técnicos disponibles? Entiendo que una colaboración destacada puede incluir una página de documentación, un logo en el README de GitHub, un espacio en el pie de la aplicación y presencia en el directorio de Integrations.\n\nGracias,\n[Nombre]\n[Cargo / empresa]\n[Contacto]",
+    "message": "Tu marca, sitio web y mensaje",
+    "email_app": "Abrir correo",
+    "copy_email": "Copiar correo",
+    "preview_detail": "Aquí podrían aparecer tu logo, enlace y presentación."
   }
 }

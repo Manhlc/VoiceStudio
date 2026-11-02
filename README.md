@@ -50,6 +50,9 @@
 
 ## What you can do
 
+> You can also add remote workers: run heavy renders on another machine's GPU
+> from this app. See [Remote workers](docs/workers.md) (restored).
+
 <table>
   <tr>
     <td width="50%" valign="top">

@@ -133,7 +133,9 @@
     "maintainerPalash": "Palash Debnath",
     "maintainerShimul": "Shimul Debnath",
     "follow": "Obserwuj",
-    "website": "Strona"
+    "website": "Strona",
+    "collapseFooter": "Zwiń stopkę",
+    "expandFooter": "Rozwiń stopkę"
   },
   "twilioIntegration": {
     "exposureWarning": "Włączenie otwiera osobny port lokalny, który Twój tunel publikuje w internecie. Akceptowane są tylko żądania podpisane Twoim Auth Token Twilio; reszta VoiceStudio pozostaje prywatna.",
@@ -326,7 +328,9 @@
     "entries_count_one": "{{count}} wpis",
     "entries_count_few": "{{count}} wpisy",
     "entries_count_many": "{{count}} wpisów",
-    "entries_count_other": "{{count}} wpisu"
+    "entries_count_other": "{{count}} wpisu",
+    "import_replace_prompt": "Zastąpić {{count}} istniejących wpisów zaimportowanym plikiem? Wybierz Nie, aby dodać zaimportowane wpisy obok istniejących.",
+    "import_done": "Zaimportowano {{count}} wpisów."
   },
   "preferences": {
     "title": "Ustawienia",
@@ -412,7 +416,8 @@
     "translation": "Tłumaczenie",
     "diarisation": "Diaryzacja",
     "localDevice": "Urządzenie lokalne",
-    "localShort": "Lokalnie"
+    "localShort": "Lokalnie",
+    "connectRemoteDevice": "Połącz urządzenie zdalne"
   },
   "paneActions": {
     "collapse": "Zwiń panel",
@@ -963,7 +968,8 @@
     "glossary_label": "Słowniczek",
     "set_speaker": "Ustaw mówcę…",
     "new_speaker": "Nowy mówca",
-    "speaker_label": "Mówca"
+    "speaker_label": "Mówca",
+    "glossary_btn": "+ Słowniczek ({{count}})"
   },
   "dub_workflow": {
     "preparing_audio": "Przygotowuję dźwięk…",
@@ -1536,7 +1542,102 @@
     "gpu_report_engine_no_family_path": "CPU: brak ścieżki dla Twojego typu GPU",
     "gpu_report_engine_no_gpu": "CPU: brak dostępnego GPU",
     "gpu_report_engine_needs_accelerator": "Wymaga GPU ({{needs}}), którego ten komputer nie ma",
-    "models_dir_desc": "Tu są przechowywane pobrane modele. Jeśli ten dysk się zapełni, wybierz dysk z większą ilością wolnego miejsca."
+    "models_dir_desc": "Tu są przechowywane pobrane modele. Jeśli ten dysk się zapełni, wybierz dysk z większą ilością wolnego miejsca.",
+    "worker_join": "Dołącz",
+    "workers_title": "Zdalne workery",
+    "workers_desc": "Wysyłaj pojedyncze zadania do GPU na innych swoich komputerach. Wyniki wracają tutaj. Nic nie zostanie wysłane, dopóki nie dodasz workera i go nie zatwierdzisz.",
+    "workers_enable": "Używaj zdalnych workerów",
+    "workers_enable_hint": "Gdy ta opcja jest wyłączona, żadne połączenie nie jest przyjmowane i nic nie opuszcza tego komputera.",
+    "workers_port_conflict": "Zdalne workery są niedostępne, ponieważ inna instancja VoiceStudio już przyjmuje je na tym porcie. Zamknij drugą instancję albo ustaw OMNIVOICE_WORKER_PORT na inny port i uruchom VoiceStudio ponownie.",
+    "workers_endpoint": "Workery łączą się z",
+    "workers_endpoint_hint": "Worker musi móc osiągnąć ten adres. W różnych sieciach niezawodnym sposobem jest VPN, np. Tailscale.",
+    "workers_add": "Dodaj workera",
+    "workers_add_hint": "Wygeneruj token, a następnie wklej go w OmniVoice na drugim komputerze.",
+    "workers_new_token": "Wygeneruj token",
+    "workers_token_once": "Skopiuj teraz — pokazujemy go tylko raz, działa tylko raz i wygasa po 15 minutach.",
+    "workers_copy": "Kopiuj",
+    "workers_copied": "Skopiowano",
+    "workers_copy_failed": "Nie udało się skopiować.",
+    "workers_none": "Brak workerów. Wygeneruj token, aby dodać pierwszego.",
+    "workers_load": "Zadania {{active}} / {{slots}}",
+    "workers_needs_consent": "Niezatwierdzony",
+    "workers_status_online": "Online",
+    "workers_status_offline": "Offline",
+    "workers_status_paused": "Wstrzymany",
+    "workers_status_disabled": "Wyłączony",
+    "workers_resume": "Wznów",
+    "workers_disable": "Wyłącz",
+    "workers_enable_one": "Włącz",
+    "workers_remove": "Usuń",
+    "workers_remove_title": "Usunąć workera?",
+    "workers_remove_confirm": "Usunąć {{name}}? Jego klucz zostanie unieważniony, więc nie połączy się ponownie bez nowego tokena.",
+    "workers_rename": "Zmień nazwę workera",
+    "inbound_add_person": "Dodaj osobę",
+    "inbound_add_person_hint": "Tworzy ciąg połączenia dla jednej osoby. Nadaj każdej osobie własny, aby usunięcie jednego nie rozłączyło wszystkich.",
+    "inbound_bind": "Dostępne z",
+    "inbound_bind_apply": "Zastosuj",
+    "inbound_bind_exposed": "Każdy, kto może osiągnąć {{address}}, może połączyć się za pomocą prawidłowego ciągu. TLS szyfruje sesję i przypina certyfikat tej maszyny; chroń każdy ciąg i usuwaj zbędny dostęp.",
+    "inbound_bind_local": "Tylko ta maszyna ma dostęp. Wpisz swój adres sieciowy, aby inne maszyny mogły się połączyć.",
+    "inbound_connect": "Połącz",
+    "inbound_connect_desc": "Wklej otrzymany ciąg połączenia. Maszyna musi przyjmować połączenia, aby to zadziałało.",
+    "inbound_connect_hint": "Zaczyna się od ovnode:// i zawiera klucz, adres, port oraz odcisk certyfikatu.",
+    "inbound_connect_placeholder": "ovnode://…@192.168.0.110:7444?fingerprint=…",
+    "inbound_request_failed": "Nie można połączyć się z tą maszyną GPU. Sprawdź, czy jest online i przyjmuje połączenia, a następnie spróbuj ponownie.",
+    "inbound_connect_row": "Ciąg połączenia",
+    "inbound_connect_title": "Połącz z maszyną z GPU",
+    "inbound_connected": "połączono",
+    "inbound_connected_now": "Połączeni teraz",
+    "inbound_connecting": "łączenie…",
+    "inbound_create": "Utwórz",
+    "inbound_desc": "Pozwól innym maszynom łączyć się, aby kilka osób mogło współdzielić ten GPU. Każde połączenie jest szyfrowane i przypięte do certyfikatu tej maszyny.",
+    "inbound_disconnect": "Rozłącz",
+    "inbound_enable": "Przyjmuj połączenia",
+    "inbound_enable_hint": "Inni łączą się z tą maszyną, zamiast tego, by ona łączyła się z nimi. Nikt nie wejdzie bez utworzonego przez Ciebie ciągu połączenia.",
+    "inbound_exposed_badge": "W Twojej sieci",
+    "inbound_forget": "Usuń",
+    "inbound_hours_ago": "{{count}} godz. temu",
+    "inbound_jobs_run": "zadania: {{count}}",
+    "inbound_just_now": "przed chwilą",
+    "inbound_label": "Nazwa",
+    "inbound_label_placeholder": "Laptop Alicji",
+    "inbound_last_seen": "ostatnio użyto {{when}}",
+    "inbound_minutes_ago": "{{count}} min temu",
+    "inbound_nobody": "Nikt nie jest połączony.",
+    "inbound_people": "Osoby z dostępem",
+    "inbound_revoke": "Usuń",
+    "inbound_revoke_confirm": "Odebrać dostęp dla {{label}}? Ich ciąg połączenia natychmiast przestanie działać. Wszyscy pozostali pozostaną połączeni.",
+    "inbound_revoke_title": "Odebrać dostęp?",
+    "inbound_shown_once": "Skopiuj teraz — nie zostanie pokazany ponownie. Przekaż go tylko osobie {{label}}.",
+    "inbound_shown_once_warning": "Traktuj go jak hasło i przekaż prywatnie. Odcisk certyfikatu przypina szyfrowane połączenie do tej maszyny GPU.",
+    "inbound_title": "Udostępnij to GPU innym osobom",
+    "worker_join_code": "Kod dołączania",
+    "worker_join_code_hint": "Jednorazowy, wygasa po 15 minutach. Wygeneruj go na komputerze, który będzie wysyłać zadania.",
+    "worker_join_desc": "Pozwól innej kopii VoiceStudio wysyłać zadania na ten komputer. Wklej kod dołączania, który ci pokazała — albo zeskanuj jej kod QR telefonem i wklej go tutaj.",
+    "worker_join_env": "W środowisku tego komputera ustawiono OMNIVOICE_WORKER_MODE, więc to ta zmienna decyduje — zmień ją tam.",
+    "worker_join_no_endpoint": "Brak zapamiętanego węzła sterującego.",
+    "worker_join_ok": "Dołączono. Ten komputer przyjmuje teraz zadania.",
+    "worker_join_placeholder": "ovw_…",
+    "worker_join_rejoin": "Dołącz do innego",
+    "worker_join_stopped": "Zatrzymano",
+    "worker_join_take_work": "Przyjmuj zadania od",
+    "worker_join_title": "Użycz GPU tego komputera",
+    "worker_join_working": "Pracuje",
+    "workers_add_hint_qr": "Wygeneruj token, a następnie zeskanuj kod QR z drugiego komputera albo wklej kod w jego ustawieniach „Zdalne workery”.",
+    "workers_approve": "Zatwierdź",
+    "workers_last_seen": "ostatnio widziany {{when}}",
+    "workers_qr_alt": "Kod QR z tym kodem — zeskanuj go z drugiego komputera",
+    "workers_secret_done": "Gotowe",
+    "workers_seen_hr": "{{count}} godz. temu",
+    "workers_seen_min": "{{count}} min temu",
+    "workers_seen_now": "przed chwilą",
+    "workers_step_1": "Zainstaluj VoiceStudio na komputerze z GPU.",
+    "workers_step_2": "Wygeneruj token powyżej.",
+    "workers_step_3": "Zeskanuj tam kod QR albo wklej kod w jego ustawieniach „Zdalne workery”.",
+    "workers_summary_none": "Nikt nie jest połączony",
+    "workers_summary_online": "{{count}} online",
+    "workers_token_expired": "Wygasł — wygeneruj nowy",
+    "workers_token_expires_in": "Wygasa za {{time}}",
+    "workers_token_qr_hint": "Na drugim komputerze: Ustawienia → Systemu → Zdalne workery → Dołącz, potem zeskanuj albo wklej."
   },
   "gallery": {
     "title": "VoiceStudio Galeria",
@@ -1891,7 +1992,10 @@
     "splitMode": "Podziel według",
     "split_chapters": "Rozdziały",
     "split_paragraphs": "Akapity",
-    "split_sentences": "Zdania"
+    "split_sentences": "Zdania",
+    "castTitle": "Obsada — przypisz głos każdej postaci",
+    "autocastDone": "Automatyczne przesyłanie {{lines}} linii do {{voices}} głosów",
+    "voice": "głos"
   },
   "audiobook": {
     "cast": "Obsada",
@@ -2028,7 +2132,9 @@
     "cast_note_many": "{{names}} nie mają jeszcze głosów, więc czyta je główny głos. Wybierz głosy w sekcji Obsada.",
     "line_gap": "Odstęp między wierszami",
     "paragraph_gap": "Odstęp między akapitami",
-    "trim_edges": "Usuń ciszę generowaną przez silnik"
+    "trim_edges": "Usuń ciszę generowaną przez silnik",
+    "stats": "{{chapters}} rozdz. · {{words}} słów · {{runtime}} szac. czasu",
+    "warn_unknown_voice": "Nieznany głos „{{name}}” — zostanie użyty domyślny"
   },
   "credentials": {
     "microsoft_key": "Klucz tłumacza Microsoft",
@@ -2075,7 +2181,8 @@
     "self_check_attention_one": "{{count}} test nie powiódł się — zobacz wskazówki powyżej.",
     "self_check_attention_few": "{{count}} testy nie powiodły się — zobacz wskazówki powyżej.",
     "self_check_attention_many": "{{count}} testów nie powiodło się — zobacz wskazówki powyżej.",
-    "self_check_attention_other": "{{count}} testu nie powiodło się — zobacz wskazówki powyżej."
+    "self_check_attention_other": "{{count}} testu nie powiodło się — zobacz wskazówki powyżej.",
+    "self_check_attention": "{{count}} test(y) zakończone niepowodzeniem — zobacz wskazówki powyżej."
   },
   "privacy": {
     "translator_online": "Tłumacz jest online: {{provider}}",
@@ -2291,7 +2398,8 @@
     "region_global": "Globalny (bezpośredni)",
     "region_china": "Chiny (lustro)",
     "region_russia": "Rosja (lustro)",
-    "region_restricted": "Ograniczone (lustro)"
+    "region_restricted": "Ograniczone (lustro)",
+    "remaining_amount": "Pozostało ~{{amount}}"
   },
   "capture": {
     "no_speech": "Nie wykryto mowy",
@@ -2641,7 +2749,8 @@
       "social_proof_one": "Dołącz do {{count}} osoby wspierającej lokalną AI",
       "social_proof_few": "Dołącz do {{count}} osób wspierających lokalną AI",
       "social_proof_many": "Dołącz do {{count}} osób wspierających lokalną AI",
-      "social_proof_other": "Dołącz do {{count}} osób wspierających lokalną AI"
+      "social_proof_other": "Dołącz do {{count}} osób wspierających lokalną AI",
+      "social_proof": "Dołącz do {{count}} zwolenników finansujących lokalną sztuczną inteligencję"
     },
     "postcard": {
       "title": "Wesprzyj rozwój VoiceStudio",
@@ -2677,7 +2786,11 @@
     "sponsors_tier_company": "Firma",
     "sponsors_tier_development": "Rozwój",
     "sponsors_tier_community": "Społeczność",
-    "sponsors_tier_supporter": "Wspierający"
+    "sponsors_tier_supporter": "Wspierający",
+    "sponsors_tier_gold": "Złoto",
+    "sponsors_tier_bronze": "Brązowy",
+    "sponsors_tier_platinum": "Platyna",
+    "sponsors_tier_silver": "Srebrny"
   },
   "enterprise": {
     "title": "Licencja komercyjna",
@@ -3027,7 +3140,9 @@
     "timing_review_few": "{{count}} segmenty wymagają sprawdzenia czasu",
     "timing_review_many": "{{count}} segmentów wymaga sprawdzenia czasu",
     "timing_review_zero": "{{count}} segmentów wymaga sprawdzenia synchronizacji",
-    "timing_review_two": "{{count}} segmentów wymaga sprawdzenia synchronizacji"
+    "timing_review_two": "{{count}} segmentów wymaga sprawdzenia synchronizacji",
+    "segment_one": "Segment {{count}}",
+    "segment_other": "{{count}} segmentów"
   },
   "header": {
     "memory_management": "Zarządzanie pamięcią",
@@ -3814,7 +3929,8 @@
     "shortCommercial": "Komercyjnie OK",
     "shortConditions": "Z warunkami",
     "shortNoncommercial": "Niekomercyjna",
-    "shortUnknown": "Nieznana"
+    "shortUnknown": "Nieznana",
+    "blockerRemote": "Sprawdzona instalacja nie jest dostępna dla celów zdalnych."
   },
   "mobile": {
     "home": {
@@ -4565,5 +4681,45 @@
     "room_tone": "Wypełniaj pauzy tłem pomieszczenia",
     "room_tone_note": "Znaczniki [pause] i przerwy w audiobookach dostają ciche tło samego nagrania zamiast cyfrowej ciszy, więc dźwięk nie urywa się między wersami.",
     "env_pinned": "Ustawione przez {{env}}. Zmień lub usuń tę wartość, aby użyć tego przełącznika."
+  },
+  "compute": {
+    "add_machine": "Dodaj komputer",
+    "manage": "Ustawienia zdalnych workerów",
+    "off_hint": "Wszystko działa na tym komputerze. Włącz „Zdalnie”, aby użyć innego.",
+    "quick_settings": "Obliczenia — gdzie wykonywane są zadania",
+    "remote": "Zdalnie",
+    "title": "Gdzie wykonywane są zadania",
+    "token_once": "Zeskanuj lub wklej to na drugim komputerze. Pokazywane tylko raz."
+  },
+  "sponsorSlot": {
+    "partner_heading": "Zostań partnerem VoiceStudio",
+    "partner_subtitle": "Przedstaw produkt osobom tworzącym z użyciem głosu.",
+    "app_placement": "Obecność w aplikacji",
+    "integration_page": "Strona integracji",
+    "readme_exposure": "Obecność w README",
+    "visibility": "Widoczność",
+    "integration": "Integracja produktu",
+    "installs": "Instalacje bezpośrednie",
+    "distribution": "Dystrybucja dla deweloperów",
+    "partner": "Zweryfikowany partner",
+    "privacy": "Prywatność",
+    "title": "Wyróżnij się w VoiceStudio",
+    "description": "Zwiększ widoczność swojej marki, sponsorując płatne wyróżnione miejsce.",
+    "form": "Formularz Google",
+    "email": "E-mail",
+    "book": "Zarezerwuj miejsce",
+    "preview": "Podgląd sponsora",
+    "footer_brand": "Zostań sponsorem",
+    "footer_promo": "Promuj swoją firmę",
+    "footer_downloads": "Pobrania instalatorów Electron",
+    "footer_views": "Wyświetlenia repozytorium GitHub (14 dni)",
+    "footer_stars": "Gwiazdki GitHub",
+    "footer_stats_note": "Dane GitHub sprawdzono 25 wrz 2026. Pobrania od v0.5.3; wyświetlenia z 10–23 wrz.",
+    "footer_book": "Dodaj teraz",
+    "email_template": "Cześć, zespole VoiceStudio,\n\nChcę nawiązać współpracę z VoiceStudio i poznać możliwości wyróżnienia mojej marki.\n\nMarka / produkt:\nStrona internetowa:\nIntegracja lub kampania:\nOdbiorcy / termin:\n\nCzy możecie przesłać dostępne pakiety, ceny, opcje ekspozycji i wymagania techniczne? Rozumiem, że wyróżnione partnerstwo może obejmować stronę dokumentacji, logo w GitHub README, miejsce w stopce aplikacji i wpis w katalogu Integrations.\n\nDziękuję,\n[Imię]\n[Rola / firma]\n[Kontakt]",
+    "message": "Twoja marka, strona i wiadomość",
+    "email_app": "Otwórz pocztę",
+    "copy_email": "Kopiuj e-mail",
+    "preview_detail": "Tutaj mogą pojawić się Twoje logo, link i opis."
   }
 }

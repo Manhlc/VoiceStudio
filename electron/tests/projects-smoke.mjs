@@ -148,8 +148,7 @@ try {
   await dialog.waitFor();
   const bounds = await dialog.boundingBox();
   assert(bounds && bounds.y >= 0 && bounds.y + bounds.height <= page.viewportSize().height);
-  if (process.env.VOICESTUDIO_SCREENSHOT)
-    await page.screenshot({ path: process.env.VOICESTUDIO_SCREENSHOT });
+  if (process.env.VOICESTUDIO_SCREENSHOT) await page.screenshot({ path: process.env.VOICESTUDIO_SCREENSHOT });
   await page.getByRole('dialog').getByRole('button', { name: 'Delete', exact: true }).click();
   await page
     .getByRole('button', { name: 'Library renamed', exact: true })

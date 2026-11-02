@@ -79,6 +79,36 @@ def get_model_catalog() -> ModelCatalog:
 
 # ── Platform Detection ─────────────────────────────────────────────────────
 
+def _target_worker():
+    """Selected live remote worker, or None when the catalog targets local."""
+    try:
+        from worker import routing, service  # noqa: PLC0415
+
+        decision = routing.decide()
+        plane = service.control_plane
+        return plane.pool.get(decision.worker_id) if decision.remote and plane.pool else None
+    except Exception:
+        return None
+
+
+def _target_host() -> dict | None:
+    """Selected remote worker host, or None when the catalog targets local."""
+    live = _target_worker()
+    return dict(live.record.host or {}) if live is not None else None
+
+
+def _target_repo_inventory() -> tuple[str, set[str]] | None:
+    """Selected worker id and the catalog repositories it reports on disk."""
+    live = _target_worker()
+    if live is None:
+        return None
+    downloaded: set[str] = set()
+    for capability in live.record.capabilities or []:
+        if capability.get("downloaded"):
+            downloaded.update(str(repo) for repo in capability.get("repo_ids") or [])
+    return live.worker_id, downloaded
+
+
 def _current_platform_tags() -> list[str]:
     """Return platform tags that the current host supports.
 
@@ -89,6 +119,25 @@ def _current_platform_tags() -> list[str]:
     ``rocm`` (AMD HIP builds), and ``cpu`` (no GPU acceleration at all —
     Apple Silicon is NOT tagged cpu; it curates via ``darwin-arm64``).
     """
+    target = _target_host()
+    if target is not None:
+        target_os = {"windows": "win32", "darwin": "darwin"}.get(
+            str(target.get("os") or "").lower(), "linux"
+        )
+        arch = str(target.get("arch") or "").lower()
+        arch = {"amd64": "x86_64", "aarch64": "arm64"}.get(arch, arch)
+        tags = [target_os, f"{target_os}-{arch}"]
+        backend = ""
+        if target.get("gpus"):
+            backend = str(target["gpus"][0].get("backend") or "").lower()
+        if backend:
+            tags.append(backend)
+            if backend == "rocm":
+                tags.append("cuda")
+        if not backend and not (target_os == "darwin" and arch == "arm64"):
+            tags.append("cpu")
+        return tags
+
     tags = [sys.platform]
     arch = _platform.machine()
     tags.append(f"{sys.platform}-{arch}")
@@ -475,35 +524,51 @@ def list_models():
     walks when the frontend polls.
     """
     platform_tags = _current_platform_tags()
-    cache_key = "models:local:" + ",".join(sorted(platform_tags))
+    remote_inventory = _target_repo_inventory()
+    target_key = remote_inventory[0] if remote_inventory else "local"
+    cache_key = "models:" + target_key + ":" + ",".join(sorted(platform_tags))
     cached_response = _cached(cache_key)
     if cached_response is not None:
         return cached_response
 
     cached_by_repo: dict[str, dict] = {}
-    try:
-        from huggingface_hub import scan_cache_dir
-        info = scan_cache_dir()
-        for entry in info.repos:
-            cached_by_repo[entry.repo_id] = {
-                "size_on_disk": entry.size_on_disk,
-                "last_accessed": entry.last_accessed,
-                "nb_files": entry.nb_files,
-            }
-    except Exception as e:
-        if _cache_dir_missing(e):
-            cached_by_repo = {}
-        else:
-            # WinError-448 fallback (#117/#118): use a direct disk scan so installed
-            # models still show as installed instead of offering a re-download.
-            logger.warning("scan_cache_dir failed (%s); using disk fallback", e)
-            cached_by_repo = _scan_cache_on_disk()
+    if remote_inventory is not None:
+        for model in KNOWN_MODELS:
+            if model["repo_id"] in remote_inventory[1]:
+                cached_by_repo[model["repo_id"]] = {
+                    "size_on_disk": int(float(model.get("size_gb") or 0) * _GIB),
+                    "last_accessed": None,
+                    "nb_files": 0,
+                }
+    else:
+        try:
+            from huggingface_hub import scan_cache_dir
+            info = scan_cache_dir()
+            for entry in info.repos:
+                cached_by_repo[entry.repo_id] = {
+                    "size_on_disk": entry.size_on_disk,
+                    "last_accessed": entry.last_accessed,
+                    "nb_files": entry.nb_files,
+                }
+        except Exception as e:
+            if _cache_dir_missing(e):
+                cached_by_repo = {}
+            else:
+                # WinError-448 fallback (#117/#118): use a direct disk scan so installed
+                # models still show as installed instead of offering a re-download.
+                logger.warning("scan_cache_dir failed (%s); using disk fallback", e)
+                cached_by_repo = _scan_cache_on_disk()
 
     out = []
     host_tags = set(platform_tags)
     for m in KNOWN_MODELS:
         cached = cached_by_repo.get(m["repo_id"])
-        if cached is not None and shares_repo(m):
+        if remote_inventory is not None:
+            # Remote worker: the inventory already reflects the worker's disk;
+            # local completeness probes do not apply to it.
+            on_disk = cached is not None and cached["size_on_disk"] > 0
+            incomplete = False
+        elif cached is not None and shares_repo(m):
             # The repository also holds other entries' packages: only this
             # entry's own files decide whether it is installed and its size.
             cached = package_cache_usage(m)
@@ -533,14 +598,14 @@ def list_models():
             "license_acceptance": _model_licence_acceptance(key),
         })
     response = {
-        "target": "local",
+        "target": target_key,
         "models": out,
         "total_installed_bytes": sum(m["size_on_disk_bytes"] for m in out),
-        "hf_cache_dir": hf_cache_dir(),
+        "hf_cache_dir": "" if remote_inventory is not None else hf_cache_dir(),
         # Free space on the cache volume, so the Model Store header can warn
         # BEFORE an "Install all" overruns the disk (pairs with the per-install
         # disk_space_error guard in setup/download.py).
-        "disk_free_gb": round(disk_free_bytes() / _GIB, 1),
+        "disk_free_gb": None if remote_inventory is not None else round(disk_free_bytes() / _GIB, 1),
         # The headroom disk_space_error keeps free on top of every download, so
         # the UI warns with the same rule (and names it) instead of a raw
         # "needs 4.8 GB, 10.2 GB free" that contradicts its own refusal (#2597).
@@ -627,27 +692,33 @@ def recommendations():
             "(ONNX) for live dictation, KittenTTS for instant English TTS."
         )
 
+    remote_inventory = _target_repo_inventory()
     cached_ids: set[str] = set()
-    try:
-        from huggingface_hub import scan_cache_dir
-        info = scan_cache_dir()
-        cached_ids = {
-            entry.repo_id for entry in info.repos if entry.size_on_disk > 0
-        }
-    except Exception as e:
-        if _cache_dir_missing(e):
-            cached_ids = set()
-        else:
-            # WinError-448 fallback (#117/#118): recommend based on the disk scan.
-            logger.debug("scan_cache_dir failed (%s); using disk fallback", e)
-            cached_ids = set(_scan_cache_on_disk().keys())
+    if remote_inventory is not None:
+        cached_ids = remote_inventory[1]
+    else:
+        try:
+            from huggingface_hub import scan_cache_dir
+            info = scan_cache_dir()
+            cached_ids = {
+                entry.repo_id for entry in info.repos if entry.size_on_disk > 0
+            }
+        except Exception as e:
+            if _cache_dir_missing(e):
+                cached_ids = set()
+            else:
+                # WinError-448 fallback (#117/#118): recommend based on the disk scan.
+                logger.debug("scan_cache_dir failed (%s); using disk fallback", e)
+                cached_ids = set(_scan_cache_on_disk().keys())
 
     entries = []
     for meta in curated:
         rid = model_key(meta)
         # Mirror /models: a truncated cache (weights missing) is not installed, so
         # the wizard counts it toward the remaining download instead of "all set".
-        if shares_repo(meta):
+        if remote_inventory is not None:
+            installed = meta["repo_id"] in cached_ids
+        elif shares_repo(meta):
             installed = package_cache_usage(meta) is not None
         else:
             installed = meta["repo_id"] in cached_ids and cache_is_complete(meta)
@@ -665,7 +736,7 @@ def recommendations():
     all_installed = all(e["installed"] for e in entries)
 
     return {
-        "target": "local",
+        "target": remote_inventory[0] if remote_inventory is not None else "local",
         "device": {
             "os": target_os,
             "arch": target_arch,

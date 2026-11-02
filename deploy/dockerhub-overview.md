@@ -109,8 +109,9 @@ Podman users: same two `--device` flags (Quadlet: `AddDevice=/dev/kfd` +
 on RX 9000 (RDNA4) cards, which the image supports natively — details in
 the [Docker install guide](https://github.com/debpalash/VoiceStudio/blob/main/docs/install/docker.md).
 
-There's also a Compose file in the repo with `cpu` / `gpu` / `rocm` profiles;
-see the [Docker install guide](https://github.com/debpalash/VoiceStudio/blob/main/docs/install/docker.md).
+There's also a Compose file in the repo with `cpu` / `gpu` / `rocm` profiles,
+plus `worker-gpu` / `worker-rocm` profiles that lend a headless GPU without
+publishing the web UI — see the [Docker install guide](https://github.com/debpalash/VoiceStudio/blob/main/docs/install/docker.md).
 
 ---
 

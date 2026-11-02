@@ -142,8 +142,10 @@ def test_chosen_official_endpoint_is_not_a_mirror(monkeypatch):
 
 def test_mirror_gated_topic_is_registered():
     from core.failure import public_hint_for_topic
+    from worker import errors
 
     assert "Hugging Face (official)" in public_hint_for_topic("HF_MIRROR_GATED")
+    assert errors._TAXONOMY["HF_MIRROR_GATED"] is errors.ErrorClass.TERMINAL
 
 
 def test_auto_mirror_routes_gated_install_to_official_hub(

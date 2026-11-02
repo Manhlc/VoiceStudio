@@ -16,7 +16,7 @@ it('restores only real settings routes and defaults to General', () => {
   expect(readLastSettingsRoute()).toBe('/settings/general');
 
   localStorage.setItem(SETTINGS_ROUTE_STORAGE_KEY, '/settings/workers');
-  expect(readLastSettingsRoute()).toBe('/settings/general');
+  expect(readLastSettingsRoute()).toBe('/settings/workers');
 });
 
 it('ignores non-settings paths rather than replacing the last page', () => {

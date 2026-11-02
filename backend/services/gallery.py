@@ -57,15 +57,12 @@ import os
 import re
 import tarfile
 import tempfile
-import time
 from pathlib import Path
 from typing import Any, Optional
 
 from core.config import DATA_DIR
 from core.path_security import UnsafePath, resolve_within, safe_filename
-
-def _now(value: float | None = None) -> float:
-    return time.time() if value is None else float(value)
+from worker.clock import resolve as _now
 
 logger = logging.getLogger("omnivoice.preview_gallery")
 

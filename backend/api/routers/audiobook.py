@@ -973,15 +973,25 @@ def _render_chapter_cached(chapter, synth, sr, engine_id, resolve, cache_dir, le
                                   "cached": seg_cache.hits}
 
 
-async def _run_chapter(chapter, *, default_voice, language, opts, voice_map,
+async def _run_chapter(chapter, *, operation="audiobook", decision=None, job=None,
+                       default_voice, language, opts, voice_map,
                        lexicon, cache_dir, lease=None, cache_lease=None,
                        reserve_cache=None, on_progress=None):
-    """Render one chapter on this machine through the guarded GPU pool.
+    """Render one chapter, locally or on the chosen remote worker.
 
-    ``on_progress`` is called from the GPU thread after every chunk (#3417)."""
+    ``on_progress`` is called from the GPU thread after every chunk (#3417).
+    ``lease`` holds the reference files the chapter resolves (#2535).
+    ``decision``/``job`` come from ``gpu_gateway.decide()``/``JobRun``; when
+    the decision is remote the chapter renders on the worker.
+    """
     from services import gpu_gateway
+    from services.longform_render import wav_is_complete
     from services.model_manager import generate_timeout_s
-    from services.tts_backend import get_backend_class
+    from services.tts_backend import active_backend_id, get_backend_class
+
+    if decision is None:
+        decision = gpu_gateway.decide(operation)
+
     # Resolve and pin every take before rendering starts.  The former routing
     # setup did this even for local jobs; keeping it explicit prevents a
     # concurrent re-lock/sweep from deleting a take before the local resolver
@@ -990,27 +1000,129 @@ async def _run_chapter(chapter, *, default_voice, language, opts, voice_map,
         profile_id = _map_span_voice(span.voice_id, default_voice, voice_map)
         voice_leases.hold(lease, _resolve_voice(profile_id).get("ref_audio"))
 
-    synth, sr, resolve, engine_id = await _prepare_synth(
-        default_voice, language=language, opts=opts, voice_map=voice_map,
-        lease=lease,
+    # Build the remote task without loading a local TTS model.
+    engine_id = active_backend_id()
+    remote, remote_cache = _remote_chapter_call(
+        chapter, engine_id=engine_id, default_voice=default_voice,
+        voice_map=voice_map, language=language, lexicon=lexicon,
+        opts=opts, cache_dir=cache_dir, lease=lease,
     )
-    if reserve_cache is not None:
-        await asyncio.to_thread(reserve_cache, sr, engine_id, resolve)
-    try:
-        engine_class = get_backend_class(engine_id)
-    except ValueError:
-        engine_class = None
-    spoken_text = "\n".join(span.text for span in chapter.spans)
-    return await gpu_gateway.run(
-        local=gpu_gateway.LocalCall(
+
+    if decision.remote and wav_is_complete(remote_cache):
+        import soundfile as sf
+        info = sf.info(remote_cache)
+        return remote_cache, float(info.duration), True, None
+
+    async def prepare_local():
+        synth, sr, resolve, local_engine = await _prepare_synth(
+            default_voice, language=language, opts=opts, voice_map=voice_map,
+            lease=lease,
+        )
+        if reserve_cache is not None:
+            await asyncio.to_thread(reserve_cache, sr, local_engine, resolve)
+        try:
+            timeout_engine = get_backend_class(local_engine)
+        except ValueError:
+            # Tests and third-party integrations may inject a synth under a
+            # non-catalogue id. Keep the canonical host/text policy available;
+            # registered production engines still add their routing metadata.
+            timeout_engine = None
+        spoken_text = "\n".join(span.text for span in chapter.spans)
+        return gpu_gateway.LocalCall(
             fn=lambda: _render_chapter_cached(
-                chapter, synth, sr, engine_id, resolve, cache_dir, lexicon,
+                chapter, synth, sr, local_engine, resolve, cache_dir, lexicon,
                 language, opts, voice_map, cache_lease, on_progress=on_progress,
             ),
             what="Audiobook chapter",
-            timeout=generate_timeout_s(spoken_text, engine=engine_class),
+            timeout=generate_timeout_s(spoken_text, engine=timeout_engine),
         )
-    )
+
+    if decision.remote:
+        # Local preparation stays lazy: the worker renders; this machine is
+        # only the fallback if the remote dispatch fails.
+        return await gpu_gateway.run(
+            operation, local=gpu_gateway.LocalCall(prepare=prepare_local),
+            remote=remote, decision=decision, job=job,
+        )
+    return await gpu_gateway.run(operation, local=await prepare_local())
+def _remote_chapter_call(chapter, *, engine_id, default_voice, voice_map,
+                         language, lexicon, opts, cache_dir, lease=None):
+    """Build one opaque remote chapter task without loading a local TTS model."""
+    import hashlib
+
+    from services import gpu_gateway
+    from services.text_normalization import normalize_for_tts
+    from services.watermark import is_enabled as watermark_enabled
+
+    rows, voices, refs = [], [], []
+    for span in chapter.spans:
+        profile_id = _map_span_voice(span.voice_id, default_voice, voice_map)
+        voice = _resolve_voice(profile_id)
+        voice_leases.hold(lease, voice.get("ref_audio"))
+        rows.append({
+            "text": normalize_for_tts(span.text, language),
+            "pause_ms_after": span.pause_ms_after,
+            "speed": getattr(span, "speed", None),
+            "join": getattr(span, "join", None),
+        })
+        refs.append(voice.get("ref_audio"))
+        voices.append({
+            "ref_text": voice.get("ref_text"), "instruct": voice.get("instruct"),
+            "seed": voice.get("seed"),
+        })
+    params = {
+        "spans": rows, "voices": voices, "ref_audio": refs,
+        "language": language, "lexicon": lexicon,
+        "expressive": opts.to_manifest(), "watermark": bool(watermark_enabled()),
+    }
+    def _signature(ref_audio: list) -> str:
+        payload = {**params, "ref_audio": ref_audio}
+        return hashlib.sha256(json.dumps(payload, sort_keys=True, default=str).encode()).hexdigest()
+
+    # Keyed by the data-dir-relative reference path, like the local chapter
+    # key (#2279); an entry cached under an absolute path — the current voices
+    # root or one this cache was rendered under before — is moved over. If the
+    # move fails the legacy file is still a valid hit, so it is used in place.
+    from services.longform_render import adopt_cached_file, remember_voices_root
+
+    signature = _signature([_portable_ref_audio(r) for r in refs])
+    wav_path = os.path.join(cache_dir, f"remote-{signature}.wav")
+    if not os.path.exists(wav_path):
+        old_roots = remember_voices_root(cache_dir, _voices_dir())
+        spellings = [_legacy_ref_audios(r, old_roots) for r in refs]
+        for legacy_refs in zip(*spellings):
+            legacy_path = os.path.join(cache_dir, f"remote-{_signature(list(legacy_refs))}.wav")
+            if legacy_path != wav_path and os.path.exists(legacy_path):
+                wav_path = adopt_cached_file(legacy_path, wav_path)
+                break
+    # The worker synthesizes from ``spans``, but the gateway and scheduler read
+    # top-level ``text`` to scale the remote execution deadline. Add this after
+    # the signature so existing content-addressed remote cache keys still hit.
+    params["text"] = "\n".join(row["text"] for row in rows)
+
+    def decode(result):
+        import soundfile as sf
+        from core.durable_io import flush_dir, flush_file
+        from services.longform_render import wav_is_complete
+
+        if not wav_is_complete(wav_path):
+            # Durable like the local chapter write (#2279): a power-off right
+            # after publishing must not leave a torn file under the key.
+            partial = f"{wav_path}.part"
+            shutil.copyfile(result.path, partial)
+            flush_file(partial)
+            os.replace(partial, wav_path)
+            flush_dir(os.path.dirname(wav_path))
+        info = sf.info(wav_path)
+        return wav_path, float(info.duration), False, None
+
+    return gpu_gateway.RemoteCall(
+        engine=engine_id, operation="audiobook", params=params,
+        idempotency_key=f"audiobook:{signature}", decode=decode,
+    ), wav_path
+
+
+
 
 class AudiobookPreviewRequest(ExpressiveMixin):
     text: str
@@ -1031,6 +1143,8 @@ async def audiobook_preview(req: AudiobookPreviewRequest) -> dict:
     cache (the later full render reuses it) and a re-preview is instant.
     """
     from core.config import OUTPUTS_DIR
+    from services import gpu_gateway
+
     _ensure_active_engine_licence()
     plan = parse_audiobook_script(req.text, default_voice=req.default_voice)
     if not plan.chapters:
@@ -1044,9 +1158,10 @@ async def audiobook_preview(req: AudiobookPreviewRequest) -> dict:
     os.makedirs(cache_dir, exist_ok=True)
     resolved_lang = _resolve_default_language(req.language, req.default_voice)
     opts = _expressive_opts(req)
+    decision = gpu_gateway.decide("audiobook")
     with voice_leases.VoiceFileLease() as lease:
         wav_path, dur, was_cached, _seg_stats = await _run_chapter(
-            chapter, default_voice=req.default_voice,
+            chapter, decision=decision, job=None, default_voice=req.default_voice,
             language=resolved_lang, opts=opts, voice_map=req.voice_map,
             lexicon=req.lexicon, cache_dir=cache_dir, lease=lease,
         )
@@ -1088,6 +1203,8 @@ async def _render_longform_sse(
     from core.config import OUTPUTS_DIR
     from core.failure import build_failure, build_failure_event
     from services.ffmpeg_utils import find_ffmpeg, run_ffmpeg
+    from services import gpu_gateway
+
     opts = opts or ExpressiveOptions()
 
     # Resume reuses the original job_id (continuing the same job row + cached
@@ -1204,6 +1321,10 @@ async def _render_longform_sse(
             reserved_plan = True
             startup_lease.release()
 
+        operation = "audiobook" if job_type == "audiobook" else "longform"
+        decision = gpu_gateway.decide(operation)
+        chapter_run = gpu_gateway.JobRun(operation)
+
         total = len(plan.chapters)
         chapter_files: list[str] = []
         chapters_meta: list[tuple[str, int]] = []
@@ -1267,7 +1388,8 @@ async def _render_longform_sse(
                     break
             tracker.start_chapter(i)
             task = asyncio.ensure_future(_run_chapter(
-                chapter, default_voice=default_voice, language=resolved_lang,
+                chapter, operation=operation, decision=decision, job=chapter_run,
+                default_voice=default_voice, language=resolved_lang,
                 opts=opts, voice_map=voice_map, lexicon=lexicon,
                 cache_dir=cache_dir, lease=voice_lease, cache_lease=cache_lease,
                 reserve_cache=reserve_cache, on_progress=_progress_sink(i),
@@ -1336,6 +1458,11 @@ async def _render_longform_sse(
             yield _emit(ev)
             tracker.finish_chapter(i)
             yield _progress_event(i)
+
+        route_notice = chapter_run.notice()
+        if route_notice is not None:
+            yield _emit({"type": "routing_notice", "status": route_notice[0],
+                         "reason": route_notice[1]})
 
         if interrupted:
             logger.info("[%s] client disconnected — stopped after %d/%d chapters",
