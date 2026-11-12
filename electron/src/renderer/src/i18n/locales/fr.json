@@ -1858,7 +1858,9 @@
   "projectActions": {
     "delete": "Supprimer « {{name}} » ? Cette action est irréversible.",
     "open": "Ouvrir « {{name}} » et remplacer le brouillon actuel ? Enregistrez votre travail au préalable.",
-    "save_copy": "Enregistrer une copie"
+    "save_copy": "Enregistrer une copie",
+    "new": "Nouveau projet",
+    "new_confirm": "Commencer un nouveau projet vide ? Les projets enregistrés restent intacts ; les modifications non enregistrées du brouillon actuel seront perdues."
   },
   "sidebar": {
     "save_project": "Enregistrer le projet de doublage",

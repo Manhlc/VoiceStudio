@@ -1856,7 +1856,9 @@
   "projectActions": {
     "delete": "‘{{name}}’ verwijderen? Dit kan niet ongedaan worden gemaakt.",
     "open": "‘{{name}}’ openen en het huidige concept vervangen? Sla je werk eerst op.",
-    "save_copy": "Kopie opslaan"
+    "save_copy": "Kopie opslaan",
+    "new": "Nieuw project",
+    "new_confirm": "Een nieuw, leeg project beginnen? Opgeslagen projecten blijven ongewijzigd; niet-opgeslagen wijzigingen in het huidige concept gaan verloren."
   },
   "sidebar": {
     "save_project": "Dub-project opslaan",
