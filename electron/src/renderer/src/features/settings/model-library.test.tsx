@@ -588,13 +588,13 @@ it('shows progress for the selected remote target instead of a same-repo local j
 
   render(
     <QueryClientProvider client={new QueryClient()}>
-      <ModelLibrary family="tts" />
+      <ModelLibrary />
     </QueryClientProvider>,
   );
 
   await screen.findByText('Remote model');
   expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '25');
-  expect(screen.getByText('25.0 MB / 100.0 MB')).toBeInTheDocument();
+  expect(screen.getByText('modelInstall.bytes')).toBeInTheDocument();
 
   fireEvent.click(screen.getByRole('button', { name: 'common.cancel' }));
   await waitFor(() =>

@@ -40,7 +40,7 @@ export function SelectButton({
   );
 }
 
-function ModelBadges({ model, active }: { model: CatalogueModel; active: boolean }) {
+function ModelBadges({ model, active, target }: { model: CatalogueModel; active: boolean; target: string }) {
   return (
     <>
       {active && <ActiveBadge />}
@@ -50,6 +50,7 @@ function ModelBadges({ model, active }: { model: CatalogueModel; active: boolean
         label={model.label}
         info={model.license_info}
         acceptance={model.license_acceptance}
+        target={target}
       />
     </>
   );
@@ -86,7 +87,7 @@ export function ModelLine({
           >
             {model.label}
           </h4>
-          <ModelBadges model={model} active={active} />
+          <ModelBadges model={model} active={active} target={ops.target} />
         </div>
         <p className="truncate text-[11px] text-muted-foreground" title={model.repo_id}>
           {model.repo_id}
@@ -127,7 +128,7 @@ export function modelFamilyItem({
     anchorId: modelAnchor(model.repo_id),
     name: model.label,
     summary: summary ?? model.note ?? model.repo_id,
-    badges: <ModelBadges model={model} active={active} />,
+    badges: <ModelBadges model={model} active={active} target={ops.target} />,
     actions: <ModelActions model={model} ops={ops} info={info} select={select} />,
     notices:
       (model.gated && !model.installed) || info.failed ? (

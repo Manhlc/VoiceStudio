@@ -104,7 +104,9 @@
     "dub": "翻譯並配音音訊或影片。",
     "stories": "用多種聲音創作場景。",
     "audiobook": "製作分章節的有聲書。",
-    "transcribe": "將錄音轉成文字。"
+    "transcribe": "將錄音轉成文字。",
+    "collapseFooter": "收合底欄",
+    "expandFooter": "展開底欄"
   },
   "longformPersistence": {
     "storage_unavailable_title": "無法載入專案",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "企業",
     "sponsors_tier_development": "開發",
     "sponsors_tier_community": "社群",
-    "sponsors_tier_supporter": "支持者"
+    "sponsors_tier_supporter": "支持者",
+    "sponsors_tier_bronze": "青銅",
+    "sponsors_tier_gold": "金子",
+    "sponsors_tier_platinum": "鉑",
+    "sponsors_tier_silver": "銀"
   },
   "updates": {
     "tab": "更新",
@@ -2982,5 +2988,12 @@
     "error": "無法檢查語言",
     "modelLanguages": "此模型的語言",
     "changeModel": "更換模型"
+  },
+  "sponsorSlot": {
+    "book": "預訂展示位",
+    "copy_email": "複製信箱",
+    "email_app": "開啟郵件應用程式",
+    "message": "您的品牌、網站和留言",
+    "preview": "贊助商展示預覽"
   }
 }

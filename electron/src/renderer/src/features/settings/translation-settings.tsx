@@ -56,7 +56,7 @@ export function TranslationSettings() {
   const { t } = useTranslation();
   const query = useTranslationEngines();
   const catalogue = useModelCatalogue();
-  const ops = useModelOps();
+  const ops = useModelOps({ target: catalogue.data?.target });
   const client = useQueryClient();
   const selection = useSelection('translation', ['translation-engines', 'performance-profile']);
   const [installing, setInstalling] = useState<string | null>(null);
@@ -125,6 +125,7 @@ export function TranslationSettings() {
               label={model.label}
               info={model.license_info}
               acceptance={model.license_acceptance}
+              target={ops.target}
             />
           )}
           {!ready(engine) && (

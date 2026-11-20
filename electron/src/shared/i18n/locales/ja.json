@@ -104,7 +104,9 @@
     "dub": "音声や動画を翻訳・吹き替え。",
     "stories": "複数の声でシーンを作成。",
     "audiobook": "章立てのオーディオブックを作成。",
-    "transcribe": "録音を文字に起こす。"
+    "transcribe": "録音を文字に起こす。",
+    "collapseFooter": "フッターを折りたたむ",
+    "expandFooter": "フッターを展開"
   },
   "longformPersistence": {
     "storage_unavailable_title": "プロジェクトを読み込めませんでした",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "企業",
     "sponsors_tier_development": "開発",
     "sponsors_tier_community": "コミュニティ",
-    "sponsors_tier_supporter": "サポーター"
+    "sponsors_tier_supporter": "サポーター",
+    "sponsors_tier_bronze": "ブロンズ",
+    "sponsors_tier_gold": "金",
+    "sponsors_tier_platinum": "白金",
+    "sponsors_tier_silver": "銀"
   },
   "updates": {
     "tab": "アップデート",
@@ -2982,5 +2988,12 @@
     "error": "言語を確認できませんでした",
     "modelLanguages": "このモデルの言語",
     "changeModel": "モデルを変更"
+  },
+  "sponsorSlot": {
+    "book": "掲載枠を申し込む",
+    "copy_email": "メールアドレスをコピー",
+    "email_app": "メールアプリを開く",
+    "message": "ブランド名・ウェブサイト・メッセージ",
+    "preview": "スポンサーの表示例"
   }
 }

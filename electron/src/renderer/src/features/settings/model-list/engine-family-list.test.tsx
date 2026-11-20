@@ -124,7 +124,7 @@ it('lists each engine once with install and select on the same row, active first
   fireEvent.click(within(omnivoice).getByRole('button', { name: 'modelMaintenance.download' }));
   expect(mock.api).toHaveBeenCalledWith(
     '/models/install',
-    expect.objectContaining({ body: JSON.stringify({ repo_id: 'k2-fsa/OmniVoice' }) }),
+    expect.objectContaining({ body: JSON.stringify({ repo_id: 'k2-fsa/OmniVoice', target: 'local' }) }),
   );
   // The unavailable engine keeps its reason on the row.
   expect(screen.getByText('Needs CUDA')).toBeInTheDocument();

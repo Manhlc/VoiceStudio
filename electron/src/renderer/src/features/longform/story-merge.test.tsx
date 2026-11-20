@@ -150,7 +150,7 @@ it.each([
     '[voice:guest][emotion:quiet]First.',
     'Second.',
     [
-      { voice_id: 'guest', text: 'First.', emotion: 'quiet', speed: 0.8 },
+      { voice_id: 'guest', text: '[emotion:quiet]First.', speed: 0.8 },
       { voice_id: 'actor', text: 'Second.', speed: 0.8 },
     ],
   ],
@@ -166,8 +166,8 @@ it.each([
     '[emotion:quiet]First.',
     '[emotion:loud]Second.',
     [
-      { voice_id: 'actor', text: 'First.', emotion: 'quiet', speed: 0.8 },
-      { voice_id: 'actor', text: 'Second.', emotion: 'loud', speed: 0.8 },
+      { voice_id: 'actor', text: '[emotion:quiet]First.', speed: 0.8 },
+      { voice_id: 'actor', text: '[emotion:loud]Second.', speed: 0.8 },
     ],
   ],
   [

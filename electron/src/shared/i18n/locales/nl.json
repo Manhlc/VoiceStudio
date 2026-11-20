@@ -104,7 +104,9 @@
     "dub": "Vertaal en dub audio of video.",
     "stories": "Maak scènes met meerdere stemmen.",
     "audiobook": "Maak luisterboeken met hoofdstukken.",
-    "transcribe": "Zet opnamen om in tekst."
+    "transcribe": "Zet opnamen om in tekst.",
+    "collapseFooter": "Voettekst inklappen",
+    "expandFooter": "Voettekst uitklappen"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Projecten konden niet worden geladen",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Bedrijf",
     "sponsors_tier_development": "Ontwikkeling",
     "sponsors_tier_community": "Community",
-    "sponsors_tier_supporter": "Supporter"
+    "sponsors_tier_supporter": "Supporter",
+    "sponsors_tier_bronze": "Bronzen",
+    "sponsors_tier_gold": "Goud",
+    "sponsors_tier_platinum": "Platina",
+    "sponsors_tier_silver": "Zilver"
   },
   "updates": {
     "tab": "Updates",
@@ -2982,5 +2988,12 @@
     "error": "Talen konden niet worden gecontroleerd",
     "modelLanguages": "Talen voor dit model",
     "changeModel": "Model wijzigen"
+  },
+  "sponsorSlot": {
+    "book": "Reserveer je plek",
+    "copy_email": "E-mailadres kopiëren",
+    "email_app": "E-mailapp openen",
+    "message": "Je merk, website en bericht",
+    "preview": "Sponsorvoorbeeld"
   }
 }

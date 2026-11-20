@@ -168,6 +168,7 @@ function engineItem(ctx: Context, engine: EngineBackend): FamilyItem {
             label={single.label}
             info={single.license_info}
             acceptance={single.license_acceptance}
+            target={ops.target}
           />
         )}
         {!engine.available && (
@@ -267,7 +268,7 @@ export function EngineFamilyList({ family, footer }: { family: Family; footer?: 
   const { t } = useTranslation();
   const engines = useEngines();
   const catalogue = useModelCatalogue();
-  const ops = useModelOps();
+  const ops = useModelOps({ target: catalogue.data?.target });
   const select = useEngineSelect(family);
   // A payload without this family lists no engines; its models still show.
   const state =

@@ -104,7 +104,9 @@
     "dub": "Переводите и озвучивайте аудио или видео.",
     "stories": "Создавайте сцены с несколькими голосами.",
     "audiobook": "Создавайте аудиокниги с главами.",
-    "transcribe": "Преобразуйте записи в текст."
+    "transcribe": "Преобразуйте записи в текст.",
+    "collapseFooter": "Свернуть нижнюю панель",
+    "expandFooter": "Развернуть нижнюю панель"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Не удалось загрузить проекты",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Компания",
     "sponsors_tier_development": "Разработка",
     "sponsors_tier_community": "Сообщество",
-    "sponsors_tier_supporter": "Сторонник"
+    "sponsors_tier_supporter": "Сторонник",
+    "sponsors_tier_bronze": "Бронза",
+    "sponsors_tier_gold": "Золото",
+    "sponsors_tier_platinum": "Платина",
+    "sponsors_tier_silver": "Серебро"
   },
   "updates": {
     "tab": "Обновления",
@@ -2982,5 +2988,12 @@
     "error": "Не удалось проверить языки",
     "modelLanguages": "Языки этой модели",
     "changeModel": "Сменить модель"
+  },
+  "sponsorSlot": {
+    "book": "Забронировать место",
+    "copy_email": "Скопировать email",
+    "email_app": "Открыть почтовое приложение",
+    "message": "Ваш бренд, сайт и сообщение",
+    "preview": "Пример спонсорского блока"
   }
 }

@@ -104,7 +104,9 @@
     "dub": "Перекладайте й озвучуйте аудіо або відео.",
     "stories": "Створюйте сцени з кількома голосами.",
     "audiobook": "Створюйте аудіокниги з розділами.",
-    "transcribe": "Перетворюйте записи на текст."
+    "transcribe": "Перетворюйте записи на текст.",
+    "collapseFooter": "Згорнути нижню панель",
+    "expandFooter": "Розгорнути нижню панель"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Не вдалося завантажити проєкти",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Компанія",
     "sponsors_tier_development": "Розробка",
     "sponsors_tier_community": "Спільнота",
-    "sponsors_tier_supporter": "Прихильник"
+    "sponsors_tier_supporter": "Прихильник",
+    "sponsors_tier_bronze": "Бронза",
+    "sponsors_tier_gold": "золото",
+    "sponsors_tier_platinum": "Платина",
+    "sponsors_tier_silver": "Срібло"
   },
   "updates": {
     "tab": "Оновлення",
@@ -2982,5 +2988,12 @@
     "error": "Не вдалося перевірити мови",
     "modelLanguages": "Мови цієї моделі",
     "changeModel": "Змінити модель"
+  },
+  "sponsorSlot": {
+    "book": "Забронювати місце",
+    "copy_email": "Скопіювати email",
+    "email_app": "Відкрити поштовий застосунок",
+    "message": "Ваш бренд, сайт і повідомлення",
+    "preview": "Приклад спонсорського блоку"
   }
 }

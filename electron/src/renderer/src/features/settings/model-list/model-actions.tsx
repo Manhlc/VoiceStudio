@@ -85,7 +85,8 @@ export function ModelActions({
   showSize?: boolean;
 }) {
   const { t } = useTranslation();
-  const resident = maintenance ? ops.residentFor(model) : undefined;
+  const localMaintenance = maintenance && ops.target === 'local';
+  const resident = localMaintenance ? ops.residentFor(model) : undefined;
   const busy = Boolean(ops.pending);
   return (
     <>
@@ -133,7 +134,7 @@ export function ModelActions({
             </Button>
           )}
           {select}
-          {maintenance && (
+          {localMaintenance && (
             <>
               <Button
                 size="icon-sm"
@@ -168,7 +169,7 @@ export function ModelActions({
             <WrenchIcon />
             {t('modelMaintenance.repair')}
           </Button>
-          {maintenance && <DeleteButton model={model} ops={ops} />}
+          {localMaintenance && <DeleteButton model={model} ops={ops} />}
         </>
       ) : (
         <Button

@@ -104,7 +104,9 @@
     "dub": "ترجم ودبلج الصوت أو الفيديو.",
     "stories": "أنشئ مشاهد بأصوات متعددة.",
     "audiobook": "أنشئ كتبًا صوتية بفصول.",
-    "transcribe": "حوّل التسجيلات إلى نص."
+    "transcribe": "حوّل التسجيلات إلى نص.",
+    "collapseFooter": "طي التذييل",
+    "expandFooter": "توسيع التذييل"
   },
   "longformPersistence": {
     "storage_unavailable_title": "تعذّر تحميل المشاريع",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "شركة",
     "sponsors_tier_development": "تطوير",
     "sponsors_tier_community": "مجتمع",
-    "sponsors_tier_supporter": "داعم"
+    "sponsors_tier_supporter": "داعم",
+    "sponsors_tier_bronze": "برونزية",
+    "sponsors_tier_gold": "ذهب",
+    "sponsors_tier_platinum": "البلاتين",
+    "sponsors_tier_silver": "فضي"
   },
   "updates": {
     "tab": "التحديثات",
@@ -2982,5 +2988,12 @@
     "error": "تعذر التحقق من اللغات",
     "modelLanguages": "لغات هذا النموذج",
     "changeModel": "تغيير النموذج"
+  },
+  "sponsorSlot": {
+    "book": "احجز مكانك",
+    "copy_email": "نسخ البريد الإلكتروني",
+    "email_app": "افتح تطبيق البريد",
+    "message": "علامتك التجارية وموقعك ورسالتك",
+    "preview": "معاينة الراعي"
   }
 }

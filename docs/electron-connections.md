@@ -29,7 +29,8 @@ it after navigation or renderer reconnect. Jobs are keyed by both repository and
 target, preventing a local download of the same repository from appearing on a
 remote model card. Cancel sends only the worker's advertised opaque model ID,
 keeps polling while the worker drains the install, and completes after the worker
-returns a terminal progress event.
+returns a terminal progress event. Model cards keep local unload, reinstall and
+delete actions hidden while a remote target is selected.
 
 Engine Ready resolves TTS against the selected execution target. For a remote
 device it shows that worker's advertised engine/model, install and download

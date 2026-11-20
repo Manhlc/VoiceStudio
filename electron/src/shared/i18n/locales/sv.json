@@ -104,7 +104,9 @@
     "dub": "Översätt och dubba ljud eller video.",
     "stories": "Skapa scener med flera röster.",
     "audiobook": "Skapa ljudböcker med kapitel.",
-    "transcribe": "Omvandla inspelningar till text."
+    "transcribe": "Omvandla inspelningar till text.",
+    "collapseFooter": "Fäll ihop sidfoten",
+    "expandFooter": "Fäll ut sidfoten"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Projekten kunde inte läsas in",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Företag",
     "sponsors_tier_development": "Utveckling",
     "sponsors_tier_community": "Community",
-    "sponsors_tier_supporter": "Supporter"
+    "sponsors_tier_supporter": "Supporter",
+    "sponsors_tier_bronze": "Brons",
+    "sponsors_tier_gold": "Guld",
+    "sponsors_tier_platinum": "Platina",
+    "sponsors_tier_silver": "Silver"
   },
   "updates": {
     "tab": "Uppdateringar",
@@ -2982,5 +2988,12 @@
     "error": "Kunde inte kontrollera språk",
     "modelLanguages": "Språk för den här modellen",
     "changeModel": "Byt modell"
+  },
+  "sponsorSlot": {
+    "book": "Boka din plats",
+    "copy_email": "Kopiera e-postadress",
+    "email_app": "Öppna e-postappen",
+    "message": "Ditt varumärke, webbplats och meddelande",
+    "preview": "Förhandsvisning för sponsorer"
   }
 }

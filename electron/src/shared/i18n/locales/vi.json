@@ -104,7 +104,9 @@
     "dub": "Dịch và lồng tiếng âm thanh hoặc video.",
     "stories": "Tạo cảnh với nhiều giọng nói.",
     "audiobook": "Tạo sách nói có chương.",
-    "transcribe": "Chuyển bản ghi âm thành văn bản."
+    "transcribe": "Chuyển bản ghi âm thành văn bản.",
+    "collapseFooter": "Thu gọn chân trang",
+    "expandFooter": "Mở rộng chân trang"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Không thể tải dự án",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Doanh nghiệp",
     "sponsors_tier_development": "Phát triển",
     "sponsors_tier_community": "Cộng đồng",
-    "sponsors_tier_supporter": "Người ủng hộ"
+    "sponsors_tier_supporter": "Người ủng hộ",
+    "sponsors_tier_bronze": "đồng",
+    "sponsors_tier_gold": "Vàng",
+    "sponsors_tier_platinum": "Bạch kim",
+    "sponsors_tier_silver": "Bạc"
   },
   "updates": {
     "tab": "Cập nhật",
@@ -2982,5 +2988,12 @@
     "error": "Không thể kiểm tra ngôn ngữ",
     "modelLanguages": "Ngôn ngữ của mô hình này",
     "changeModel": "Đổi mô hình"
+  },
+  "sponsorSlot": {
+    "book": "Đặt vị trí của bạn",
+    "copy_email": "Sao chép email",
+    "email_app": "Mở ứng dụng email",
+    "message": "Thương hiệu, trang web và lời nhắn",
+    "preview": "Xem trước nhà tài trợ"
   }
 }

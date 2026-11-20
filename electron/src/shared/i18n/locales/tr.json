@@ -104,7 +104,9 @@
     "dub": "Ses veya videoyu çevirip dublaj yapın.",
     "stories": "Birden fazla sesle sahneler oluşturun.",
     "audiobook": "Bölümlü sesli kitaplar oluşturun.",
-    "transcribe": "Kayıtları metne dönüştürün."
+    "transcribe": "Kayıtları metne dönüştürün.",
+    "collapseFooter": "Alt çubuğu daralt",
+    "expandFooter": "Alt çubuğu genişlet"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Projeler yüklenemedi",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Şirket",
     "sponsors_tier_development": "Geliştirme",
     "sponsors_tier_community": "Topluluk",
-    "sponsors_tier_supporter": "Destekçi"
+    "sponsors_tier_supporter": "Destekçi",
+    "sponsors_tier_bronze": "Bronz",
+    "sponsors_tier_gold": "Altın",
+    "sponsors_tier_platinum": "Platin",
+    "sponsors_tier_silver": "Gümüş"
   },
   "updates": {
     "tab": "Güncellemeler",
@@ -2982,5 +2988,12 @@
     "error": "Diller kontrol edilemedi",
     "modelLanguages": "Bu modelin dilleri",
     "changeModel": "Modeli değiştir"
+  },
+  "sponsorSlot": {
+    "book": "Yerinizi ayırtın",
+    "copy_email": "E-postayı kopyala",
+    "email_app": "E-posta uygulamasını aç",
+    "message": "Markanız, web siteniz ve mesajınız",
+    "preview": "Sponsor önizlemesi"
   }
 }

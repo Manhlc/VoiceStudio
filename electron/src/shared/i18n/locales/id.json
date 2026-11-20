@@ -104,7 +104,9 @@
     "dub": "Terjemahkan dan sulihsuarakan audio atau video.",
     "stories": "Buat adegan dengan beberapa suara.",
     "audiobook": "Buat buku audio dengan bab.",
-    "transcribe": "Ubah rekaman menjadi teks."
+    "transcribe": "Ubah rekaman menjadi teks.",
+    "collapseFooter": "Ciutkan footer",
+    "expandFooter": "Perluas footer"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Proyek tidak dapat dimuat",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Perusahaan",
     "sponsors_tier_development": "Pengembangan",
     "sponsors_tier_community": "Komunitas",
-    "sponsors_tier_supporter": "Pendukung"
+    "sponsors_tier_supporter": "Pendukung",
+    "sponsors_tier_bronze": "Perunggu",
+    "sponsors_tier_gold": "Emas",
+    "sponsors_tier_platinum": "Platinum",
+    "sponsors_tier_silver": "Perak"
   },
   "updates": {
     "tab": "Pembaruan",
@@ -2982,5 +2988,12 @@
     "error": "Tidak dapat memeriksa bahasa",
     "modelLanguages": "Bahasa untuk model ini",
     "changeModel": "Ganti model"
+  },
+  "sponsorSlot": {
+    "book": "Pesan slot Anda",
+    "copy_email": "Salin email",
+    "email_app": "Buka aplikasi email",
+    "message": "Merek, situs web & pesan Anda",
+    "preview": "Pratinjau sponsor"
   }
 }

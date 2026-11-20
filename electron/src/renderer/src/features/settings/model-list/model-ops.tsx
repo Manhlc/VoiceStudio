@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import { apiJson, describeError } from '@/lib/api/client';
 import { ConfirmDialog } from '@/features/clone/confirm-dialog';
 import { relaxWhenBackendBusy } from '@/lib/status-polling';
-import { useModelInstallJobs, type ModelInstallJob } from '@/hooks/use-model-install-sync';
+import { modelInstallJobTarget, useModelInstallJobs, type ModelInstallJob } from '@/hooks/use-model-install-sync';
 import type { CatalogueModel } from '../model-catalogue-query';
 
 export interface LoadedModel {
@@ -69,9 +69,11 @@ export const MODEL_STATE_QUERY_KEYS = [
  */
 export function useModelOps({
   trackResidency = true,
+  target = 'local',
 }: {
   /** False for setup and diarisation: those models are never resident. */
   trackResidency?: boolean;
+  target?: string;
 } = {}) {
   const { t } = useTranslation();
   const client = useQueryClient();
@@ -92,8 +94,10 @@ export function useModelOps({
 
   const refresh = () =>
     Promise.all(MODEL_STATE_QUERY_KEYS.map((key) => client.invalidateQueries({ queryKey: [key] })));
+  const requestBody = (repo: string) =>
+    JSON.stringify({ repo_id: repo, target });
   const installRequest = (repo: string) =>
-    apiJson('/models/install', { method: 'POST', body: JSON.stringify({ repo_id: repo }) });
+    apiJson('/models/install', { method: 'POST', body: requestBody(repo) });
   const run = async (repo: string, task: () => Promise<unknown>) => {
     setPending(repo);
     setFailed(false);
@@ -118,7 +122,7 @@ export function useModelOps({
       if (cancel)
         await apiJson('/models/install/cancel', {
           method: 'POST',
-          body: JSON.stringify({ repo_id: repo }),
+          body: requestBody(repo),
         });
       else await installRequest(repo);
       await refresh();
@@ -224,7 +228,8 @@ export function useModelOps({
   );
 
   return {
-    jobs: jobs.data?.jobs ?? [],
+    target,
+    jobs: (jobs.data?.jobs ?? []).filter((job) => modelInstallJobTarget(job) === target),
     pending,
     failed,
     run,

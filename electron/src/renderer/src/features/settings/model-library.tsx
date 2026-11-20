@@ -12,19 +12,13 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { apiJson, describeError } from '@/lib/api/client';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { ExternalLink } from '@/components/external-link';
-import { Input } from '@/components/ui/input';
-import { ConfirmDialog } from '@/features/clone/confirm-dialog';
-import { engineFamilyState, useEngines } from '@/hooks/use-engines';
-import { relaxWhenBackendBusy } from '@/lib/status-polling';
+import { Button } from '@/components/ui/button';
 import { InstallProgress } from '@/components/model-install-progress';
 import { describeInstallGroup } from '@/lib/model-install-state';
 import {
   modelInstallJobTarget,
   TERMINAL_MODEL_INSTALL_STATES,
   useModelInstallJobs,
-  type ModelInstallJob,
 } from '@/hooks/use-model-install-sync';
 import {
   performanceTiers,
@@ -298,7 +292,8 @@ export function PerformanceModelPacks({ compact = false }: { compact?: boolean }
 export function ModelLibrary({ title, icon }: { title?: string; icon?: LucideIcon } = {}) {
   const { t } = useTranslation();
   const catalogue = useModelCatalogue();
-  const ops = useModelOps({ trackResidency: false });
+  const installTarget = catalogue.data?.target ?? 'local';
+  const ops = useModelOps({ trackResidency: false, target: installTarget });
   const models = catalogue.data?.models.filter((model) => model.supported !== false);
   const primary = models
     ?.filter((model) => model.required || model.installed || model.curated)

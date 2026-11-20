@@ -79,7 +79,7 @@ export function SystemRecommendations() {
         requested.map((model) =>
           apiJson('/models/install', {
             method: 'POST',
-            body: JSON.stringify({ repo_id: model.repo_id }),
+            body: JSON.stringify({ repo_id: model.repo_id, target: 'local' }),
           }),
         ),
       );

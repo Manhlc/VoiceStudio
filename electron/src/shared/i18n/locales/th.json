@@ -104,7 +104,9 @@
     "dub": "แปลและพากย์เสียงหรือวิดีโอ",
     "stories": "สร้างฉากด้วยหลายเสียง",
     "audiobook": "สร้างหนังสือเสียงแบบแบ่งบท",
-    "transcribe": "แปลงเสียงบันทึกเป็นข้อความ"
+    "transcribe": "แปลงเสียงบันทึกเป็นข้อความ",
+    "collapseFooter": "ยุบส่วนท้าย",
+    "expandFooter": "ขยายส่วนท้าย"
   },
   "longformPersistence": {
     "storage_unavailable_title": "ไม่สามารถโหลดโปรเจกต์ได้",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "บริษัท",
     "sponsors_tier_development": "การพัฒนา",
     "sponsors_tier_community": "ชุมชน",
-    "sponsors_tier_supporter": "ผู้สนับสนุน"
+    "sponsors_tier_supporter": "ผู้สนับสนุน",
+    "sponsors_tier_bronze": "สีบรอนซ์",
+    "sponsors_tier_gold": "ทอง",
+    "sponsors_tier_platinum": "แพลตตินัม",
+    "sponsors_tier_silver": "เงิน"
   },
   "updates": {
     "tab": "อัพเดท",
@@ -2982,5 +2988,12 @@
     "error": "ตรวจสอบภาษาไม่ได้",
     "modelLanguages": "ภาษาสำหรับโมเดลนี้",
     "changeModel": "เปลี่ยนโมเดล"
+  },
+  "sponsorSlot": {
+    "book": "จองพื้นที่ของคุณ",
+    "copy_email": "คัดลอกอีเมล",
+    "email_app": "เปิดแอปอีเมล",
+    "message": "แบรนด์ เว็บไซต์ และข้อความของคุณ",
+    "preview": "ตัวอย่างผู้สนับสนุน"
   }
 }

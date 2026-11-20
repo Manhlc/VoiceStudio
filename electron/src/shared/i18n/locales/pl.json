@@ -104,7 +104,9 @@
     "dub": "Tłumacz i dubbinguj dźwięk lub wideo.",
     "stories": "Twórz sceny z wieloma głosami.",
     "audiobook": "Twórz audiobooki z rozdziałami.",
-    "transcribe": "Zamieniaj nagrania na tekst."
+    "transcribe": "Zamieniaj nagrania na tekst.",
+    "collapseFooter": "Zwiń stopkę",
+    "expandFooter": "Rozwiń stopkę"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Nie udało się wczytać projektów",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Firma",
     "sponsors_tier_development": "Rozwój",
     "sponsors_tier_community": "Społeczność",
-    "sponsors_tier_supporter": "Wspierający"
+    "sponsors_tier_supporter": "Wspierający",
+    "sponsors_tier_bronze": "Brązowy",
+    "sponsors_tier_gold": "Złoto",
+    "sponsors_tier_platinum": "Platyna",
+    "sponsors_tier_silver": "Srebrny"
   },
   "updates": {
     "tab": "Aktualizacje",
@@ -2982,5 +2988,12 @@
     "error": "Nie udało się sprawdzić języków",
     "modelLanguages": "Języki tego modelu",
     "changeModel": "Zmień model"
+  },
+  "sponsorSlot": {
+    "book": "Zarezerwuj miejsce",
+    "copy_email": "Kopiuj e-mail",
+    "email_app": "Otwórz pocztę",
+    "message": "Twoja marka, strona i wiadomość",
+    "preview": "Podgląd sponsora"
   }
 }

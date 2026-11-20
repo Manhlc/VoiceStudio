@@ -104,7 +104,9 @@
     "dub": "Traduci e doppia audio o video.",
     "stories": "Crea scene con più voci.",
     "audiobook": "Crea audiolibri con capitoli.",
-    "transcribe": "Trasforma le registrazioni in testo."
+    "transcribe": "Trasforma le registrazioni in testo.",
+    "collapseFooter": "Comprimi piè di pagina",
+    "expandFooter": "Espandi piè di pagina"
   },
   "longformPersistence": {
     "storage_unavailable_title": "Impossibile caricare i progetti",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "Azienda",
     "sponsors_tier_development": "Sviluppo",
     "sponsors_tier_community": "Community",
-    "sponsors_tier_supporter": "Sostenitore"
+    "sponsors_tier_supporter": "Sostenitore",
+    "sponsors_tier_bronze": "Bronzo",
+    "sponsors_tier_gold": "Oro",
+    "sponsors_tier_platinum": "Platino",
+    "sponsors_tier_silver": "Argento"
   },
   "updates": {
     "tab": "Aggiornamenti",
@@ -2982,5 +2988,12 @@
     "error": "Impossibile verificare le lingue",
     "modelLanguages": "Lingue di questo modello",
     "changeModel": "Cambia modello"
+  },
+  "sponsorSlot": {
+    "book": "Prenota il tuo spazio",
+    "copy_email": "Copia email",
+    "email_app": "Apri l’app email",
+    "message": "Il tuo marchio, sito e messaggio",
+    "preview": "Anteprima sponsor"
   }
 }

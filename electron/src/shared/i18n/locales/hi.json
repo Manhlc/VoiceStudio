@@ -104,7 +104,9 @@
     "dub": "ऑडियो या वीडियो का अनुवाद और डबिंग करें।",
     "stories": "कई आवाज़ों वाले दृश्य बनाएँ।",
     "audiobook": "अध्यायों वाली ऑडियोबुक बनाएँ।",
-    "transcribe": "रिकॉर्डिंग को टेक्स्ट में बदलें।"
+    "transcribe": "रिकॉर्डिंग को टेक्स्ट में बदलें।",
+    "collapseFooter": "फ़ुटर समेटें",
+    "expandFooter": "फ़ुटर फैलाएँ"
   },
   "longformPersistence": {
     "storage_unavailable_title": "प्रोजेक्ट लोड नहीं हो सके",
@@ -2362,7 +2364,11 @@
     "sponsors_tier_company": "कंपनी",
     "sponsors_tier_development": "विकास",
     "sponsors_tier_community": "समुदाय",
-    "sponsors_tier_supporter": "समर्थक"
+    "sponsors_tier_supporter": "समर्थक",
+    "sponsors_tier_bronze": "पीतल",
+    "sponsors_tier_gold": "सोना",
+    "sponsors_tier_platinum": "प्लैटिनम",
+    "sponsors_tier_silver": "चाँदी"
   },
   "updates": {
     "tab": "अद्यतन",
@@ -2982,5 +2988,12 @@
     "error": "भाषाओं की जाँच नहीं हो सकी",
     "modelLanguages": "इस मॉडल की भाषाएँ",
     "changeModel": "मॉडल बदलें"
+  },
+  "sponsorSlot": {
+    "book": "अपना स्थान बुक करें",
+    "copy_email": "ईमेल कॉपी करें",
+    "email_app": "ईमेल ऐप खोलें",
+    "message": "आपका ब्रांड, वेबसाइट और संदेश",
+    "preview": "प्रायोजक पूर्वावलोकन"
   }
 }
