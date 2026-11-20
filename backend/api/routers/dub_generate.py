@@ -23,6 +23,7 @@ from services.srt_parser import vouch_cue_source
 from services.tts_backend import (
     TTSBackend, active_backend_id, ensure_active_engine_licence, resolve_generation_backend,
 )
+from services.segment_bundle import extract_segment_wavs
 from services.dub_batching import batch_timeout_s, native_batch_width
 from services import gpu_gateway
 from services.audio_dsp import apply_mastering, normalize_audio, apply_effects_chain, get_effect_chain, trim_speech_padding
